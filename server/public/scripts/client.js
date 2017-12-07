@@ -31,6 +31,15 @@ myApp.config(function ($routeProvider, $locationProvider) {
                 }
             }
         })
+        .when('/office', {
+            templateUrl: '/views/templates/office.html',
+            controller: 'OfficeController as vm',
+            resolve: {
+                getuser: function (UserService) {
+                    return UserService.getuser();
+                }
+            }
+        })
         .otherwise({
             redirectTo: 'home'
         });
