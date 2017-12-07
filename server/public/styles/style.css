@@ -12,9 +12,10 @@ html {
 }
 
 .instructions {
-    background-color: #333333;
+    background-color: white;
     color: #DDDDDD;
     padding: 15px;
+    border-bottom: 2px solid rgb(173, 173, 173);
 }
 
 #entryForm {
