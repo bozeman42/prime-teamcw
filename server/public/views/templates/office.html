@@ -1,0 +1,16 @@
+<div class="container">
+    <h1 class="lead">Create Office</h1>
+        <form ng-submit="vm.createOffice()">
+            <div>
+                <label for="officeName">Office:</label>
+                <input type="text" ng-model="vm.newOffice.name" />
+            </div>
+            <div>
+                <input class="btn btn-default" type="submit" name="submit" value="Create Office" />
+            </div>
+        </form>
+        <div>
+            <h2>List of existing offices</h2>
+            <p ng-repeat="office in vm.offices">{{office.office}}</p>
+        </div>
+</div>
