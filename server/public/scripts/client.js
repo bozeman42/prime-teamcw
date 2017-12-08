@@ -44,6 +44,33 @@ myApp.config(function ($routeProvider, $locationProvider) {
             templateUrl: '/views/templates/upload-test.html',
             controller: 'UploadController as ufc'
         })
+        .when('/email-upload', {
+            templateUrl: '/views/templates/email-upload.html',
+            controller: 'EmailController as vm',
+            resolve: {
+                getuser: function (UserService) {
+                    return UserService.getuser();
+                }
+            }
+        })
+        .when('/email-list', {
+            templateUrl: '/views/templates/email-list.html',
+            controller: 'EmailController as vm',
+            resolve: {
+                getuser: function (UserService) {
+                    return UserService.getuser();
+                }
+            }
+        })
+        .when('/email-history', {
+            templateUrl: '/views/templates/email-history.html',
+            controller: 'EmailController as vm',
+            resolve: {
+                getuser: function (UserService) {
+                    return UserService.getuser();
+                }
+            }
+        })
         .otherwise({
             redirectTo: 'home'
         });
