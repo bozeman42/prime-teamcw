@@ -19,5 +19,5 @@ CREATE UNIQUE INDEX ON "users" ("superuser")
 	WHERE "superuser" = true;
 
 INSERT INTO "offices" (
-	"office") VALUES (
-	'Minneapolis');
+  "office") VALUES (
+  'Minneapolis');

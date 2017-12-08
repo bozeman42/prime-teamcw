@@ -1,9 +1,8 @@
-myApp.service('EmailService', function ($http, $location,FileUploader) {
-    console.log('EmailService Loaded');
+myApp.service('UploadService', function ($http,FileUploader) {
+    console.log('UploadService Loaded');
     var self = this;
     
     self.uploader = new FileUploader({
-        url: '/email/csv/',
         onCompleteItem: function(fileItem, response, status, headers) {
             console.log('item complete',fileItem,response,status,headers);
         },
@@ -18,11 +17,5 @@ myApp.service('EmailService', function ($http, $location,FileUploader) {
             }
         }]
     });
-
-    self.emailUpload = function() {
-        self.uploader.uploadItem(0)
-        $location.path('/email-list')
-
-    }
 
 });

@@ -22,16 +22,21 @@ router.post('/csv/', function (req, res) {
         if (exists) {
             var stream = fs.createReadStream(path);
             csv.fromStream(stream, {
-                headers: [
-                    'first',
-                    'last',
-                    'title',
-                    'company',
-                    'domain',
-                    'building',
-                    'market',
-                    'email'
-                ]
+                headers: true
+                // use the array below instead of 'true' if you wish to 
+                // omit headers from the CSV instead of the headers being
+                // in the first line of the CSV
+                //
+                // [
+                //     'first',
+                //     'last',
+                //     'title',
+                //     'company',
+                //     'domain',
+                //     'building',
+                //     'market',
+                //     'email'
+                // ]
             })
             .on("data",function(data){
                 uploadedData.push(data);

@@ -19,12 +19,12 @@ myApp.config(function ($routeProvider, $locationProvider) {
         })
         .when('/register', {
             templateUrl: '/views/templates/register.html',
-            controller: 'LoginController as lc',
-            resolve: {
-                getuser: function (UserService) {
-                    return UserService.getuser();
-                }
-            }
+            controller: 'LoginController as lc'
+            // resolve: {
+            //     getuser: function (UserService) {
+            //         return UserService.getuser();
+            //     }
+            // }
         })
         .when('/admin', {
             templateUrl: '/views/templates/admin.html',
@@ -52,10 +52,6 @@ myApp.config(function ($routeProvider, $locationProvider) {
                     return UserService.getuser();
                 }
             }
-        })
-        .when('/upload', {
-            templateUrl: '/views/templates/upload-test.html',
-            controller: 'UploadController as ufc'
         })
         .when('/email-upload', {
             templateUrl: '/views/templates/email-upload.html',
