@@ -1,10 +1,18 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMap']);
 
 /// Routes ///
 myApp.config(function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('');
     console.log('myApp -- config')
     $routeProvider
+        .when('/home', {
+            templateUrl: '/views/templates/home.html',
+            controller: 'HomeController as vm',
+        })
+        .when('/market', {
+            templateUrl: '/views/templates/market.html',
+            controller: 'MarketController as vm',
+        })
         .when('/login', {
             templateUrl: '/views/templates/login.html',
             controller: 'LoginController as lc',
