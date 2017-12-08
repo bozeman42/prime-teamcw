@@ -3,6 +3,7 @@ myApp.service('EmailService', function ($http, $location) {
     var self = this;
     
     self.emailUpload = function() {
+        
         $location.path('/email-list')
     }
 
