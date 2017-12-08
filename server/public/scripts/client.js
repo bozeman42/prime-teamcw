@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute', 'ngMap']);
+var myApp = angular.module('myApp', ['ngRoute','angularFileUpload','ngMap']);
 
 /// Routes ///
 myApp.config(function ($routeProvider, $locationProvider) {
@@ -19,12 +19,12 @@ myApp.config(function ($routeProvider, $locationProvider) {
         })
         .when('/register', {
             templateUrl: '/views/templates/register.html',
-            controller: 'LoginController as lc',
-            resolve: {
-                getuser: function (UserService) {
-                    return UserService.getuser();
-                }
-            }
+            controller: 'LoginController as lc'
+            // resolve: {
+            //     getuser: function (UserService) {
+            //         return UserService.getuser();
+            //     }
+            // }
         })
         .when('/admin', {
             templateUrl: '/views/templates/admin.html',
