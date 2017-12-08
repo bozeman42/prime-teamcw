@@ -2,12 +2,13 @@
 <html>
 
 <head>
-    <title>Solo Project</title>
-    <link rel="stylesheet" href="styles/style.css">
-
+    <title>Cushman & Wakefield</title>
+    <link rel="stylesheet" href="styles/style.css">   
     <script type="text/javascript" src="vendors/angular/angular.min.js"></script>
     <script type="text/javascript" src="vendors/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="vendors/angular-file-upload/angular-file-upload.js"></script>
+    <script type="text/javascript" src="vendors/ng-map/ng-map.min.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js"></script> 
     <script type="text/javascript" src="scripts/client.js"></script>
     <!-- Controllers -->
     <script type="text/javascript" src="scripts/controllers/info.controller.js"></script>
@@ -17,10 +18,14 @@
     <script type="text/javascript" src="scripts/controllers/upload-test.controller.js"></script>
 
     <script type="text/javascript" src="scripts/controllers/email.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/home.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/market.controller.js"></script>
+    
     <!-- Services -->
     <script type="text/javascript" src="scripts/services/user.service.js"></script>
     <script type="text/javascript" src="scripts/services/office.service.js"></script>
     <script type="text/javascript" src="scripts/services/email.service.js"></script>
+    
 </head>
 
 <body ng-app="myApp">
@@ -28,6 +33,6 @@
     <div ng-include="'views/partials/nav.html'"></div>
 
     <main ng-view></main>
-
+    <footer ng-include="'/views/partials/footer.html'"></footer>
 </body>
 </html>
