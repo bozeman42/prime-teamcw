@@ -1,7 +1,12 @@
 <div class="container">
-    <h1 class="lead">Register User</h1>
+    <div ng-hide="lc.userService.editingUser">
+    <h1 class="lead">Create New User</h1>
     <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
         <form ng-submit="lc.registerUser()">
+            <div>
+                <label for="e_id">Employee ID:</label>
+                <input type="text" ng-model="lc.user.e_id" />
+            </div>
             <div>
                 <label for="username">Username:</label>
                 <input type="text" ng-model="lc.user.username" />
@@ -11,8 +16,16 @@
                 <input type="password" ng-model="lc.user.password" />
             </div>
             <div>
+                <label for="firstname">First Name:</label>
+                <input type="text" ng-model="lc.user.firstname" />
+            </div>
+            <div>
+                <label for="lastname">Last Name:</label>
+                <input type="text" ng-model="lc.user.lastname" />
+            </div>
+            <div>
               <select ng-model="lc.user.office">
-                  <option ng-value="1" >Minneapolis</option>
+                  <option value="Minneapolis">Minneapolis</option>
               </select>  
             </div>
             <div>
@@ -28,4 +41,43 @@
             <input class="btn btn-default" type="submit" name="submit" value="Register" />
             <a href="#home">Cancel</a>
         </form>
+    </div>
+    <div ng-show="lc.userService.editingUser">
+        <h1 class="lead">Edit User</h1>
+        <form ng-submit="lc.userService.saveUserEdit()">
+            <div>
+                <label for="e_id">Employee ID:</label>
+                <input type="text" ng-value="lc.userService.userToEdit.e_id" ng-model="lc.userService.userToEdit.e_id" />
+            </div>
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" ng-value="lc.userService.userToEdit.username" ng-model="lc.userService.userToEdit.username" />
+            </div>
+            <div>
+                <label for="firstname">First Name:</label>
+                <input type="text" ng-value="lc.userService.userToEdit.firstname" ng-model="lc.userService.userToEdit.firstname" />
+            </div>
+            <div>
+                <label for="lastname">Last Name:</label>
+                <input type="text" ng-value="lc.userService.userToEdit.lastname" ng-model="lc.userService.userToEdit.lastname" />
+            </div>
+            <div>
+              <select ng-value="lc.userService.userToEdit.office" ng-model="lc.userService.userToEdit.office">
+                  <option value="Minneapolis">Minneapolis</option>
+              </select>  
+            </div>
+            <div>
+                <input name="userRole" type="radio" ng-model="lc.userService.userToEdit.role" value="intern" />
+                <label for="role">Intern</label>
+                <input name="userRole" type="radio" ng-model="lc.userService.userToEdit.role" value="admin" />
+                <label for="role">Admin</label>
+                <span ng-hide="lc.superuser">
+                <input name="userRole" type="radio" ng-model="lc.userService.userToEdit.role" value="owner" />
+                <label for="role">Owner</label>
+                </span>
+            </div>
+            <input class="btn btn-default" type="submit" name="submit" value="Save Edit" />
+            <a href="#home">Cancel</a>
+        </form>
+        </div>
 </div>

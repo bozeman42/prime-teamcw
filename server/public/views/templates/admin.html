@@ -1,0 +1,32 @@
+<div class="container">
+    <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
+    <button class="btn btn-default" ng-click="uc.userService.logout()">Log Out</button>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                <th>Employee ID</th>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Role</th>
+                <th>Office</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in uc.users.data">
+                    <td>{{user.e_id}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.firstname}}</td>
+                    <td>{{user.lastname}}</td>
+                    <td>{{user.role}}</td>
+                    <td>{{user.office}}</td>
+                    <td><button type="button" ng-click="uc.editUser(user)">Edit</button></td>
+                    <td><button type="button" ng-click="uc.deleteUser(user)">Delete</button></td> 
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

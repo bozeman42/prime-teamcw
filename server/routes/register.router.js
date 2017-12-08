@@ -14,10 +14,13 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     var saveUser = {
+        e_id: req.body.e_id,
         username: req.body.username,
         password: encryptLib.encryptPassword(req.body.password),
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
         role: req.body.role,
-        office_id: req.body.office,
+        office: req.body.office,
         superuser: null
     };
     console.log('new user:', saveUser);
@@ -31,8 +34,8 @@ router.post('/', function (req, res, next) {
             console.log("Error connecting: ", err);
             res.sendStatus(500);
         }
-        client.query("INSERT INTO users (username, password, role, office_id, superuser) VALUES ($1, $2, $3, $4, $5) RETURNING id",
-            [saveUser.username, saveUser.password, saveUser.role, saveUser.office_id, saveUser.superuser],
+        client.query("INSERT INTO users (e_id, username, password, firstname, lastname, role, office, superuser) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id",
+            [saveUser.e_id, saveUser.username, saveUser.password, saveUser.firstname, saveUser.lastname, saveUser.role, saveUser.office, saveUser.superuser],
             function (err, result) {
                 client.end();
 

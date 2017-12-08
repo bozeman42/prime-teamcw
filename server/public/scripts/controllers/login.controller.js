@@ -1,11 +1,15 @@
 myApp.controller('LoginController', function ($http, $location, UserService) {
     console.log('LoginController created');
     var vm = this;
+    vm.userService = UserService;
     vm.user = {
+        e_id: '',
         username: '',
         password: '',
+        firstname: '',
+        lastname: '',
         role: '',
-        office: 1
+        office: 'Minneapolis'
     };
     vm.message = '';
 
@@ -21,7 +25,7 @@ myApp.controller('LoginController', function ($http, $location, UserService) {
                 if (response.data.username) {
                     console.log('LoginController -- login -- success: ', response.data);
                     // location works with SPA (ng-route)
-                    $location.path('/user'); // http://localhost:5000/#/user
+                    $location.path('/admin'); // http://localhost:5000/#/user
                 } else {
                     console.log('LoginController -- login -- failure: ', response);
                     vm.message = "Wrong!!";
@@ -41,7 +45,7 @@ myApp.controller('LoginController', function ($http, $location, UserService) {
             console.log('LoginController -- registerUser -- sending to server...', vm.user);
             $http.post('/register', vm.user).then(function (response) {
                 console.log('LoginController -- registerUser -- success');
-                $location.path('/home');
+                $location.path('/login');
             }).catch(function (response) {
                 console.log('LoginController -- registerUser -- error');
                 vm.message = "Please try again."
