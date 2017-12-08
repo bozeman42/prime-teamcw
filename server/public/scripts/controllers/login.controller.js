@@ -8,7 +8,7 @@ myApp.controller('LoginController', function ($http, $location, UserService) {
         firstname: '',
         lastname: '',
         role: '',
-        office: 1
+        office: 'Minneapolis'
     };
     vm.message = '';
 
