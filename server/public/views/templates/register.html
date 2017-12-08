@@ -11,8 +11,19 @@
                 <input type="password" ng-model="lc.user.password" />
             </div>
             <div>
-                <label for="employee">Password:</label>
-                <input type="radio" ng-model="lc.user.password" />
+              <select ng-model="lc.user.office">
+                  <option ng-value="1" >Minneapolis</option>
+              </select>  
+            </div>
+            <div>
+                <input type="radio" ng-model="lc.user.role" value="intern" />
+                <label for="role">Intern</label>
+                <input type="radio" ng-model="lc.user.role" value="admin" />
+                <label for="role">Admin</label>
+                <span ng-hide="lc.superuser">
+                <input type="radio" ng-model="lc.user.role" value="owner" />
+                <label for="role">Owner</label>
+                </span>
             </div>
             <input class="btn btn-default" type="submit" name="submit" value="Register" />
             <a href="#home">Cancel</a>
