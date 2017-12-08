@@ -15,17 +15,24 @@ router.post('/', function (req, res, next) {
 
     var saveUser = {
         username: req.body.username,
-        password: encryptLib.encryptPassword(req.body.password)
+        password: encryptLib.encryptPassword(req.body.password),
+        role: req.body.role,
+        office_id: req.body.office,
+        superuser: null
     };
     console.log('new user:', saveUser);
+
+    if(saveUser.role === 'owner') {
+        saveUser.superuser = true;
+    }
 
     pool.connect(function (err, client, done) {
         if (err) {
             console.log("Error connecting: ", err);
             res.sendStatus(500);
         }
-        client.query("INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id",
-            [saveUser.username, saveUser.password],
+        client.query("INSERT INTO users (username, password, role, office_id, superuser) VALUES ($1, $2, $3, $4, $5) RETURNING id",
+            [saveUser.username, saveUser.password, saveUser.role, saveUser.office_id, saveUser.superuser],
             function (err, result) {
                 client.end();
 
@@ -34,6 +41,26 @@ router.post('/', function (req, res, next) {
                     res.sendStatus(500);
                 } else {
                     res.sendStatus(201);
+                }
+            });
+    });
+
+});
+
+router.get('/checkSuper', function (req, res, next) {
+    pool.connect(function (err, client, done) {
+        if (err) {
+            console.log("Error connecting: ", err);
+            res.sendStatus(500);
+        }
+        client.query("SELECT * FROM users WHERE superuser = true;",
+            function (err, result) {
+                client.end();
+                if (err) {
+                    console.log("Error inserting data: ", err);
+                    res.sendStatus(500);
+                } else {
+                    res.send(result.rows);
                 }
             });
     });
