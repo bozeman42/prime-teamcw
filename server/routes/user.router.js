@@ -51,7 +51,6 @@ router.get('/refreshUser', function (req, res, next) {
 
 router.delete('/:e_id', function(req,res){
     var empId = req.params.e_id;
-    console.log(empId);
     pool.connect(function (errorConnectingToDb, db, done) {
         if (errorConnectingToDb) {
             // There was an error and no connection was made
@@ -74,6 +73,42 @@ router.delete('/:e_id', function(req,res){
         }
     }); // END POOL
 });
+
+router.put('/:employeeId', function(req,res) {
+    var empId = req.params.employeeId;
+    var editedUser = {
+        e_id: req.body.e_id,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        office: req.body.office,
+        role: req.body.role,
+        username: req.body.username
+    }
+
+    console.log(empId);
+    console.log('edited user is ', editedUser);
+    pool.connect(function (errorConnectingToDb, db, done) {
+        if (errorConnectingToDb) {
+            // There was an error and no connection was made
+            console.log('Error connecting', errorConnectingToDb);
+            res.sendStatus(500);
+        } else {
+            // We connected to the db!!!!! pool -1
+            //added ordering
+            let queryText = 'UPDATE "users" SET "e_id" = $1, "firstname" = $2, "lastname" = $3, "office" = $4, "role" = $5, "username" = $6 WHERE "e_id" = $7;';
+            db.query(queryText, [editedUser.e_id, editedUser.firstname, editedUser.lastname, editedUser.office, editedUser.role, editedUser.username, empId], function (errorMakingQuery, result) {
+                // We have received an error or result at this point
+                done(); // pool +1
+                if (errorMakingQuery) {
+                    console.log('Error making query', errorMakingQuery);
+                    res.sendStatus(500);
+                } else {
+                    res.sendStatus(200);
+                }
+            }); // END QUERY
+        }
+    }); // END POOL
+})
 
 
 module.exports = router;
