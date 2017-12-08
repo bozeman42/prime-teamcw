@@ -5,9 +5,12 @@ CREATE TABLE "offices" (
   
 CREATE TABLE "users" (
   "id" serial primary key,
-  "username" varchar(80) not null UNIQUE,
+  "e_id" varchar(80) not null UNIQUE,
+  "username" varchar (80) not null UNIQUE,
+  "firstname" varchar (80) not null,
+  "lastname" varchar (80) not null,
   "password" varchar(240) not null,
-  "office_id" integer not null, FOREIGN KEY ("office_id") references "offices"("office_id") ON DELETE CASCADE ON UPDATE CASCADE,
+  "office" varchar(80) not null, FOREIGN KEY ("office") references "offices"("office") ON DELETE CASCADE ON UPDATE CASCADE,
   "role" varchar(20) not null,
   "superuser" boolean 
 );
