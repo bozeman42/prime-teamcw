@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var fileUpload = require('express-fileupload');
 
 var passport = require('./strategies/sql.localstrategy');
 var sessionConfig = require('./modules/session.config');
@@ -16,6 +17,9 @@ var port = process.env.PORT || 5000;
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// File upload
+app.use(fileUpload());
 
 // Serve back static files
 app.use(express.static('./server/public'));

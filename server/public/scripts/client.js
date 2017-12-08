@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute','angularFileUpload']);
 
 /// Routes ///
 myApp.config(function ($routeProvider, $locationProvider) {
@@ -39,6 +39,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
                     return UserService.getuser();
                 }
             }
+        })
+        .when('/upload', {
+            templateUrl: '/views/templates/upload-test.html',
+            controller: 'UploadController as ufc'
         })
         .otherwise({
             redirectTo: 'home'
