@@ -3,9 +3,13 @@ myApp.controller('LoginController', function ($http, $location, UserService) {
     var vm = this;
     vm.user = {
         username: '',
-        password: ''
+        password: '',
+        role: '',
+        office: 1
     };
     vm.message = '';
+
+    vm.superuser = true;
 
     vm.login = function () {
         console.log('LoginController -- login');
@@ -44,4 +48,16 @@ myApp.controller('LoginController', function ($http, $location, UserService) {
             });
         }
     }
+
+    vm.checkSuper = function () {
+        $http.get('/register/checkSuper').then(function (response){
+            if (response.data.length === 0){
+            vm.superuser = false;
+            }
+        }).catch(function(err){
+            console.log('Error getting users');
+        })
+    }
+
+    vm.checkSuper();
 });
