@@ -1,4 +1,4 @@
-myApp.controller('UserController', function (UserService) {
+myApp.controller('UserController', function ( UserService) {
     console.log('UserController created');
     var vm = this;
     vm.userService = UserService;
@@ -8,7 +8,7 @@ myApp.controller('UserController', function (UserService) {
     UserService.refreshUsers();
 
     vm.editUser = function (user) {
-        console.log(user);
+        UserService.editUser(user);
     }
 
     vm.deleteUser = function (user) {

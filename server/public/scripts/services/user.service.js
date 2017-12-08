@@ -3,6 +3,7 @@ myApp.service('UserService', function ($http, $location) {
     var self = this;
     self.userObject = {};
     self.users = {data: []};
+    self.editingUser = false;
 
     self.getuser = function () {
         console.log('UserService -- getuser');
@@ -43,6 +44,40 @@ myApp.service('UserService', function ($http, $location) {
             self.refreshUsers();
         }).catch(function(err) {
             console.log('Failed to delete user.');
+        })
+    }
+
+    self.userToEdit = {
+        e_id: '',
+        firstname: '',
+        lastname: '',
+        office: '',
+        role: '',
+        username: '',
+        employeeId: ''
+    }
+
+    self.editUser = function (user) {
+        self.userToEdit = {
+            e_id: user.e_id,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            office: user.office,
+            role: user.role,
+            username: user.username,
+            employeeId: user.e_id
+        }
+        console.log(self.userToEdit);
+        self.editingUser = true;
+        $location.path('/register');
+    }
+
+    self.saveUserEdit = function () {
+        console.log(self.userToEdit);
+        $http.put('/user/' + self.userToEdit.employeeId, self.userToEdit).then(function(response) {
+            console.log('User Edited');
+            self.refreshUsers();
+            $location.path('/admin');
         })
     }
 });
