@@ -1,9 +1,35 @@
+/*
+Primary colors
+    Red: #e4002b
+    Dark Grey: #686b6b
+
+Secondary colors
+    Grey: #a7a8aa
+    Light Blue: #9bd3dd
+    Blue: #0093b2
+    Dark Blue: #003865
+
+Accent colors
+    Dark Red: #a6192e
+    Lime: #b5bd00
+    Orange: #ff671f
+*/
+
 body,
 html {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
     font-size: 14px;
+    height:100%;
+}
+
+footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0px -1px 1px #a7a8aa;
 }
 
 .instructions .container h1 {
