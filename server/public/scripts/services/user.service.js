@@ -2,6 +2,7 @@ myApp.service('UserService', function ($http, $location) {
     console.log('UserService Loaded');
     var self = this;
     self.userObject = {};
+    self.users = {data: []};
 
     self.getuser = function () {
         console.log('UserService -- getuser');
@@ -28,4 +29,20 @@ myApp.service('UserService', function ($http, $location) {
                 $location.path("/home");
             });
         }
+
+    self.refreshUsers = function () {
+        console.log('UserService -- refreshuser');
+        $http.get('/user/refreshUser').then(function (response) {
+            self.users.data = response.data;
+        })
+    }
+
+    self.deleteUser = function (e_id) {
+        $http.delete('/user/'+ e_id).then(function(response) {
+            console.log('Deleted User');
+            self.refreshUsers();
+        }).catch(function(err) {
+            console.log('Failed to delete user.');
+        })
+    }
 });
