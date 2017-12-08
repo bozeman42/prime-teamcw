@@ -1,7 +1,7 @@
 myApp.controller('UploadController',function(FileUploader){
     var vm = this;
     vm.fileToUpload = null;
-
+    
     vm.uploader = new FileUploader({
         url: '/email/csv/',
         onCompleteItem: function(fileItem, response, status, headers) {

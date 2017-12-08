@@ -1,9 +1,9 @@
 <div class="container">
     <h1 class="lead">Upload Email Contacts</h1>
     <form ng-submit="vm.emailUpload()">
-        <div style="border: 5px dashed grey; padding: 20px; width: 400px">
+        <div nv-file-drop="" uploader="vm.uploader" style="border: 5px dashed grey; padding: 20px; width: 400px">
             <label for="officeName">Upload CSV</label>
-            <input type="file" />
+            <input type="file" name="emailCSV" nv-file-select uploader="vm.uploader" accept=".csv"/>
         </div>
         <div>
                 <label for="officeName">Select Email Script</label>
@@ -16,7 +16,7 @@
             <p style="max-width: 500px">Good afternoon Mr. Buettner,
                     
                    I will be delivering our 2017 Facilities Leasing Report to corporate office users residing in the Minneapolis area within the next few weeks and am searching for the appropriate person in your office to deliver it to. I have attached a Market Snapshot from our 2016 edition for your review.
-                                                                 
+
                    What is the report:
                    Following recent activity and new best practices in corporate real estate management, we have assembled a report that is useful for corporate users looking to evaluate their space needs in the upcoming 12-24 months, in addition to firms that would simply like to stay current with the national and local market.
                     
