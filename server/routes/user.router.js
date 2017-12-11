@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
-
+var crypto = require('crypto');
 
 // Handles Ajax request for user information if user is authenticated
 router.get('/', function (req, res) {
@@ -95,6 +95,65 @@ router.put('/:employeeId', function(req,res) {
             //added ordering
             let queryText = 'UPDATE "users" SET "e_id" = $1, "firstname" = $2, "lastname" = $3, "o_id" = $4, "role" = $5, "username" = $6 WHERE "e_id" = $7;';
             db.query(queryText, [editedUser.e_id, editedUser.firstname, editedUser.lastname, editedUser.o_id, editedUser.role, editedUser.username, empId], function (errorMakingQuery, result) {
+                // We have received an error or result at this point
+                done(); // pool +1
+                if (errorMakingQuery) {
+                    console.log('Error making query', errorMakingQuery);
+                    res.sendStatus(500);
+                } else {
+                    res.sendStatus(200);
+                }
+            }); // END QUERY
+        }
+    }); // END POOL
+})
+
+router.get('/checkEmail', function (req, res) {
+    var emailToCheck = req.query.email;
+    var employeeToCheck = req.query.e_id;
+    pool.connect(function (errorConnectingToDb, db, done) {
+        if (errorConnectingToDb) {
+            // There was an error and no connection was made
+            console.log('Error connecting', errorConnectingToDb);
+            res.sendStatus(500);
+        } else {
+            // We connected to the db!!!!! pool -1
+            //added ordering
+            let queryText = 'SELECT * FROM "users" u WHERE u."email" = $1 AND u."e_id" = $2';
+            db.query(queryText, [emailToCheck, employeeToCheck], function (errorMakingQuery, result) {
+                // We have received an error or result at this point
+                done(); // pool +1
+                if (errorMakingQuery) {
+                    console.log('Error making query', errorMakingQuery);
+                    res.sendStatus(500);
+                } else {
+                    if (result.rows.length === 0) {
+                        res.send({ emailExist: false });
+                    } else {
+                        res.send({ emailExist: true });
+                    }
+                }
+            }); // END QUERY
+        }
+    }); // END POOL
+})
+
+router.put('/:e_id/forgotpw', function (req, res) {
+    var employee = {
+        e_id: req.params.e_id,
+        code: crypto.randomBytes(10).toString('hex'),
+        date: Date.now()
+    }
+    pool.connect(function (errorConnectingToDb, db, done) {
+        if (errorConnectingToDb) {
+            // There was an error and no connection was made
+            console.log('Error connecting', errorConnectingToDb);
+            res.sendStatus(500);
+        } else {
+            // We connected to the db!!!!! pool -1
+            //added ordering
+            let queryText = 'UPDATE "users" SET "forgotPW_code" = $1, "forgotPW_created" = $2 WHERE "e_id" = $3;';
+            db.query(queryText, [employee.code, employee.date, employee.e_id], function (errorMakingQuery, result) {
                 // We have received an error or result at this point
                 done(); // pool +1
                 if (errorMakingQuery) {

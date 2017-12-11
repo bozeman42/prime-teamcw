@@ -9,7 +9,8 @@ myApp.controller('LoginController', function ($http, $location, UserService,Offi
         firstname: '',
         lastname: '',
         role: '',
-        o_id: null
+        o_id: null,
+        email: ''
     };
     vm.message = '';
     vm.getOffices = OfficeService.getOffices;

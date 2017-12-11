@@ -70,6 +70,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
                 }
             }
         })
+        .when('/forgot-password', {
+            templateUrl: '/views/templates/forgot-password.html',
+            controller: 'UserController as vm',
+        })
         .otherwise({
             redirectTo: 'login'
         });

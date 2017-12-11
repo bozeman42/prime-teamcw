@@ -18,4 +18,14 @@ myApp.controller('UserController', function (UserService, $location, $route) {
     vm.newUser = function (user){
         $location.path('/register')
     }
+
+    vm.checkEmailExist = function () {
+        if (vm.forgotPwInfo.email === '' || vm.forgotPwInfo.email == 'undefined') {
+            alert('Enter email');
+        } else if (vm.forgotPwInfo.e_id === '' || vm.forgotPwInfo.e_id == 'undefined') {
+            alert('Enter employee ID')
+        } else {
+            UserService.checkEmailExist(vm.forgotPwInfo);
+        }
+    }
 });
