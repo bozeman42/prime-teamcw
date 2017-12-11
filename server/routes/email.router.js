@@ -4,6 +4,9 @@ var csv = require('fast-csv');
 var fs = require('fs');
 var pool = require('../modules/pool');
 
+// process lines of email CSV data to produce generated email addresses. Returns an array of data lines
+var processLine = require('../modules/address.generator');
+
 var uploadedData = [];
 
 router.post('/csv/', function (req, res) {
@@ -39,15 +42,24 @@ router.post('/csv/', function (req, res) {
                 // ]
             })
             .on("data",function(data){
-                uploadedData.push(data);
+                console.log('Data Line:',data);
+                // push each line of returned data to the result.
+                processLine(data).forEach((line) => {
+                    uploadedData.push(line);
+                });
             })
             .on("end",function(data){
                 console.log(uploadedData);
-            })
+                storeEmailCSV(uploadedData);
+            });
         }
     })
 });
 
+// store email CSV in database
+function storeEmailCSV(data) {
+    return;
+}
 
 
 module.exports = router;
