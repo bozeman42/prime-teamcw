@@ -9,7 +9,7 @@ let processLine = (data) => {
         variations.push(data.first + '@' + data.domain);
         variations.push(data.last + data.first[0] + '@' + data.domain);
         result = variations.map((email) => {
-            data.email = email;
+            data.email = email.toLowerCase();
             return Object.assign({},data);
         });
     }
