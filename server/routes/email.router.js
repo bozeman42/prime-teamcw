@@ -49,7 +49,7 @@ router.post('/csv/', function (req, res) {
                 });
             })
             .on("end",function(data){
-                console.log(uploadedData);
+                console.log('processed data from CSV', uploadedData);
                 storeEmailCSV(uploadedData);
             });
         }

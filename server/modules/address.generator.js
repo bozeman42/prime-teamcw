@@ -1,6 +1,3 @@
-
-
-
 let processLine = (data) => {
     let result = [];
     let variations = [];
