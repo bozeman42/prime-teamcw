@@ -17,5 +17,4 @@ myApp.service('UploadService', function ($http,FileUploader) {
             }
         }]
     });
-
 });

@@ -12,5 +12,6 @@ myApp.controller('EmailController', function (UserService, $location, UploadServ
     self.emailUpload = function() {
         self.uploader.uploadItem(0);
         $location.path('/email-list');
-    }
+    };
+    
 });
