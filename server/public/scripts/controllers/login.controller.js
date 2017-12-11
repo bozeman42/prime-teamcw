@@ -1,4 +1,4 @@
-myApp.controller('LoginController', function ($http, $location, UserService) {
+myApp.controller('LoginController', function ($http, $location, UserService,OfficeService) {
     console.log('LoginController created');
     var vm = this;
     vm.userService = UserService;
@@ -9,9 +9,13 @@ myApp.controller('LoginController', function ($http, $location, UserService) {
         firstname: '',
         lastname: '',
         role: '',
-        office: 'Minneapolis'
+        o_id: null
     };
     vm.message = '';
+    vm.getOffices = OfficeService.getOffices;
+    vm.officeData = OfficeService.data;
+    vm.getOffices();
+
 
     vm.superuser = true;
 
@@ -34,6 +38,7 @@ myApp.controller('LoginController', function ($http, $location, UserService) {
     };
 
     vm.registerUser = function () {
+        console.log('User to register',vm.user);
         if (vm.user.username === '' || vm.user.password === '') {
             vm.message = "Choose a username and password!";
         } else {
