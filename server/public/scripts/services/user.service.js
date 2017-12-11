@@ -48,7 +48,7 @@ myApp.service('UserService', function ($http, $location) {
         e_id: '',
         firstname: '',
         lastname: '',
-        office: '',
+        o_id: null,
         role: '',
         username: '',
         employeeId: ''
@@ -59,7 +59,7 @@ myApp.service('UserService', function ($http, $location) {
             e_id: user.e_id,
             firstname: user.firstname,
             lastname: user.lastname,
-            office: user.office,
+            o_id: user.o_id,
             role: user.role,
             username: user.username,
             employeeId: user.e_id
