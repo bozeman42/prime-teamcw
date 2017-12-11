@@ -5,14 +5,17 @@ CREATE TABLE "offices" (
   
 CREATE TABLE "users" (
   "id" serial primary key,
-  "e_id" varchar(80) not null UNIQUE,
+  "e_id" int not null UNIQUE,
   "username" varchar (80) not null UNIQUE,
+  "password" varchar(240) not null,
+  "email" varchar(80) not null,
   "firstname" varchar (80) not null,
   "lastname" varchar (80) not null,
-  "password" varchar(240) not null,
   "o_id" serial references "offices",
   "role" varchar(20) not null,
-  "superuser" boolean 
+  "superuser" boolean,
+  "forgotPW_code" varchar(40) UNIQUE,
+  "forgotPW_created" varchar(80)
 );
 
 CREATE UNIQUE INDEX ON "users" ("superuser")
