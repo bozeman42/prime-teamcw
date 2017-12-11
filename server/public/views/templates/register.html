@@ -1,8 +1,7 @@
 <div class="container">
     <div ng-hide="lc.userService.editingUser">
     <h1 class="lead">Create New User</h1>
-    {{lc.user}}
-    <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
+    <h2 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
         <form ng-submit="lc.registerUser()">
             <div>
                 <label for="e_id">Employee ID:</label>
@@ -45,6 +44,7 @@
     </div>
     <div ng-show="lc.userService.editingUser">
         <h1 class="lead">Edit User</h1>
+        {{lc.userService.userToEdit}}
         <form ng-submit="lc.userService.saveUserEdit()">
             <div>
                 <label for="e_id" ng-hide="lc.userService.userToEdit.e_id">Employee ID:</label>
@@ -64,7 +64,7 @@
             </div>
             <div>
               <select ng-value="lc.userService.userToEdit.o_id"  ng-options="office.office_id as office.office for office in lc.officeData.offices track by office.office_id" ng-model="lc.userService.userToEdit.o_id">
-                  <option value="Minneapolis">Minneapolis</option>
+                  <option value="">Select an office...</option>
               </select>  
             </div>
             <div>

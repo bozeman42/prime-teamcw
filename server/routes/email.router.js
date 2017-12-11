@@ -44,41 +44,68 @@ router.post('/csv/', function (req, res) {
                     // ]
                 })
                     .on("data", function (data) {
-                        console.log('Data Line:', data);
                         // push each line of returned data to the result.
                         processLine(data).forEach((line) => {
                             uploadedData.push(line);
                         });
                     })
                     .on("end", function (data) {
-                        console.log('processed data from CSV', uploadedData);
-                        storeEmailCSV(uploadedData);
+                        if (storeEmailCSV(uploadedData, req.user)){
+                            res.sendStatus(200);
+                        } else {
+                            res.sendStatus(500);
+                        }
                     });
             }
         });
     }
 });
 
+// first: 'Aaron',
+// last: 'Kvarnlov-Leverty',
+// title: 'Software Developer',
+// company: 'Prime',
+// domain: 'primeacademy.io',
+// building: 'Grain exchange building',
+// market: 'Downtown minneapolis',
+// email: 'Aaron.Kvarnlov-Leverty@primeacademy.io'
+
+
 // store email CSV in database
-function storeEmailCSV(data) {
-    pool.connect(function (errorConnecting, db, done) {
-        if (errorConnecting) {
-            console.log('Error connecting', errorConnecting);
-            res.sendStatus(500);
-        } else {
-            var queryText = 'INSERT INTO "emails" ("first","last","title","company","domain","building","market","email","office_id") VALUES($1);';
-            db.query(queryText, [newOffice.name], function (errorMakingQuery, result) {
-                done();
-                if (errorMakingQuery) {
-                    console.log('errorMakingQuery', errorMakingQuery);
+function storeEmailCSV(data, user) {
+    let success = true;
+    data.forEach((contact) => {
+            pool.connect(function (errorConnecting, db, done) {
+                if (errorConnecting) {
+                    console.log('Error connecting', errorConnecting);
                     res.sendStatus(500);
                 } else {
-                    res.send(result.rows);
+                    var queryText = 'INSERT INTO "emails" ("first","last","title","company","domain","building","market","email","office_id") VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9);';
+                    db.query(queryText, [
+                        contact.first,
+                        contact.last,
+                        contact.title,
+                        contact.company,
+                        contact.domain,
+                        contact.building,
+                        contact.market,
+                        contact.email,
+                        user.o_id
+                    ], function (errorMakingQuery, result) {
+                        done();
+                        if (errorMakingQuery) {
+                            console.log('errorMakingQuery', errorMakingQuery);
+                            success = false;
+                        } else {
+                            
+                        }
+                    })
                 }
-            })
-        }
-    }) //end of pool
-    return;
+            }); //end of pool
+
+    });
+    return success;
+
 }
 
 
