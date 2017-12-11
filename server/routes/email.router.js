@@ -11,7 +11,7 @@ var uploadedData = [];
 
 router.post('/csv/', function (req, res) {
     uploadedData = [];
-    console.log(req.files);
+    console.log('req.files',req.files);
     var path = './server/upload/' + req.files.file.name;
     console.log('path',path);
     req.files.file.mv(path, function(error){

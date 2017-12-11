@@ -23,7 +23,6 @@ router.post('/', function (req, res, next) {
         office: req.body.office,
         superuser: null
     };
-    console.log('new user:', saveUser);
 
     if(saveUser.role === 'owner') {
         saveUser.superuser = true;
