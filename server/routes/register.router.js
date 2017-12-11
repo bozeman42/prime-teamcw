@@ -20,21 +20,21 @@ router.post('/', function (req, res, next) {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         role: req.body.role,
-        office: req.body.office,
+        o_id: req.body.o_id,
         superuser: null
     };
 
     if(saveUser.role === 'owner') {
         saveUser.superuser = true;
     }
-
+    console.log('Attempting to save user',saveUser);
     pool.connect(function (err, client, done) {
         if (err) {
             console.log("Error connecting: ", err);
             res.sendStatus(500);
         }
-        client.query("INSERT INTO users (e_id, username, password, firstname, lastname, role, office, superuser) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id",
-            [saveUser.e_id, saveUser.username, saveUser.password, saveUser.firstname, saveUser.lastname, saveUser.role, saveUser.office, saveUser.superuser],
+        client.query("INSERT INTO users (e_id, username, password, firstname, lastname, role, o_id, superuser) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id",
+            [saveUser.e_id, saveUser.username, saveUser.password, saveUser.firstname, saveUser.lastname, saveUser.role, saveUser.o_id, saveUser.superuser],
             function (err, result) {
                 client.end();
 
