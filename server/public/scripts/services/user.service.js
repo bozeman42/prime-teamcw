@@ -11,6 +11,7 @@ myApp.service('UserService', function ($http, $location) {
                 // user has a current session on the server
                 console.log(response.data);
                 self.userObject.userName = response.data.username;
+                self.userObject.role = response.data.role;
             } else {
                 console.log('UserService -- getuser -- failure');
                 // user has no session, bounce them back to the login page
