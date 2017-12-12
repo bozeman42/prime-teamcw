@@ -15,10 +15,10 @@ myApp.service('OfficeService', function ($http, $location) {
     };
 
     self.getOffices = function() {
-        $http.get('/office').then(function(response){
+        return $http.get('/office').then(function(response){
             self.data.offices = response.data;
             console.log('Succesfully retrieved offices', self.data);
-            
+            return self.data.offices;
         }).catch(function (err){
             console.log('Error retrieving offices', err)
         })

@@ -20,27 +20,29 @@ router.post('/', function (req, res, next) {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         role: req.body.role,
-        office: req.body.office,
-        superuser: null
+        o_id: req.body.o_id,
+        superuser: null,
+        email: req.body.email
     };
 
     if(saveUser.role === 'owner') {
         saveUser.superuser = true;
     }
-
+    console.log('Attempting to save user',saveUser);
     pool.connect(function (err, client, done) {
         if (err) {
             console.log("Error connecting: ", err);
             res.sendStatus(500);
         }
-        client.query("INSERT INTO users (e_id, username, password, firstname, lastname, role, office, superuser) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id",
-            [saveUser.e_id, saveUser.username, saveUser.password, saveUser.firstname, saveUser.lastname, saveUser.role, saveUser.office, saveUser.superuser],
+        
+        client.query("INSERT INTO users (e_id, username, password, firstname, lastname, role, o_id, superuser, email) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id",
+            [parseInt(saveUser.e_id, 10), saveUser.username, saveUser.password, saveUser.firstname, saveUser.lastname, saveUser.role, parseInt(saveUser.o_id), saveUser.superuser, saveUser.email],
             function (err, result) {
                 client.end();
 
                 if (err) {
                     console.log("Error inserting data: ", err);
-                    res.sendStatus(500);
+                    res.status(500).json({err: err, data: [parseInt(saveUser.e_id, 10), saveUser.username, saveUser.password, saveUser.firstname, saveUser.lastname, saveUser.role, parseInt(saveUser.o_id, 10), saveUser.superuser, saveUser.email]});
                 } else {
                     res.sendStatus(201);
                 }

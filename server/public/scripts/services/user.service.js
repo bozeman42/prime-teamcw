@@ -21,13 +21,14 @@ myApp.service('UserService', function ($http, $location) {
         });
     },
 
-        self.logout = function () {
-            console.log('UserService -- logout');
-            $http.get('/user/logout').then(function (response) {
-                console.log('UserService -- logout -- logged out');
-                $location.path("/home");
-            });
-        }
+    self.logout = function () {
+        console.log('UserService -- logout');
+        $http.get('/user/logout').then(function (response) {
+            console.log('UserService -- logout -- logged out');
+            self.userObject = {};
+            $location.path("/home");
+        });
+    }
 
     self.refreshUsers = function () {
         $http.get('/user/refreshUser').then(function (response) {
@@ -48,18 +49,19 @@ myApp.service('UserService', function ($http, $location) {
         e_id: '',
         firstname: '',
         lastname: '',
-        office: '',
+        o_id: null,
         role: '',
         username: '',
         employeeId: ''
     }
-
+//how to create superuser without register
     self.editUser = function (user) {
+        console.log('editing this user',user);
         self.userToEdit = {
             e_id: user.e_id,
             firstname: user.firstname,
             lastname: user.lastname,
-            office: user.office,
+            o_id: user.o_id,
             role: user.role,
             username: user.username,
             employeeId: user.e_id
@@ -76,5 +78,13 @@ myApp.service('UserService', function ($http, $location) {
             self.refreshUsers();
             $location.path('/admin');
         })
+    }
+
+    self.requestPasswordChange = function (email) {
+        return $http.post('/user/password-reset', {email: email});
+    }
+
+    self.resetPassword = function (code, password) {
+        return $http.put('/user/password-reset', {code: code, password: password});
     }
 });

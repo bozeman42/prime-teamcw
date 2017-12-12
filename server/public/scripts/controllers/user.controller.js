@@ -1,4 +1,4 @@
-myApp.controller('UserController', function ( UserService) {
+myApp.controller('UserController', function (UserService, $location, $route) {
     console.log('UserController created');
     var vm = this;
     vm.userService = UserService;
@@ -13,5 +13,21 @@ myApp.controller('UserController', function ( UserService) {
 
     vm.deleteUser = function (user) {
         UserService.deleteUser(user.e_id);
+    }
+
+    vm.newUser = function (user){
+        $location.path('/register')
+    }
+
+    vm.requestPasswordChange = function () {
+        if (vm.email) {
+            UserService.requestPasswordChange(vm.email)
+                .then(function () {
+                    alert('An email has been sent regarding instructions on how to reset your password.');
+                    $location.path('/login')
+                })
+        } else {
+            alert('Email is required');
+        }
     }
 });
