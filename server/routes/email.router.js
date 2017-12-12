@@ -76,11 +76,12 @@ router.post('/csv/', function (req, res) {
 router.put('/', function(req,res){
     console.log('request',req.query);
     var emailId = req.query.id;
+    var index = req.query.index;
     pool.connect(function (errorConnecting, db, done) {
         if (errorConnecting) {
             res.sendStatus(500);
         } else {
-            var queryText = 'UPDATE "emails" SET "clicked" = TRUE WHERE "email_id" = $1 RETURNING "batch_id";';
+            var queryText = 'UPDATE "emails" SET "clicked" = TRUE WHERE "email_id" = $1 RETURNING "email_id";';
             db.query(queryText, [
                 emailId
             ], function (errorMakingQuery, result) {
@@ -88,11 +89,40 @@ router.put('/', function(req,res){
                 if (errorMakingQuery) {
                     res.sendStatus(500);
                 } else {
-                    res.send({batch_id: result.rows[0].batch_id})
+                    res.send({
+                        email_id: result.rows[0].email_id,
+                        index: index
+                    });
                 }
             });
         }
     }); //end of pool
+});
+
+router.get('/single/', function(req,res){
+    var email_id = req.query.email_id;
+    var index = req.query.index;
+    pool.connect(function (errorConnecting, db, done) {
+        if (errorConnecting) {
+            res.sendStatus(500);
+        } else {
+            var queryText = 'SELECT * FROM "emails" WHERE "email_id" = $1;';
+            db.query(queryText, [
+                email_id
+            ], function (errorMakingQuery, result) {
+                done();
+                if (errorMakingQuery) {
+                    res.sendStatus(500);
+                } else {
+                    res.send({
+                        contact: result.rows[0],
+                        index: index
+                    });
+                }
+            });
+        }
+    }); //end of pool
+
 });
 
 function createBatch(dataInfo) {

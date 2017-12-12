@@ -11,12 +11,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="contact in vm.es.data.contacts">
+            <tr ng-repeat="contact in vm.es.data.contacts track by $index">
                 <td>{{contact.first}}</td>
                 <td>{{contact.last}}</td>
                 <td>{{contact.email}}</td>
                 <td>
-                    <a ng-click="vm.clickEmailLink(contact)" ng-href={{vm.emailTemplate(contact)}}>Email</a>
+                    <a ng-click="vm.clickEmailLink(contact,$index)" ng-href={{vm.emailTemplate(contact)}}>Email</a>
                 </td>
                 <td>{{contact.clicked}}</td>
             </tr>
