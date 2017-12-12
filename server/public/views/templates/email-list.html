@@ -1,21 +1,25 @@
 <div class="container">
     <h1 class="lead">Email List</h1>
     <table>
-        <tr>
-            <th>First</th>
-            <th>Last</th>
-            <th>Email</th>
-            <th>Mail-to Link</th>
-            <th>Email Sent?</th>
-        </tr>
-        <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>jd@abc.com</td>
-            <td>
-                <a ng-href={{vm.emailTemplate}}>Email</a>
-            </td>
-            <td>False</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>First</th>
+                <th>Last</th>
+                <th>Email</th>
+                <th>Mail-to Link</th>
+                <th>Email Sent?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="contact in vm.es.data.contacts">
+                <td>{{contact.first}}</td>
+                <td>{{contact.name}}</td>
+                <td>{{contact.email}}</td>
+                <td>
+                    <a ng-href={{vm.emailTemplate(contact)}}>Email</a>
+                </td>
+                <td></td>
+            </tr>
+        </tbody>
     </table>
 </div>

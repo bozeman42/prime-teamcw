@@ -25,6 +25,14 @@ INSERT INTO "offices" (
   "office") VALUES (
   'Minneapolis');
 
+CREATE TABLE "email_batch" (
+	"batch_id" SERIAL PRIMARY KEY,
+	"file_name" VARCHAR(200),
+	"date" TIMESTAMP,
+	"user_id" SERIAL REFERENCES "users",
+	"office_id" SERIAL REFERENCES "offices"
+);
+
 CREATE TABLE "emails" (
   "email_id" serial primary key,
   "first" varchar(80),
