@@ -80,18 +80,11 @@ myApp.service('UserService', function ($http, $location) {
         })
     }
 
-    self.checkEmailExist = function (forgotPwInfo) {
-        $http.get('/user/checkEmail', {
-            params: forgotPwInfo
-        }).then(function (response) {
-            if (response.data.emailExist) {
-                alert('An email has been sent regarding instructions on how to reset your password.');
-                $http.put('/user/' + forgotPwInfo.e_id + '/forgotpw').then(function (response) {
-                    console.log('code posted');
-                })
-            } else {
-                alert('Sorry, we couldn\'t find a user account for that employee ID number and email combination.');
-            }
-        })
+    self.requestPasswordChange = function (email) {
+        return $http.post('/user/password-reset', {email: email});
+    }
+
+    self.resetPassword = function (code, password) {
+        return $http.put('/user/password-reset', {code: code, password: password});
     }
 });

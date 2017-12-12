@@ -34,14 +34,15 @@ router.post('/', function (req, res, next) {
             console.log("Error connecting: ", err);
             res.sendStatus(500);
         }
+        
         client.query("INSERT INTO users (e_id, username, password, firstname, lastname, role, o_id, superuser, email) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id",
-            [saveUser.e_id, saveUser.username, saveUser.password, saveUser.firstname, saveUser.lastname, saveUser.role, saveUser.o_id, saveUser.superuser, saveUser.email],
+            [parseInt(saveUser.e_id, 10), saveUser.username, saveUser.password, saveUser.firstname, saveUser.lastname, saveUser.role, parseInt(saveUser.o_id), saveUser.superuser, saveUser.email],
             function (err, result) {
                 client.end();
 
                 if (err) {
                     console.log("Error inserting data: ", err);
-                    res.sendStatus(500);
+                    res.status(500).json({err: err, data: [parseInt(saveUser.e_id, 10), saveUser.username, saveUser.password, saveUser.firstname, saveUser.lastname, saveUser.role, parseInt(saveUser.o_id, 10), saveUser.superuser, saveUser.email]});
                 } else {
                     res.sendStatus(201);
                 }
