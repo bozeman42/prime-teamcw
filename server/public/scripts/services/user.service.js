@@ -8,7 +8,8 @@ myApp.service('UserService', function ($http, $location) {
     self.getuser = function () {
         $http.get('/user').then(function (response) {
             if (response.data.username) {
-                // user has a curret session on the server
+                // user has a current session on the server
+                console.log(response.data);
                 self.userObject.userName = response.data.username;
             } else {
                 console.log('UserService -- getuser -- failure');
@@ -87,4 +88,6 @@ myApp.service('UserService', function ($http, $location) {
     self.resetPassword = function (code, password) {
         return $http.put('/user/password-reset', {code: code, password: password});
     }
+
+    self.getuser();
 });
