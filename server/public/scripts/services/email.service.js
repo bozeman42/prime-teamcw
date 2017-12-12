@@ -42,7 +42,8 @@ myApp.service('EmailService', function ($http, UploadService) {
         return $http(config)
         .then(function(response){
             console.log('click success');
-            return response;
+            console.log('batch',response);
+            self.getContacts(response.data.batch_id);
         });
     }
 });

@@ -74,8 +74,26 @@ router.post('/csv/', function (req, res) {
 });
 
 router.put('/', function(req,res){
-    
-})
+    console.log('request',req.query);
+    var emailId = req.query.id;
+    pool.connect(function (errorConnecting, db, done) {
+        if (errorConnecting) {
+            res.sendStatus(500);
+        } else {
+            var queryText = 'UPDATE "emails" SET "clicked" = TRUE WHERE "email_id" = $1 RETURNING "batch_id";';
+            db.query(queryText, [
+                emailId
+            ], function (errorMakingQuery, result) {
+                done();
+                if (errorMakingQuery) {
+                    res.sendStatus(500);
+                } else {
+                    res.send({batch_id: result.rows[0].batch_id})
+                }
+            });
+        }
+    }); //end of pool
+});
 
 function createBatch(dataInfo) {
     return new Promise((resolve, reject) => {
