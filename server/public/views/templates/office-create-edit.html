@@ -1,0 +1,26 @@
+<div class="container">
+    <div ng-hide="vm.officeService.editingOffice">
+    <h1 class="lead">Create Office</h1>
+    <form ng-submit="vm.createOffice()">
+        <div>
+            <label for="officeName">Office:</label>
+            <input type="text" ng-model="vm.newOffice.name" />
+        </div>
+        <div>
+            <input class="btn btn-default" type="submit" name="submit" value="Create Office" />
+        </div>
+    </form>
+    </div>
+    <div ng-show="vm.officeService.editingOffice">
+    <h1 class="lead">Edit Office</h1>
+    <form ng-submit="vm.saveEditedOffice()">
+        <div>
+            <label for="officeName">Office:</label>
+            <input type="text" ng-model="vm.officeService.officeToEdit.name" ng-value="vm.officeService.officeToEdit.name"/>
+        </div>
+        <div>
+            <input class="btn btn-default" type="submit" name="submit" value="Save" />
+        </div>
+    </form>
+    </div>
+</div>
