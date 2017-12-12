@@ -7,43 +7,28 @@ myApp.service('DataService', function ($http, $location) {
     };
     self.userObject = {};
 
-    self.getData = function () {
-        //All Data
-        $http.get('/data/all').then(function (response) {
+    self.searchData = function(value) {
+        //Table and Inventory Chart        
+        $http.get(`/data/all?year=${value.year}&quarter=${value.quarter}&market=${value.market}`).then(function(response) {
             self.data.data = response.data;
-            console.log('Succesfully retrieved market data', self.data);
-
-        }).catch(function (err) {
-            console.log('Error retrieving market data', err)
-        })
-    }
-
-    self.getInventory = function () {
-        //Inventory Chart
-        $http.get('/data/inventory').then(function (response) {
-            self.data.inventory = response.data;
-            console.log('Succesfully retrieved inventory', self.data.inventory);
-
+            console.log('Succesfully retrieved market data', response.data);
             let ctx = document.getElementById("inventoryChart").getContext("2d");
             let inventoryChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     datasets: [{
-                        data: response.data.map(x => x.buildings),
+                        data: response.data.map(item => item.Total_Buildings),
                         backgroundColor: ['#003865', '#9bd3dd', '#b5bd00']
                     }],
-                    labels: response.data.map(x => x.Property_SubType),
+                    labels: response.data.map(item => item.Class),
                 },
             })
-
         }).catch(function (err) {
-            console.log('Error retrieving inventory', err)
+            console.log('Error retrieving market data', err)
         })
-    }
 
-    self.getAbsorption = function () {
-        //Inventory Chart
-        $http.get('/data/absorption').then(function (response) {
+        //Absorption Chart
+        $http.get(`/data/absorption?market=${value.market}`).then(function (response) {
             self.data.inventory = response.data;
             console.log('Succesfully retrieved absorption', self.data.inventory);
             let ctx = document.getElementById("absorptionChart").getContext("2d");
@@ -61,16 +46,16 @@ myApp.service('DataService', function ($http, $location) {
 
             //Create array of all years
             response.data.forEach(function (value) {
-                if (year.indexOf(value.Year) < 0) {
-                    year.push(value.Year);
+                if (year.indexOf(value.Time) < 0) {
+                    year.push(value.Time);
                     year.sort();
                 }
             });
 
             //Create array of all building Class Types
             response.data.forEach(function (value){
-                if (className.indexOf(value.Property_SubType) < 0){
-                    className.push(value.Property_SubType);
+                if (className.indexOf(value.Class) < 0){
+                    className.push(value.Class);
                     className.sort();
                 }
             })
@@ -84,8 +69,8 @@ myApp.service('DataService', function ($http, $location) {
             //Add yearly absorption data to each building class object 
             response.data.forEach(function(value){
                 dataObjects.forEach(function(item){
-                    if (item.label === value.Property_SubType){
-                        item.data.push(value.absorption);
+                    if (item.label === value.Class){
+                        item.data.push(value.Absorption);
                     }
                 })
             })
@@ -101,7 +86,8 @@ myApp.service('DataService', function ($http, $location) {
         }).catch(function (err) {
             console.log('Error retrieving absorption', err)
         })
-    }
+        
 
+    }
 
 });

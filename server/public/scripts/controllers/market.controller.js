@@ -19,19 +19,23 @@ myApp.controller('MarketController', function (NgMap, DataService) {
         }
     };
 
+    self.searchData = function(value) {
+        DataService.searchData(value);
+    }
+
     self.getData = function () {
         DataService.getData();
     }
-    self.getData();
+    //self.getData();
 
-    self.getInventory = function() {
-        DataService.getInventory();
-    }
-    self.getInventory();
+    // self.getInventory = function() {
+    //     DataService.getInventory();
+    // }
+    // self.getInventory();
 
-    self.getAbsorption = function() {
-        DataService.getAbsorption();
-    }
-    self.getAbsorption();
+    // self.getAbsorption = function() {
+    //     DataService.getAbsorption();
+    // }
+    // self.getAbsorption();
 
 });
