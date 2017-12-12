@@ -73,6 +73,10 @@ router.post('/csv/', function (req, res) {
     }
 });
 
+router.put('/', function(req,res){
+    
+})
+
 function createBatch(dataInfo) {
     return new Promise((resolve, reject) => {
         pool.connect(function (errorConnecting, db, done) {

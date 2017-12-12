@@ -31,4 +31,18 @@ myApp.service('EmailService', function ($http, UploadService) {
             });
     };
 
+    self.clickEmailLink = function(contact){
+        var config = {
+            method: 'PUT',
+            url: '/email/',
+            params: {
+                id: contact.email_id
+            }
+        };
+        return $http(config)
+        .then(function(response){
+            console.log('click success');
+            return response;
+        });
+    }
 });
