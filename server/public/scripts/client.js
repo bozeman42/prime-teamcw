@@ -74,6 +74,11 @@ myApp.config(function ($routeProvider, $locationProvider) {
             templateUrl: '/views/templates/forgot-password.html',
             controller: 'UserController as vm',
         })
+        // www.domain.com/password-reset/123asdfa3f
+        .when('/password-reset/:code', {
+            templateUrl: '/views/templates/password-reset.html',
+            controller: 'PasswordResetController as vm'
+        })
         .otherwise({
             redirectTo: 'login'
         });
