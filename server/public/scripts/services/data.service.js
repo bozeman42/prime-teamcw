@@ -3,11 +3,28 @@ myApp.service('DataService', function ($http, $location) {
     var self = this;
     self.data = {
         data: '',
-        inventory: ''
+        inventory: '',
+        vacancy: '',
+        properties: ''
     };
     self.userObject = {};
 
     self.searchData = function(value) {
+        let coords = [];
+        //Properties locations for map       
+        $http.get(`/data/properties?year=${value.year}&quarter=${value.quarter}&market=${value.market}`).then(function(response) {
+            self.data.properties = response.data;
+            console.log('Succesfully retrieved property data', response.data);
+            response.data.forEach(function(item){
+                coords.push([item.X, item.Y]);
+            })
+            console.log('TESTING HERE', coords);
+            self.data.properties = coords;
+            console.log('TESTING OBJECT', self.data.properties);
+        }).catch(function (err) {
+            console.log('Error retrieving property data', err)
+        })
+
         //Table and Inventory Chart        
         $http.get(`/data/all?year=${value.year}&quarter=${value.quarter}&market=${value.market}`).then(function(response) {
             self.data.data = response.data;
@@ -40,8 +57,18 @@ myApp.service('DataService', function ($http, $location) {
             let Item = function( data, label, fill ){
                 this.data = data,
                 this.label = label,
-                this.fill = fill
-                this.borderColor = '#003865'
+                this.fill = fill,
+                this.borderColor = [],
+                this.calcBorderColor = function() {
+                    console.log('TESTING BORDER LABELs', this.label);
+                    if(this.label === 'Class A'){
+                        this.borderColor = ['#003865'];
+                    } else if(this.label === 'Class B'){
+                        this.borderColor = ['#9bd3dd'];
+                    } else{
+                        this.borderColor = ['#b5bd00'];
+                    }
+                }
             }
 
             //Create array of all years
@@ -63,6 +90,7 @@ myApp.service('DataService', function ($http, $location) {
             //Add an object to an array for each building class type
             className.forEach(function (value){
                 let datapoint = new Item([], value, false);
+                datapoint.calcBorderColor();
                 dataObjects.push(datapoint);
             })
 
@@ -81,6 +109,93 @@ myApp.service('DataService', function ($http, $location) {
                     labels: year,
                     datasets: dataObjects,
                 }
+            })
+
+        }).catch(function (err) {
+            console.log('Error retrieving absorption', err)
+        })
+
+        //Vacancy Chart
+        $http.get(`/data/vacancy?market=${value.market}`).then(function (response) {
+            self.data.vacancy = response.data;
+            console.log('Succesfully retrieved vacancy', self.data.vacancy);
+            let ctx = document.getElementById("vacancyChart").getContext("2d");
+            let year = [];
+            let className = [];
+            let dataObjects = [];
+
+            //Object constructor for each type of building class to be plotted as a line
+            let Item = function( data, label, fill ){
+                this.data = data,
+                this.label = label,
+                this.fill = fill,
+                this.backgroundColor = [],
+                this.calcBackgroundColor = function() {
+                    if(this.label === 'Class A'){
+                        this.backgroundColor = ['#003865','#003865','#003865','#003865','#003865','#003865','#003865','#003865','#003865','#003865'];
+                    } else if(this.label === 'Class B'){
+                        this.backgroundColor = ['#9bd3dd','#9bd3dd','#9bd3dd','#9bd3dd','#9bd3dd','#9bd3dd','#9bd3dd','#9bd3dd','#9bd3dd','#9bd3dd'];
+                    } else{
+                        this.backgroundColor = ['#b5bd00','#b5bd00','#b5bd00','#b5bd00','#b5bd00','#b5bd00','#b5bd00','#b5bd00','#b5bd00','#b5bd00'];
+                    }
+                }
+            }
+
+            //Create array of all years
+            response.data.forEach(function (value) {
+                if (year.indexOf(value.Time) < 0) {
+                    year.push(value.Time);
+                    year.sort();
+                }
+            });
+
+            //Create array of all building Class Types
+            response.data.forEach(function (value){
+                if (className.indexOf(value.Class) < 0){
+                    className.push(value.Class);
+                    className.sort();
+                }
+            })
+
+            //Add an object to an array for each building class type
+            className.forEach(function (value){
+                let datapoint = new Item([], value, false);
+                datapoint.calcBackgroundColor();
+                dataObjects.push(datapoint);
+            })
+
+            //Add yearly absorption data to each building class object 
+            response.data.forEach(function(value){
+                dataObjects.forEach(function(item){
+                    if (item.label === value.Class){
+                        item.data.push(value.Squarefeet_Vacant);
+                    }
+                })
+            })
+
+            let absorptionChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: year,
+                    datasets: dataObjects,
+                },
+                options: {
+                    scales: {
+                      yAxes: [{
+                        stacked: true,
+                        ticks: {
+                          beginAtZero: false
+                        }
+                      }],
+                      xAxes: [{
+                        stacked: true,
+                        ticks: {
+                          beginAtZero: true
+                        }
+                      }]
+                
+                    }
+                  }
             })
 
         }).catch(function (err) {
