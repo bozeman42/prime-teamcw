@@ -16,19 +16,15 @@ myApp.controller('LoginController', function ($http, $location, UserService,Offi
     vm.getOffices = OfficeService.getOffices;
     vm.officeData = OfficeService.data;
     vm.getOffices();
-
-
     vm.superuser = true;
 
     vm.login = function () {
-
         if (vm.user.username === '' || vm.user.password === '') {
             vm.message = "Enter your username and password!";
         } else {
             $http.post('/', vm.user).then(function (response) {
                 if (response.data.username) {
-                    // location works with SPA (ng-route)
-                    $location.path('/admin'); // http://localhost:5000/#/user
+                    $location.path('/admin'); 
                 } else {
                     vm.message = "Please check your login credentials.";
                 }
@@ -39,12 +35,11 @@ myApp.controller('LoginController', function ($http, $location, UserService,Offi
     };
 
     vm.registerUser = function () {
-        console.log('User to register',vm.user);
         if (vm.user.username === '' || vm.user.password === '') {
             vm.message = "Choose a username and password!";
         } else {
             $http.post('/register', vm.user).then(function (response) {
-                $location.path('/login');
+                $location.path('/admin');
             }).catch(function (response) {
                 console.log('LoginController -- registerUser -- error');
                 vm.message = "Please try again."

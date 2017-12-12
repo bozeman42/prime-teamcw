@@ -48,7 +48,6 @@
     </div>
     <div ng-show="lc.userService.editingUser">
         <h1 class="lead">Edit User</h1>
-        {{lc.userService.userToEdit}}
         <form ng-submit="lc.userService.saveUserEdit()">
             <div>
                 <label for="e_id" ng-hide="lc.userService.userToEdit.e_id">Employee ID:</label>
@@ -82,7 +81,7 @@
                 </span>
             </div>
             <input class="btn btn-default" type="submit" name="submit" value="Save Edit" />
-            <a href="#home">Cancel</a>
+            <a href="#/admin">Cancel</a>
         </form>
         </div>
 </div>

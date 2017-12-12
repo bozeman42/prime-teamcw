@@ -1,16 +1,24 @@
 <div class="container">
-    <h1 class="lead">Create Office</h1>
-        <form ng-submit="vm.createOffice()">
-            <div>
-                <label for="officeName">Office:</label>
-                <input type="text" ng-model="vm.newOffice.name" />
-            </div>
-            <div>
-                <input class="btn btn-default" type="submit" name="submit" value="Create Office" />
-            </div>
-        </form>
+    <button onclick="location.href='#/office-modify'">Create Office</button>
         <div>
             <h2>List of existing offices</h2>
-            <p ng-repeat="office in vm.offices.offices">{{office.office}}</p>
+            <table>
+                <thead>
+                    <tr>
+                    <th>#</th>
+                    <th>Office Location</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <tr></tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="office in vm.offices.offices">
+                        <td>{{$index + 1}}</td>
+                        <td>{{office.office}}</td>
+                        <td><button ng-click="vm.editOffice(office)">Edit</button></td>
+                        <td><button ng-click="vm.deleteOffice(office)">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 </div>
