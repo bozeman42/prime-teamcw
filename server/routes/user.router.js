@@ -19,7 +19,8 @@ router.get('/', function (req, res) {
     if (req.isAuthenticated()) {
         // send back user object from database
         var userInfo = {
-            username: req.user.username
+            username: req.user.username,
+            role: req.user.role
         };
         res.send(userInfo);
     } else {

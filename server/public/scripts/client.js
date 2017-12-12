@@ -43,6 +43,15 @@ myApp.config(function ($routeProvider, $locationProvider) {
                 }
             }
         })
+        .when('/office-modify', {
+            templateUrl: '/views/templates/office-create-edit.html',
+            controller: 'OfficeController as vm',
+            resolve: {
+                getuser: function (UserService) {
+                    return UserService.getuser();
+                }
+            }
+        })
         .when('/email-upload', {
             templateUrl: '/views/templates/email-upload.html',
             controller: 'EmailController as vm',
