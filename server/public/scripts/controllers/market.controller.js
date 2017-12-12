@@ -3,7 +3,7 @@ myApp.controller('MarketController', function (NgMap, DataService) {
     var self = this;
     self.marketData = DataService.data;
     self.marker = {
-        url: '../styles/images/red.png'
+        url: '../styles/images/red.png',
     }
 
     self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY'
