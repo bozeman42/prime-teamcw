@@ -43,5 +43,7 @@ CREATE TABLE "emails" (
   "building" varchar(80),
   "market" varchar(80),
   "email" varchar(200),
-  "office_id" serial references "offices"
+  "batch_id" serial REFERENCES "email_batch",
+  "office_id" serial references "offices",
+  "clicked" BOOLEAN DEFAULT FALSE
 );

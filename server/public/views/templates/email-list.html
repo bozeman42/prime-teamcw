@@ -13,12 +13,12 @@
         <tbody>
             <tr ng-repeat="contact in vm.es.data.contacts">
                 <td>{{contact.first}}</td>
-                <td>{{contact.name}}</td>
+                <td>{{contact.last}}</td>
                 <td>{{contact.email}}</td>
                 <td>
-                    <a ng-href={{vm.emailTemplate(contact)}}>Email</a>
+                    <a ng-click="vm.clickEmailLink(contact)" ng-href={{vm.emailTemplate(contact)}}>Email</a>
                 </td>
-                <td></td>
+                <td>{{contact.clicked}}</td>
             </tr>
         </tbody>
     </table>

@@ -17,7 +17,7 @@ router.get('/',function(req,res){
             console.log('Error connecting', errorConnecting);
             res.sendStatus(500);
         } else {
-            var queryText = 'SELECT * FROM "emails" WHERE "batch_id" = $1;';
+            var queryText = 'SELECT * FROM "emails" WHERE "batch_id" = $1 ORDER BY "last","first","email_id";';
             db.query(queryText, [
                 batchId
             ], function (errorMakingQuery, result) {
