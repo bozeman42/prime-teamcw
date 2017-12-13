@@ -1,11 +1,12 @@
-myApp.controller('MarketController', function (NgMap, DataService) {
+myApp.controller('MarketController', function ($location,NgMap, DataService, EmailService) {
     console.log('MarketController created');
     var self = this;
+    var es = EmailService;
     self.marketData = DataService.data;
     self.marker = {
         url: '../styles/images/red.png',
     }
-
+    
     self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY'
     NgMap.getMap().then(function (map) {
         console.log(map.getCenter());
@@ -22,7 +23,17 @@ myApp.controller('MarketController', function (NgMap, DataService) {
 
     self.searchData = function(value) {
         DataService.searchData(value);
-    }
+    };
+
+    self.emailTrack = function(){
+        var queries = $location.search();
+        if (queries.hasOwnProperty('eid')){
+            console.log('eid',queries.eid);
+            es.emailClickthrough(queries.eid);
+        } else {
+            console.log('no eid');
+        }
+    };
 
     // self.getData = function () {
     //     DataService.getData();
@@ -38,5 +49,5 @@ myApp.controller('MarketController', function (NgMap, DataService) {
     //     DataService.getAbsorption();
     // }
     // self.getAbsorption();
-
+    self.emailTrack();
 });
