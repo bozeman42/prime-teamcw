@@ -17,6 +17,7 @@ var transporter = nodemailer.createTransport({
 router.get('/', function (req, res) {
     // check if logged in
     if (req.isAuthenticated()) {
+        console.log(req.user);
         // send back user object from database
         var userInfo = {
             username: req.user.username,
@@ -27,6 +28,51 @@ router.get('/', function (req, res) {
         // failure best handled on the server. do redirect here.
         console.log('not logged in');
         // should probably be res.sendStatus(403) and handled client-side, esp if this is an AJAX request (which is likely with AngularJS)
+        res.send(false);
+    }
+});
+
+// Handles Ajax request for user information if user is authenticated
+router.get('/admin', function (req, res) {
+    // check if logged in
+    if (req.user.role === 'admin' || req.user.role === 'owner') {
+    if (req.isAuthenticated()) {
+        console.log(req.user);
+        // send back user object from database
+        var userInfo = {
+            username: req.user.username,
+            role: req.user.role
+        };
+        res.send(userInfo);
+    } else {
+        // failure best handled on the server. do redirect here.
+        console.log('not logged in');
+        // should probably be res.sendStatus(403) and handled client-side, esp if this is an AJAX request (which is likely with AngularJS)
+        res.send(false);
+    }} else {
+        res.send(false);
+    }
+});
+
+// Handles Ajax request for user information if user is authenticated
+router.get('/owner', function (req, res) {
+    // check if logged in
+    if (req.user.role === 'owner') {
+        if (req.isAuthenticated()) {
+            console.log(req.user);
+            // send back user object from database
+            var userInfo = {
+                username: req.user.username,
+                role: req.user.role
+            };
+            res.send(userInfo);
+        } else {
+            // failure best handled on the server. do redirect here.
+            console.log('not logged in');
+            // should probably be res.sendStatus(403) and handled client-side, esp if this is an AJAX request (which is likely with AngularJS)
+            res.send(false);
+        }
+    } else {
         res.send(false);
     }
 });

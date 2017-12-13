@@ -1,4 +1,4 @@
-myApp.controller('LoginController', function ($http, $location, UserService,OfficeService) {
+myApp.controller('LoginController', function ($http, $location, UserService, OfficeService) {
     console.log('LoginController created');
     var vm = this;
     vm.userService = UserService;
@@ -24,7 +24,7 @@ myApp.controller('LoginController', function ($http, $location, UserService,Offi
         } else {
             $http.post('/', vm.user).then(function (response) {
                 if (response.data.username) {
-                    $location.path('/admin'); 
+                    $location.path('/home'); 
                 } else {
                     vm.message = "Please check your login credentials.";
                 }

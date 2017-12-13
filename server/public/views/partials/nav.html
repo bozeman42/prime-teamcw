@@ -8,16 +8,16 @@
                 <a href="#/market">Market Page</a>
             </li>
             <li>
-                <a href="#/admin" ng-show="nc.user.userObject.userName">User Home</a>
+                <a href="#/admin" ng-if="nc.user.userObject.role === 'admin'||nc.user.userObject.role === 'owner'">Users</a>
             </li>
             <li>
-                <a href="#/office" ng-show="nc.user.userObject.userName">Offices</a>
+                <a href="#/office" ng-if="nc.user.userObject.role === 'admin'||nc.user.userObject.role === 'owner'">Offices</a>
             </li>
             <li>
-                <a href="#/email-upload" ng-show="nc.user.userObject.userName">Upload Email</a>
+                <a href="#/email-upload" ng-if="nc.user.userObject.userName">Upload Email</a>
             </li>
             <li>
-                <a href="#/email-history" ng-show="nc.user.userObject.userName">Email History</a>
+                <a href="#/email-history" ng-if="nc.user.userObject.userName">Email History</a>
             </li>
         </ul>
     </div>
