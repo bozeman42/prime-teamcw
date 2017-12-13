@@ -6,17 +6,54 @@ var path = require('path');
 var poolModule = require('../modules/pool.js');
 var pool = poolModule;
 
-//RETRIEVE ALL DATA
-router.get('/all', function (req, res){
-    let year = req.query.year;
-    let quarter = req.query.quarter;
-    let market = req.query.market;
-    pool.connect(function (errorConnecting, db, done) {
-        if (errorConnecting) {
-          console.log('Error connecting ', errorConnecting);
+//RETRIEVE ALL PROPERTY DATA FOR HOMEPAGE MAP
+router.get('/properties/all', function (req, res) {
+  pool.connect(function (errorConnecting, db, done) {
+    if (errorConnecting) {
+      console.log('Error connecting ', errorConnecting);
+      res.sendStatus(500);
+    } else {
+      var queryText = `SELECT "dbo_RPRT_Property"."Property_SubType" as "Class",
+      ("dbo_RPRT_Property"."Building_Size") as "NRA", 
+      ("dbo_RPRT_Property"."Squarefeet_Vacant") as "Vacant_Space", 
+      ("dbo_RPRT_Property"."Squarefeet_Sublease") as "Sublease_Space",
+      ("dbo_RPRT_Property"."Absorption") as "Absorption",
+      "dbo_RPRT_Property"."Rate_Low" as "Low Rate",
+      "dbo_RPRT_Property"."Rate_Low" as "High Rate",
+      "dbo_RPRT_Property"."Total_Op_Expenses_Taxes" as "OE_T",
+      "dbo_RPRT_Property"."X_Coordinate" as "Y",
+      "dbo_RPRT_Property"."Y_Coordinate" as "X",
+      "dbo_RPRT_Property"."Address_1" as "Address",
+      "dbo_RPRT_Property"."State" as "State",
+      "dbo_RPRT_Property"."Submarket"
+      FROM "dbo_RPRT_Property"
+      JOIN "dbo_RPRT_Dataset"
+      ON "dbo_RPRT_Property"."Report_Dataset_ID" = "dbo_RPRT_Dataset"."Report_Dataset_ID"
+      WHERE "dbo_RPRT_Dataset"."Period_Year" = 2017;`
+      db.query(queryText, function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('errorMakingQuery', errorMakingQuery);
           res.sendStatus(500);
         } else {
-          var queryText = `SELECT "dbo_RPRT_Property"."Property_SubType" as "Class",
+          res.send(result.rows);
+        }
+      });
+    }
+  });//end of pool
+})
+
+//RETRIEVE ALL DATA
+router.get('/all', function (req, res) {
+  let year = req.query.year;
+  let quarter = req.query.quarter;
+  let market = req.query.market;
+  pool.connect(function (errorConnecting, db, done) {
+    if (errorConnecting) {
+      console.log('Error connecting ', errorConnecting);
+      res.sendStatus(500);
+    } else {
+      var queryText = `SELECT "dbo_RPRT_Property"."Property_SubType" as "Class",
           COUNT("dbo_RPRT_Property"."Property_SubType") as "Total_Buildings", 
           SUM("dbo_RPRT_Property"."Building_Size") as "NRA", 
           SUM("dbo_RPRT_Property"."Squarefeet_Vacant") as "Vacant_Space", 
@@ -34,29 +71,29 @@ router.get('/all', function (req, res){
           AND SUBSTRING("dbo_RPRT_Dataset"."Dataset_Label",1,1) = $2 
           AND "dbo_RPRT_Property"."Submarket" = $3
           GROUP BY "dbo_RPRT_Property"."Property_SubType";`
-          db.query(queryText, [year, quarter, market], function (errorMakingQuery, result) {
-            done();
-            if (errorMakingQuery) {
-              console.log('errorMakingQuery', errorMakingQuery);
-              res.sendStatus(500);
-            } else {
-              res.send(result.rows);
-            }
-          });
+      db.query(queryText, [year, quarter, market], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('errorMakingQuery', errorMakingQuery);
+          res.sendStatus(500);
+        } else {
+          res.send(result.rows);
         }
-      });//end of pool
+      });
+    }
+  });//end of pool
 })
 
 //Total Direct Absorption line graph
-router.get('/absorption', function (req, res){
+router.get('/absorption', function (req, res) {
   let market = req.query.market;
   pool.connect(function (errorConnecting, db, done) {
-      if (errorConnecting) {
-        console.log('Error connecting ', errorConnecting);
-        res.sendStatus(500);
-      } else {
-        //select owner, pet, breed, color, checkin, and checkout
-        var queryText = `SELECT "dbo_RPRT_Property"."Property_SubType" as "Class",
+    if (errorConnecting) {
+      console.log('Error connecting ', errorConnecting);
+      res.sendStatus(500);
+    } else {
+      //select owner, pet, breed, color, checkin, and checkout
+      var queryText = `SELECT "dbo_RPRT_Property"."Property_SubType" as "Class",
         "dbo_RPRT_Dataset"."Period_Year" || '-' || SUBSTRING("dbo_RPRT_Dataset"."Dataset_Label",1,1) as "Time",
         SUM("dbo_RPRT_Property"."Absorption") as "Absorption"
         FROM "dbo_RPRT_Property"
@@ -64,64 +101,66 @@ router.get('/absorption', function (req, res){
         ON "dbo_RPRT_Property"."Report_Dataset_ID" = "dbo_RPRT_Dataset"."Report_Dataset_ID"
         WHERE "dbo_RPRT_Dataset"."Period_Type_ID" = 2
         AND "dbo_RPRT_Property"."Submarket" = $1
-        GROUP BY "dbo_RPRT_Property"."Property_SubType", "dbo_RPRT_Dataset"."Dataset_Label", "dbo_RPRT_Dataset"."Period_Year";
+        GROUP BY "dbo_RPRT_Property"."Property_SubType", "dbo_RPRT_Dataset"."Dataset_Label", "dbo_RPRT_Dataset"."Period_Year"
+        ORDER BY "Time";
         `
-        db.query(queryText, [market], function (errorMakingQuery, result) {
-          done();
-          if (errorMakingQuery) {
-            console.log('errorMakingQuery', errorMakingQuery);
-            res.sendStatus(500);
-          } else {
-            res.send(result.rows);
-          }
-        });
-      }
-    });//end of pool
+      db.query(queryText, [market], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('errorMakingQuery', errorMakingQuery);
+          res.sendStatus(500);
+        } else {
+          res.send(result.rows);
+        }
+      });
+    }
+  });//end of pool
 });
 
 //Vacancy Rate bar chart
-router.get('/vacancy', function (req, res){
+router.get('/vacancy', function (req, res) {
   let market = req.query.market;
   pool.connect(function (errorConnecting, db, done) {
-      if (errorConnecting) {
-        console.log('Error connecting ', errorConnecting);
-        res.sendStatus(500);
-      } else {
-        //select owner, pet, breed, color, checkin, and checkout
-        var queryText = `SELECT "dbo_RPRT_Property"."Property_SubType" as "Class",
+    if (errorConnecting) {
+      console.log('Error connecting ', errorConnecting);
+      res.sendStatus(500);
+    } else {
+      //select owner, pet, breed, color, checkin, and checkout
+      var queryText = `SELECT "dbo_RPRT_Property"."Property_SubType" as "Class",
         "dbo_RPRT_Dataset"."Period_Year" || '-' || SUBSTRING("dbo_RPRT_Dataset"."Dataset_Label",1,1) as "Time",
-        SUM("dbo_RPRT_Property"."Squarefeet_Vacant") as "Squarefeet_Vacant"
+        (SUM("dbo_RPRT_Property"."Squarefeet_Vacant")/SUM("dbo_RPRT_Property"."Building_Size")*100)::numeric(4,2) as "Squarefeet_Vacant"
         FROM "dbo_RPRT_Property"
         JOIN "dbo_RPRT_Dataset"
         ON "dbo_RPRT_Property"."Report_Dataset_ID" = "dbo_RPRT_Dataset"."Report_Dataset_ID"
         WHERE "dbo_RPRT_Dataset"."Period_Type_ID" = 2
         AND "dbo_RPRT_Property"."Submarket" = $1
-        GROUP BY "dbo_RPRT_Property"."Property_SubType", "dbo_RPRT_Dataset"."Dataset_Label", "dbo_RPRT_Dataset"."Period_Year";
+        GROUP BY "dbo_RPRT_Property"."Property_SubType", "dbo_RPRT_Dataset"."Dataset_Label", "dbo_RPRT_Dataset"."Period_Year"
+        ORDER BY "Time";
         `
-        db.query(queryText, [market], function (errorMakingQuery, result) {
-          done();
-          if (errorMakingQuery) {
-            console.log('errorMakingQuery', errorMakingQuery);
-            res.sendStatus(500);
-          } else {
-            res.send(result.rows);
-          }
-        });
-      }
-    });//end of pool
+      db.query(queryText, [market], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('errorMakingQuery', errorMakingQuery);
+          res.sendStatus(500);
+        } else {
+          res.send(result.rows);
+        }
+      });
+    }
+  });//end of pool
 });
 
-router.get('/properties', function (req, res){
+router.get('/properties', function (req, res) {
   let year = req.query.year;
   let quarter = req.query.quarter;
   let market = req.query.market;
   pool.connect(function (errorConnecting, db, done) {
-      if (errorConnecting) {
-        console.log('Error connecting ', errorConnecting);
-        res.sendStatus(500);
-      } else {
-        //select owner, pet, breed, color, checkin, and checkout
-        var queryText = `SELECT "dbo_RPRT_Property"."Property_SubType" as "Class",
+    if (errorConnecting) {
+      console.log('Error connecting ', errorConnecting);
+      res.sendStatus(500);
+    } else {
+      //select owner, pet, breed, color, checkin, and checkout
+      var queryText = `SELECT "dbo_RPRT_Property"."Property_SubType" as "Class",
         ("dbo_RPRT_Property"."Building_Size") as "NRA", 
         ("dbo_RPRT_Property"."Squarefeet_Vacant") as "Vacant_Space", 
         ("dbo_RPRT_Property"."Squarefeet_Sublease") as "Sublease_Space",
@@ -141,17 +180,17 @@ router.get('/properties', function (req, res){
         AND SUBSTRING("dbo_RPRT_Dataset"."Dataset_Label",1,1) = $2 
         AND "dbo_RPRT_Property"."Submarket" = $3;
         `
-        db.query(queryText, [year, quarter, market], function (errorMakingQuery, result) {
-          done();
-          if (errorMakingQuery) {
-            console.log('errorMakingQuery', errorMakingQuery);
-            res.sendStatus(500);
-          } else {
-            res.send(result.rows);
-          }
-        });
-      }
-    });//end of pool
+      db.query(queryText, [year, quarter, market], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('errorMakingQuery', errorMakingQuery);
+          res.sendStatus(500);
+        } else {
+          res.send(result.rows);
+        }
+      });
+    }
+  });//end of pool
 });
 
 module.exports = router;

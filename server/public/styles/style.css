@@ -32,6 +32,15 @@ html {
     box-shadow: 0px -1px 1px #a7a8aa;
 } */
 
+table {
+    width: 100%;
+    border: 1px solid rgba(0,0,0,.24);
+}
+
+tr, td {
+    text-align:center;
+    padding: 5px;
+}
 .marker {
     background-color: black;
     cursor: none;
