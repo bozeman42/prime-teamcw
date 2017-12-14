@@ -2,32 +2,10 @@
     <h1 class="lead">Market Page</h1>
     <div>
         <div style="display:inline-block">
-            <p>Year:</p>
-            <select name="year" id="yearDropdown" ng-model="vm.options.year">
-                <option value="2016">2016</option>
-                <option value="2017">2017</option>
-            </select>
-        </div>
-        <div style="display:inline-block">
-            <p>Quarter:</p>
-            <select name="quarter" id="quarterDropdown" ng-model="vm.options.quarter">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
-        </div>
-        <div style="display:inline-block">
             <p>Market</p>
-            <select name="market" id="marketDropdown" ng-model="vm.options.market">
-                <option value="Minneapolis CBD">Minneapolis CBD</option>
-                <option value="Northeast">Northeast</option>
-                <option value="Northwest">Northwest</option>
-                <option value="South/Airport">South/Airport</option>
-                <option value="Southwest">Southwest</option>
-                <option value="St.Paul CBD">St.Paul CBD</option>
-                <option value="West">West</option>
-            </select>
+            <select name="market" id="marketDropdown" placeholder="Market" ng-model="vm.options.market">
+                    <option ng-repeat="item in vm.marketData.markets" value="{{item.Submarket}}">{{item.Submarket}}</option>
+                </select>
         </div>
 
         <button ng-click="vm.searchData(vm.options)">Search</button>

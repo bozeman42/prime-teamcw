@@ -2,11 +2,18 @@ myApp.controller('MarketController', function (NgMap, DataService) {
     console.log('MarketController created');
     var self = this;
     self.marketData = DataService.data;
+
     self.options = {
-        market: location.hash.split('/')[2],
-        year: location.hash.split('/')[3],
-        quarter: location.hash.split('/')[4],
+        state: location.hash.split('/')[2],
+        market: location.hash.split('/')[3],
+        year: location.hash.split('/')[4],
+        quarter: location.hash.split('/')[5],
     }
+
+    self.getMarkets = function(state) {
+        DataService.getMarkets(state);
+    }
+    self.getMarkets(self.options.state);
 
     //Google Maps markers
     self.marker = {
@@ -218,7 +225,7 @@ myApp.controller('MarketController', function (NgMap, DataService) {
                 })
             })
 
-            let absorptionChart = new Chart(ctx, {
+            let vacancyChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: year,
