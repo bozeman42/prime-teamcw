@@ -12,7 +12,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
             templateUrl: '/views/templates/market.html',
             controller: 'MarketController as vm',
         })
-        .when('/market/:market/:year/:quarter', {
+        .when('/market/:state/:market/:year/:quarter', {
             templateUrl: '/views/templates/market.html',
             controller: 'MarketController as vm',
         })

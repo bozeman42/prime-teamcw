@@ -1,15 +1,20 @@
 <div class="container">
-    <h1 class="lead">Home Page</h1>
-    <div>
-        <div map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="{{::vm.googleMapsUrl}}">
-            <ng-map center="44.9778,-93.2650" zoom="10">
-                <!-- <marker ng-repeat="item in vm.cities" position="{{item.pos}}" id="{{item.id}}" on-click="vm.click(item.id)" /> -->
-                <marker ng-if="vm.allProperties" ng-repeat="item in ::vm.allProperties track by item.id" position="[{{::item.X}},{{::item.Y}}]" icon="{{::item.marker}}" id="{{::item.X}}" name="polygon" on-click="vm.click(item.Submarket)"></marker>
-            </ng-map>
+    <div id="hero">
+        <div id="hero-menu">
+            <h1>Home</h1>
+            <h3>State</h3>
+            <select name="state" id="stateDropdown" placeholder="State" ng-model="vm.state" ng-change="vm.getMarkets(vm.state)">
+                <option ng-repeat="item in vm.data.states" value="{{item.State}}">{{item.State}}</option>
+            </select>
+            <h3>Market</h3>            
+            <select name="market" id="marketDropdown" placeholder="Market" ng-model="vm.market">
+                <option ng-repeat="item in vm.data.markets" value="{{item.Submarket}}">{{item.Submarket}}</option>
+            </select>
+            <br>
+            <button ng-click="vm.click(vm.state, vm.market)">View Market</button>
         </div>
     </div>
-
-    <div>
+   <div>
         <!-- Begin MailChimp Signup Form -->
         <link href="//cdn-images.mailchimp.com/embedcode/slim-10_7.css" rel="stylesheet" type="text/css">
         <style type="text/css">
