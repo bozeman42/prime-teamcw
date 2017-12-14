@@ -44,6 +44,7 @@ myApp.controller('MarketController', function ($location,NgMap, DataService, Ema
 
     self.emailTrack = function(){
         var queries = $location.search();
+        
         if (queries.hasOwnProperty('eid')){
             console.log('eid',queries.eid);
             es.emailClickthrough(queries.eid);
@@ -135,13 +136,11 @@ myApp.controller('MarketController', function ($location,NgMap, DataService, Ema
         })
     }
 
-<<<<<<< HEAD
     // self.getAbsorption = function() {
     //     DataService.getAbsorption();
     // }
     // self.getAbsorption();
     self.emailTrack();
-=======
     self.getVacancyData = function(value) {
         DataService.getVacancyData(value).then(function(){
             let ctx = document.getElementById("vacancyChart").getContext("2d");
@@ -236,5 +235,4 @@ myApp.controller('MarketController', function ($location,NgMap, DataService, Ema
         self.getMarketPropertyData(value);
     }
     self.pageLoad(self.options);
->>>>>>> master
 });
