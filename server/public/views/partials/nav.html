@@ -11,7 +11,7 @@
                 <a href="#/admin" ng-if="nc.user.userObject.role === 'admin'||nc.user.userObject.role === 'owner'">Users</a>
             </li>
             <li>
-                <a href="#/office" ng-if="nc.user.userObject.role === 'admin'||nc.user.userObject.role === 'owner'">Offices</a>
+                <a href="#/office" ng-if="nc.user.userObject.role === 'owner'">Offices</a>
             </li>
             <li>
                 <a href="#/email-upload" ng-if="nc.user.userObject.userName">Upload Email</a>
