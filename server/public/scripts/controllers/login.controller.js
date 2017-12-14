@@ -38,6 +38,9 @@ myApp.controller('LoginController', function ($http, $location, UserService, Off
         if (vm.user.username === '' || vm.user.password === '') {
             vm.message = "Choose a username and password!";
         } else {
+            if (vm.user.role == '' || vm.user.role == undefined) {
+                vm.user.role = 'intern'
+            }
             $http.post('/register', vm.user).then(function (response) {
                 $location.path('/admin');
             }).catch(function (response) {

@@ -90,7 +90,8 @@ myApp.service('UserService', function ($http, $location) {
         o_id: null,
         role: '',
         username: '',
-        employeeId: ''
+        employeeId: '',
+        email: ''
     }
 //how to create superuser without register
     self.editUser = function (user) {
@@ -102,7 +103,8 @@ myApp.service('UserService', function ($http, $location) {
             o_id: user.o_id,
             role: user.role,
             username: user.username,
-            employeeId: user.e_id
+            employeeId: user.e_id,
+            email: user.email
         }
         console.log(self.userToEdit);
         self.editingUser = true;

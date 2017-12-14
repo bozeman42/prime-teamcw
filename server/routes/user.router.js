@@ -91,7 +91,7 @@ router.get('/refreshUser', function (req, res, next) {
             console.log("Error connecting: ", err);
             res.sendStatus(500);
         }
-        client.query("SELECT e_id, username, firstname, lastname, o_id, role FROM users ORDER BY e_id",
+        client.query("SELECT e_id, username, firstname, lastname, o_id, role, email FROM users ORDER BY e_id",
             function (err, result) {
                 client.end();
                 if (err) {
@@ -247,7 +247,8 @@ router.put('/:employeeId', function(req,res) {
         lastname: req.body.lastname,
         o_id: req.body.o_id,
         role: req.body.role,
-        username: req.body.username
+        username: req.body.username,
+        email: req.body.email
     }
 
     console.log(empId);
@@ -260,8 +261,8 @@ router.put('/:employeeId', function(req,res) {
         } else {
             // We connected to the db!!!!! pool -1
             //added ordering
-            let queryText = 'UPDATE "users" SET "e_id" = $1, "firstname" = $2, "lastname" = $3, "o_id" = $4, "role" = $5, "username" = $6 WHERE "e_id" = $7;';
-            db.query(queryText, [editedUser.e_id, editedUser.firstname, editedUser.lastname, editedUser.o_id, editedUser.role, editedUser.username, empId], function (errorMakingQuery, result) {
+            let queryText = 'UPDATE "users" SET "e_id" = $1, "firstname" = $2, "lastname" = $3, "o_id" = $4, "role" = $5, "username" = $6, "email" = $7 WHERE "e_id" = $8;';
+            db.query(queryText, [editedUser.e_id, editedUser.firstname, editedUser.lastname, editedUser.o_id, editedUser.role, editedUser.username, editedUser.email, empId], function (errorMakingQuery, result) {
                 // We have received an error or result at this point
                 done(); // pool +1
                 if (errorMakingQuery) {
