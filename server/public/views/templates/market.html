@@ -35,9 +35,7 @@
     <div layout="row">
         <div flex map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="{{vm.googleMapsUrl}}">
             <ng-map center="44.9778,-93.2650" zoom="10">
-                <div ng-repeat="item in vm.marketData.properties">
-                    <marker position="[{{item.X}},{{item.Y}}]" icon="{{vm.marker}}" id="{{item.X}}" />
-                </div>
+                    <marker ng-repeat="item in vm.marketData.properties track by item.id" position="[{{item.X}},{{item.Y}}]" icon="{{item.marker}}"  on-click="vm.click(item.Submarket)"></marker>
             </ng-map>
         </div>
     </div>

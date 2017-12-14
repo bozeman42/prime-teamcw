@@ -14,6 +14,7 @@ myApp.service('DataService', function ($http, $location, $q) {
     self.getAllProperties = function() {
         // get the cache data instead of doing another call to the server
         if (self.data.allProperties) {
+            console.log('Returning properties from cache');
             return $q(function (resolve, reject) {
                 resolve(self.data.allProperties);
             });
@@ -58,9 +59,9 @@ myApp.service('DataService', function ($http, $location, $q) {
         })
     }
 
+    //Return properties for market page map
     self.getMarketPropertyData = function (value) {
-        let coords = [];
-        $http.get(`/data/marketproperties?year=${value.year}&quarter=${value.quarter}&market=${value.market}`).then(function (response) {
+        return $http.get(`/data/marketproperties?year=${value.year}&quarter=${value.quarter}&market=${value.market}`).then(function (response) {
             self.data.properties = response.data;
             console.log('Success', self.data.properties);
         }).catch(function (err) {

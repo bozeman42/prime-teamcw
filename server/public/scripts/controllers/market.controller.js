@@ -8,6 +8,7 @@ myApp.controller('MarketController', function (NgMap, DataService) {
         quarter: location.hash.split('/')[4],
     }
 
+    //Google Maps markers
     self.marker = {
         path: google.maps.SymbolPath.CIRCLE,
         fillColor: 'red',
@@ -16,6 +17,42 @@ myApp.controller('MarketController', function (NgMap, DataService) {
         strokeWeight: 1,
         strokeColor: 'white'
     }
+
+    //Color options of Google Maps marker based on class
+    self.locationColor = {
+        'Class A': 'green',
+        'Class B': 'yellow',
+        'Class C': 'red',
+    }
+
+    //Dynamically places color on Google maps marker
+    self.customMarker = function (location) {
+        return Object.assign(self.marker, {fillColor: self.locationColor[location.Class] || 'red'})
+    }
+
+    //Click event on Google maps markers
+    self.click = function (event, submarket) {
+        let year = (new Date()).getFullYear();
+        let month = (new Date()).getMonth() + 1;
+        let quarter;
+        function calcQuarter(){
+            if(month < 4){
+                quarter = 4
+            } else if(month > 3 && month < 7){
+                quarter = 1
+            } else if(month > 6 && month < 10){
+                quarter = 2
+            } else if(month > 9){
+                quarter = 3
+            }
+        }
+        calcQuarter();
+
+        // self.property = self.allProperties.filter(function(item){
+        //     return item.X === id;
+        // })[0];
+        $location.path(`/market/${submarket}/${year}/${quarter}`);
+    };
 
     self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY'
     NgMap.getMap().then(function (map) {
@@ -39,7 +76,11 @@ myApp.controller('MarketController', function (NgMap, DataService) {
     }
 
     self.getMarketData = function(value){
-        DataService.getMarketData(value).then(function(){
+        DataService.getMarketData(value).then(function(properties){
+            self.marketData.properties.map(function (property, index) {
+                return Object.assign(property, {marker: Object.assign({}, self.marker, {fillColor: self.locationColor[property.Class] || 'red'})}, {id: '' + index});
+            });
+
             let ctx = document.getElementById("inventoryChart").getContext("2d");
             let inventoryChart = new Chart(ctx, {
                 type: 'doughnut',
@@ -205,7 +246,11 @@ myApp.controller('MarketController', function (NgMap, DataService) {
     }
 
     self.getMarketPropertyData = function(value) {
-        DataService.getMarketPropertyData(value);
+        DataService.getMarketPropertyData(value).then(function(properties){
+            self.marketData.properties.map(function (property, index) {
+                return Object.assign(property, {marker: Object.assign({}, self.marker, {fillColor: self.locationColor[property.Class] || 'red'})}, {id: '' + index});
+            });
+        })
     }
 
     self.pageLoad = function(value){
