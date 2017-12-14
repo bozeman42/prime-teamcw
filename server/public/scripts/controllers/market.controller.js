@@ -8,15 +8,13 @@ myApp.controller('MarketController', function (NgMap, DataService) {
         quarter: location.hash.split('/')[4],
     }
 
-    self.marker = function(){
-        return {
+    self.marker = {
         path: google.maps.SymbolPath.CIRCLE,
         fillColor: 'red',
         fillOpacity: .4,
         scale: 4.5,
         strokeWeight: 1,
         strokeColor: 'white'
-        }
     }
 
     self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY'

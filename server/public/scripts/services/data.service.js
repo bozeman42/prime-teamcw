@@ -52,12 +52,9 @@ myApp.service('DataService', function ($http, $location) {
 
     self.getMarketPropertyData = function (value) {
         let coords = [];
-        //Properties locations for map       
-        $http.get(`/data/properties?year=${value.year}&quarter=${value.quarter}&market=${value.market}`).then(function (response) {
-            response.data.forEach(function (item) {
-                coords.push([item.X, item.Y]);
-            })
-            self.data.properties = coords;
+        $http.get(`/data/marketproperties?year=${value.year}&quarter=${value.quarter}&market=${value.market}`).then(function (response) {
+            self.data.properties = response.data;
+            console.log('Success', self.data.properties);
         }).catch(function (err) {
             console.log('Error retrieving property data', err)
         })

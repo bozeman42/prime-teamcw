@@ -29,7 +29,9 @@ router.get('/properties/all', function (req, res) {
       FROM "dbo_RPRT_Property"
       JOIN "dbo_RPRT_Dataset"
       ON "dbo_RPRT_Property"."Report_Dataset_ID" = "dbo_RPRT_Dataset"."Report_Dataset_ID"
-      WHERE "dbo_RPRT_Dataset"."Period_Year" = 2017;`
+      WHERE "dbo_RPRT_Dataset"."Period_Year" = 2017
+      AND SUBSTRING("dbo_RPRT_Dataset"."Dataset_Label",1,1) = '3'
+      ;`
       db.query(queryText, function (errorMakingQuery, result) {
         done();
         if (errorMakingQuery) {
@@ -150,7 +152,7 @@ router.get('/vacancy', function (req, res) {
   });//end of pool
 });
 
-router.get('/properties', function (req, res) {
+router.get('/marketproperties', function (req, res) {
   let year = req.query.year;
   let quarter = req.query.quarter;
   let market = req.query.market;
