@@ -1,4 +1,4 @@
-myApp.service('DataService', function ($http, $location) {
+myApp.service('DataService', function ($http, $location, $q) {
     console.log('DataService Loaded');
     var self = this;
     self.data = {
@@ -12,12 +12,20 @@ myApp.service('DataService', function ($http, $location) {
 
     //Retrieve all properties
     self.getAllProperties = function() {
+        // get the cache data instead of doing another call to the server
+        if (self.data.allProperties) {
+            return $q(function (resolve, reject) {
+                resolve(self.data.allProperties);
+            });
+        }
+
         return $http.get('/data/properties/all').then(function(response){
             self.data.allProperties = response.data;
             console.log('Succesfully retrieved ALL properties', self.data.allProperties);
+            return response.data;
         }).catch(function(err){
             console.log('Error retrieving all properties', err);
-        })
+        });
     }
 
     //Retrieve data for table and inventory on Market Page
