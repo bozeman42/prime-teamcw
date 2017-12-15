@@ -1,4 +1,4 @@
-myApp.controller('MarketController', function (NgMap, DataService) {
+myApp.controller('MarketController', function (NgMap, DataService, $location) {
     console.log('MarketController created');
     var self = this;
     self.marketData = DataService.data;
@@ -38,7 +38,7 @@ myApp.controller('MarketController', function (NgMap, DataService) {
     }
 
     //Click event on Google maps markers
-    self.click = function (event, submarket) {
+    self.click = function (event, item) {
         let year = (new Date()).getFullYear();
         let month = (new Date()).getMonth() + 1;
         let quarter;
@@ -54,11 +54,7 @@ myApp.controller('MarketController', function (NgMap, DataService) {
             }
         }
         calcQuarter();
-
-        // self.property = self.allProperties.filter(function(item){
-        //     return item.X === id;
-        // })[0];
-        $location.path(`/market/${submarket}/${year}/${quarter}`);
+        $location.path(`/property/${encodeURIComponent(item.Submarket)}/${item.State}/${year}/${quarter}/${item.Property_Id}`);
     };
 
     self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY'

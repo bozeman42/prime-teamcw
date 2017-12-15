@@ -16,6 +16,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
             templateUrl: '/views/templates/market.html',
             controller: 'MarketController as vm',
         })
+        .when('/property/:state/:market/:year/:quarter/:id', {
+            templateUrl: '/views/templates/property.html',
+            controller: 'PropertyController as vm',
+        })
         .when('/login', {
             templateUrl: '/views/templates/login.html',
             controller: 'LoginController as lc',
