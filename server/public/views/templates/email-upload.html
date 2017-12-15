@@ -1,7 +1,7 @@
 <div class="container">
     <h1 class="lead">Upload Email Contacts</h1>
     <a href="">Download Email CSV Template</a>
-    <form ng-submit="vm.dataUpload()">
+    <form ng-submit="vm.emailUpload()">
         <div nv-file-drop="" uploader="vm.uploader" style="border: 5px dashed grey; padding: 20px; width: 400px">
             <label for="officeName">Upload CSV</label>
             <input type="file" name="emailCSV" nv-file-select options="vm.es.uploaderOptions" uploader="vm.uploader" accept=".csv"/>
@@ -35,7 +35,7 @@
                     Garrett</p>
         </div>
         <div>
-            <input class="btn btn-default" type="submit" name="submit" ng-submit="" value="Submit Email CSV" />
+            <input class="btn btn-default" type="submit" name="submit" value="Submit Email CSV" />
         </div>
     </form>
 </div>
