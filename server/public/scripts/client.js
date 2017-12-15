@@ -42,6 +42,15 @@ myApp.config(function ($routeProvider, $locationProvider) {
                 }
             }
         })
+        .when('/data-upload',{
+            templateUrl: '/views/templates/data-upload.html',
+            controller: 'DataUploadController as vm',
+            resolve: {
+                getuser: function (UserService) {
+                    return UserService.getuser();
+                }
+            }
+        })
         .when('/office', {
             templateUrl: '/views/templates/office.html',
             controller: 'OfficeController as vm',

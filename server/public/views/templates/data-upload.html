@@ -1,0 +1,13 @@
+<div class="container">
+    <h1 class="lead">Upload Property Data</h1>
+    <a href="">Download Property Data CSV Template</a>
+    <form ng-submit="vm.dataUpload()">
+        <div nv-file-drop="" uploader="vm.uploader" style="border: 5px dashed grey; padding: 20px; width: 400px">
+            <label for="officeName">Upload CSV</label>
+            <input type="file" name="dataCSV" nv-file-select options="vm.uploaderOptions" uploader="vm.uploader" accept=".csv" />
+        </div>
+        <div>
+            <input class="btn btn-default" type="submit" name="submit" value="Submit Email CSV" />
+        </div>
+    </form>
+</div>

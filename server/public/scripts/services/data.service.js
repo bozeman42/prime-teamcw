@@ -11,8 +11,25 @@ myApp.service('DataService', function ($http, $location, $q) {
         markets: '',
         property: ''
     };
+    
     self.userObject = {};
 
+    self.uploaderOptions = {
+        url: '/data/csv/',
+        onSuccess: function(response, status, headers) {
+            console.log('data uploaded');
+        }
+    };
+
+    //Retrieve all properties
+    self.getAllProperties = function() {
+        // get the cache data instead of doing another call to the server
+        if (self.data.allProperties) {
+            return $q(function (resolve, reject) {
+                resolve(self.data.allProperties);
+            });
+        }
+    };
     //Retrieve State Dropdown on Homepage
     self.getStates = function () {
         return $http.get('/data/states').then(function (response) {
@@ -21,7 +38,7 @@ myApp.service('DataService', function ($http, $location, $q) {
         }).catch(function (err) {
             console.log('Error retrieving all states', err);
         });
-    }
+    };
 
     //Retrieve Market Dropdown on Homepage
     self.getMarkets = function (value) {
@@ -31,7 +48,7 @@ myApp.service('DataService', function ($http, $location, $q) {
         }).catch(function (err) {
             console.log('Error retrieving all markets', err);
         });
-    }
+    };
 
     //Retrieve data for table and inventory on Market Page
     self.getMarketData = function (value) {
