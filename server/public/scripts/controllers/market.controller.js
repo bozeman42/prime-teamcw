@@ -1,4 +1,4 @@
-myApp.controller('MarketController', function ($location,NgMap, DataService, EmailService) {
+myApp.controller('MarketController', function ($location, NgMap, DataService, EmailService) {
     console.log('MarketController created');
     var self = this;
     var es = EmailService;
@@ -93,9 +93,9 @@ myApp.controller('MarketController', function ($location,NgMap, DataService, Ema
 
     self.getMarketData = function(value){
         DataService.getMarketData(value).then(function(properties){
-            self.marketData.properties.map(function (property, index) {
-                return Object.assign(property, {marker: Object.assign({}, self.marker, {fillColor: self.locationColor[property.Class] || 'red'})}, {id: '' + index});
-            });
+            // self.marketData.properties.map(function (property, index) {
+            //     return Object.assign(property, {marker: Object.assign({}, self.marker, {fillColor: self.locationColor[property.Class] || 'red'})}, {id: '' + index});
+            // });
 
             let ctx = document.getElementById("inventoryChart").getContext("2d");
             let inventoryChart = new Chart(ctx, {
