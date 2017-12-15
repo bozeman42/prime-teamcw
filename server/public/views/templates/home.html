@@ -1,7 +1,6 @@
 <div class="container">
     <div id="hero">
         <div id="hero-menu">
-            <h1>Home</h1>
             <h3>State</h3>
             <select name="state" id="stateDropdown" placeholder="State" ng-model="vm.state" ng-change="vm.getMarkets(vm.state)">
                 <option ng-repeat="item in vm.data.states" value="{{item.State}}">{{item.State}}</option>
@@ -38,8 +37,8 @@
                     <div style="position: absolute; left: -5000px;" aria-hidden="true">
                         <input type="text" name="b_eb35150d92904da6a2eead60a_2f5c32e273" tabindex="-1" value="">
                     </div>
-                    <div class="clear">
-                        <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+                    <div class="clear"> 
+                        <input style="background-color: rgb(225, 62, 62)" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
                     </div>
                 </div>
             </form>

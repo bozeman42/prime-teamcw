@@ -28,7 +28,8 @@ myApp.controller('HomeController', function (NgMap, DataService, $location) {
             }
         }
         calcQuarter();
-        $location.path(`/market/${state}/${submarket}/${year}/${quarter}`);
+
+        $location.path(`/market/${state}/${encodeURIComponent(submarket)}/${year}/${quarter}`);
     };
 
 });
