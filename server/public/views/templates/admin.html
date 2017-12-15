@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-if="uc.userObject.role === 'owner'">
     <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
     <button class="btn btn-default" ng-click="uc.newUser()">Create New User</button>
     <div>
@@ -10,6 +10,7 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Role</th>
+                <th>Email Address</th>
                 <th>Office</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -22,9 +23,48 @@
                     <td>{{user.firstname}}</td>
                     <td>{{user.lastname}}</td>
                     <td>{{user.role}}</td>
+                    <td>{{user.email}}</td>
                     <td>{{user.o_id}}</td>
                     <td><button type="button" ng-click="uc.editUser(user)">Edit</button></td>
                     <td><button type="button" ng-click="uc.deleteUser(user)">Delete</button></td> 
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container" ng-if="uc.userObject.role === 'admin'">
+    <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
+    <button class="btn btn-default" ng-click="uc.newUser()">Create New User</button>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Role</th>
+                    <th>Email Address</th>
+                    <th>Office</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in uc.users.data">
+                    <td>{{user.e_id}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.firstname}}</td>
+                    <td>{{user.lastname}}</td>
+                    <td>{{user.role}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.o_id}}</td>
+                    <td>
+                        <button type="button" ng-click="uc.editUser(user)" ng-if="user.role === 'intern'||user.username === uc.userObject.userName">Edit</button>
+                    </td>
+                    <td>
+                        <button type="button" ng-click="uc.deleteUser(user)" ng-if="user.role === 'intern'">Delete</button>
+                    </td>
                 </tr>
             </tbody>
         </table>

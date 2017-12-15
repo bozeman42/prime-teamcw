@@ -108,3 +108,12 @@ CREATE TABLE "emails" (
   "office_id" serial references "offices",
   "clicked" BOOLEAN DEFAULT FALSE
 );
+
+CREATE TABLE "dbo_PROP_City" (
+  "City_ID" serial primary key,
+  "City" varchar(80),
+  "Created_User" integer,
+  "Created_Date" date,
+  "Modified_User" integer,
+  "Modified_Date" date
+);

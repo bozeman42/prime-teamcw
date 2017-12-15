@@ -1,4 +1,4 @@
-myApp.controller('LoginController', function ($http, $location, UserService,OfficeService) {
+myApp.controller('LoginController', function ($http, $location, UserService, OfficeService) {
     console.log('LoginController created');
     var vm = this;
     vm.userService = UserService;
@@ -24,7 +24,7 @@ myApp.controller('LoginController', function ($http, $location, UserService,Offi
         } else {
             $http.post('/', vm.user).then(function (response) {
                 if (response.data.username) {
-                    $location.path('/admin'); 
+                    $location.path('/home'); 
                 } else {
                     vm.message = "Please check your login credentials.";
                 }
@@ -38,6 +38,9 @@ myApp.controller('LoginController', function ($http, $location, UserService,Offi
         if (vm.user.username === '' || vm.user.password === '') {
             vm.message = "Choose a username and password!";
         } else {
+            if (vm.user.role == '' || vm.user.role == undefined) {
+                vm.user.role = 'intern'
+            }
             $http.post('/register', vm.user).then(function (response) {
                 $location.path('/admin');
             }).catch(function (response) {

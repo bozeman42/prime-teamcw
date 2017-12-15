@@ -1,87 +1,178 @@
-<div class="container">
-    <div ng-hide="lc.userService.editingUser">
-    <h1 class="lead">Create New User</h1>
-    <h2 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
-        <form ng-submit="lc.registerUser()">
-            <div>
-                <label for="e_id">Employee ID:</label>
-                <input type="text" ng-model="lc.user.e_id" />
-            </div>
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" ng-model="lc.user.username" />
-            </div>
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" ng-model="lc.user.password" />
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" ng-model="lc.user.email" />
-            </div>
-            <div>
-                <label for="firstname">First Name:</label>
-                <input type="text" ng-model="lc.user.firstname" />
-            </div>
-            <div>
-                <label for="lastname">Last Name:</label>
-                <input type="text" ng-model="lc.user.lastname" />
-            </div>
-            <div>
-              <select ng-model="lc.user.o_id" ng-options="office.office_id as office.office for office in lc.officeData.offices track by office.office_id" required>
-                  <option value="">Select an office...</option>
-              </select>  
-            </div>
-            <div>
-                <input type="radio" ng-model="lc.user.role" value="intern" />
-                <label for="role">Intern</label>
-                <input type="radio" ng-model="lc.user.role" value="admin" />
-                <label for="role">Admin</label>
-                <span ng-hide="lc.superuser">
-                <input type="radio" ng-model="lc.user.role" value="owner" />
-                <label for="role">Owner</label>
-                </span>
-            </div>
-            <input class="btn btn-default" type="submit" name="submit" value="Register" />
-            <a href="#/admin">Cancel</a>
-        </form>
-    </div>
-    <div ng-show="lc.userService.editingUser">
-        <h1 class="lead">Edit User</h1>
-        <form ng-submit="lc.userService.saveUserEdit()">
-            <div>
-                <label for="e_id" ng-hide="lc.userService.userToEdit.e_id">Employee ID:</label>
-                <input type="text" ng-hide="lc.userService.userToEdit.e_id" ng-model="lc.userService.userToEdit.e_id" />
-            </div>
-            <div>
-                <label for="username" ng-hide="lc.userService.userToEdit.username">Username:</label>
-                <input type="text" ng-hide="lc.userService.userToEdit.username" ng-model="lc.userService.userToEdit.username" />
-            </div>
-            <div>
-                <label for="firstname">First Name:</label>
-                <input type="text" ng-value="lc.userService.userToEdit.firstname" ng-model="lc.userService.userToEdit.firstname" />
-            </div>
-            <div>
-                <label for="lastname">Last Name:</label>
-                <input type="text" ng-value="lc.userService.userToEdit.lastname" ng-model="lc.userService.userToEdit.lastname" />
-            </div>
-            <div>
-              <select ng-value="lc.userService.userToEdit.o_id"  ng-options="office.office_id as office.office for office in lc.officeData.offices track by office.office_id" ng-model="lc.userService.userToEdit.o_id">
-                  <option value="">Select an office...</option>
-              </select>  
-            </div>
-            <div>
-                <input name="userRole" type="radio" ng-model="lc.userService.userToEdit.role" value="intern" />
-                <label for="role">Intern</label>
-                <input name="userRole" type="radio" ng-model="lc.userService.userToEdit.role" value="admin" />
-                <label for="role">Admin</label>
-                <span ng-hide="lc.superuser">
-                <input name="userRole" type="radio" ng-model="lc.userService.userToEdit.role" value="owner" />
-                <label for="role">Owner</label>
-                </span>
-            </div>
-            <input class="btn btn-default" type="submit" name="submit" value="Save Edit" />
-            <a href="#/admin">Cancel</a>
-        </form>
+<div ng-if="lc.userService.userObject.role === 'owner'">
+    <div class="container">
+        <div ng-hide="lc.userService.editingUser">
+            <h1 class="lead">Create New User</h1>
+            <h2 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
+            <form ng-submit="lc.registerUser()">
+                <div>
+                    <label for="e_id">Employee ID:</label>
+                    <input type="text" ng-model="lc.user.e_id" />
+                </div>
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" ng-model="lc.user.username" />
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" ng-model="lc.user.password" />
+                </div>
+                <div>
+                    <label for="email">Email Address:</label>
+                    <input type="email" ng-model="lc.user.email" />
+                </div>
+                <div>
+                    <label for="firstname">First Name:</label>
+                    <input type="text" ng-model="lc.user.firstname" />
+                </div>
+                <div>
+                    <label for="lastname">Last Name:</label>
+                    <input type="text" ng-model="lc.user.lastname" />
+                </div>
+                <div>
+                    <select ng-model="lc.user.o_id" ng-options="office.office_id as office.office for office in lc.officeData.offices track by office.office_id"
+                        required>
+                        <option value="">Select an office...</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="radio" ng-model="lc.user.role" value="intern" />
+                    <label for="role">Intern</label>
+                    <input type="radio" ng-model="lc.user.role" value="admin" />
+                    <label for="role">Admin</label>
+                    <span ng-hide="lc.superuser">
+                        <input type="radio" ng-model="lc.user.role" value="owner" />
+                        <label for="role">Owner</label>
+                    </span>
+                </div>
+                <input class="btn btn-default" type="submit" name="submit" value="Register" />
+                <a href="#/admin">Cancel</a>
+            </form>
         </div>
+        <div ng-show="lc.userService.editingUser">
+            <h1 class="lead">Edit User</h1>
+            <form ng-submit="lc.userService.saveUserEdit()">
+                <div>
+                    <label for="e_id" ng-hide="lc.userService.userToEdit.e_id">Employee ID:</label>
+                    <input type="text" ng-hide="lc.userService.userToEdit.e_id" ng-model="lc.userService.userToEdit.e_id" />
+                </div>
+                <div>
+                    <label for="username" ng-hide="lc.userService.userToEdit.username">Username:</label>
+                    <input type="text" ng-hide="lc.userService.userToEdit.username" ng-model="lc.userService.userToEdit.username" />
+                </div>
+                <div>
+                    <label for="firstname">First Name:</label>
+                    <input type="text" ng-value="lc.userService.userToEdit.firstname" ng-model="lc.userService.userToEdit.firstname" />
+                </div>
+                <div>
+                    <label for="lastname">Last Name:</label>
+                    <input type="text" ng-value="lc.userService.userToEdit.lastname" ng-model="lc.userService.userToEdit.lastname" />
+                </div>
+                <div>
+                    <label for="email">Email Address:</label>
+                    <input type="text" ng-value="lc.userService.userToEdit.email" ng-model="lc.userService.userToEdit.email" />
+                </div>
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" ng-value="lc.userService.userToEdit.username" ng-model="lc.userService.userToEdit.username" />
+                </div>
+                <div>
+                    <select ng-value="lc.userService.userToEdit.o_id" ng-options="office.office_id as office.office for office in lc.officeData.offices track by office.office_id"
+                        ng-model="lc.userService.userToEdit.o_id">
+                        <option value="">Select an office...</option>
+                    </select>
+                </div>
+                <div>
+                    <input name="userRole" type="radio" ng-model="lc.userService.userToEdit.role" value="intern" />
+                    <label for="role">Intern</label>
+                    <input name="userRole" type="radio" ng-model="lc.userService.userToEdit.role" value="admin" />
+                    <label for="role">Admin</label>
+                    <span ng-hide="lc.superuser">
+                        <input name="userRole" type="radio" ng-model="lc.userService.userToEdit.role" value="owner" />
+                        <label for="role">Owner</label>
+                    </span>
+                </div>
+                <input class="btn btn-default" type="submit" name="submit" value="Save Edit" />
+                <a href="#/admin">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+<div ng-if="lc.userService.userObject.role === 'admin'">
+    <div class="container">
+        <div ng-hide="lc.userService.editingUser">
+            <h1 class="lead">Create New Intern</h1>
+            <h2 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
+            <form ng-submit="lc.registerUser()">
+                <div>
+                    <label for="e_id">Employee ID:</label>
+                    <input type="text" ng-model="lc.user.e_id" />
+                </div>
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" ng-model="lc.user.username" />
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" ng-model="lc.user.password" />
+                </div>
+                <div>
+                    <label for="email">Email Address:</label>
+                    <input type="email" ng-model="lc.user.email" />
+                </div>
+                <div>
+                    <label for="firstname">First Name:</label>
+                    <input type="text" ng-model="lc.user.firstname" />
+                </div>
+                <div>
+                    <label for="lastname">Last Name:</label>
+                    <input type="text" ng-model="lc.user.lastname" />
+                </div>
+                <div>
+                    <select ng-model="lc.user.o_id" ng-options="office.office_id as office.office for office in lc.officeData.offices track by office.office_id"
+                        required>
+                        <option value="">Select an office...</option>
+                    </select>
+                </div>
+                <input class="btn btn-default" type="submit" name="submit" value="Register" />
+                <a href="#/admin">Cancel</a>
+            </form>
+        </div>
+        <div ng-show="lc.userService.editingUser">
+            <h1 class="lead">Edit Intern</h1>
+            <form ng-submit="lc.userService.saveUserEdit()">
+                <div>
+                    <label for="e_id" ng-hide="lc.userService.userToEdit.e_id">Employee ID:</label>
+                    <input type="text" ng-hide="lc.userService.userToEdit.e_id" ng-model="lc.userService.userToEdit.e_id" />
+                </div>
+                <div>
+                    <label for="username" ng-hide="lc.userService.userToEdit.username">Username:</label>
+                    <input type="text" ng-hide="lc.userService.userToEdit.username" ng-model="lc.userService.userToEdit.username" />
+                </div>
+                <div>
+                    <label for="firstname">First Name:</label>
+                    <input type="text" ng-value="lc.userService.userToEdit.firstname" ng-model="lc.userService.userToEdit.firstname" />
+                </div>
+                <div>
+                    <label for="lastname">Last Name:</label>
+                    <input type="text" ng-value="lc.userService.userToEdit.lastname" ng-model="lc.userService.userToEdit.lastname" />
+                </div>
+                <div>
+                    <label for="email">Email Address:</label>
+                    <input type="text" ng-value="lc.userService.userToEdit.email" ng-model="lc.userService.userToEdit.email" />
+                </div>
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" ng-value="lc.userService.userToEdit.username" ng-model="lc.userService.userToEdit.username" />
+                </div>
+                <div>
+                    <select ng-value="lc.userService.userToEdit.o_id" ng-options="office.office_id as office.office for office in lc.officeData.offices track by office.office_id"
+                        ng-model="lc.userService.userToEdit.o_id">
+                        <option value="">Select an office...</option>
+                    </select>
+                </div>
+                <input class="btn btn-default" type="submit" name="submit" value="Save Edit" />
+                <a href="#/admin">Cancel</a>
+            </form>
+        </div>
+    </div>
 </div>
