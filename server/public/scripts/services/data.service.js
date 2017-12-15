@@ -8,7 +8,15 @@ myApp.service('DataService', function ($http, $location, $q) {
         properties: '',
         allProperties: ''
     };
+    
     self.userObject = {};
+
+    self.uploaderOptions = {
+        url: '/data/csv/',
+        onSuccess: function(response, status, headers) {
+            console.log('data uploaded');
+        }
+    };
 
     //Retrieve all properties
     self.getAllProperties = function() {
@@ -26,7 +34,7 @@ myApp.service('DataService', function ($http, $location, $q) {
         }).catch(function(err){
             console.log('Error retrieving all properties', err);
         });
-    }
+    };
 
     //Retrieve data for table and inventory on Market Page
     self.getMarketData = function (value) {
