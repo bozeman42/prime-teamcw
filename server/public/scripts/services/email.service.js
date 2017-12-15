@@ -63,5 +63,24 @@ myApp.service('EmailService', function ($http, UploadService) {
             console.log('batch',response);
             self.getContact(response.data.email_id,response.data.index);
         });
-    }
+    };
+
+    self.emailClickthrough = function(eid){
+        var config = {
+            method: 'PUT',
+            url:'/email/track',
+            params: {
+                eid: eid
+            }
+        };
+        return $http(config)
+        .then(function(response){
+            //return the market associated with the email
+            console.log(response.data);
+            return response.data.market;
+        })
+        .catch(function(error){
+            console.log('error in put route',error);
+        });
+    };
 });

@@ -128,5 +128,5 @@ myApp.service('UserService', function ($http, $location) {
         return $http.put('/user/password-reset', {code: code, password: password});
     }
 
-    self.getuser();
+    
 });
