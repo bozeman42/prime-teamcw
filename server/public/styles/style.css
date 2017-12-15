@@ -148,12 +148,22 @@ li a:hover {
     color: #eee;
 }
 
-footer.ng-scope {
+/* footer.ng-scope {
     background-color: lightgrey;
     padding: 0px 10px 5px;
-}
+} */
 
 .employeeLogin {
     float: right;
     font-size: 10px;
 }
+
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+  }

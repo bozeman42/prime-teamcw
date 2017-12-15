@@ -5,7 +5,7 @@ myApp.controller('MarketController', function (NgMap, DataService) {
 
     self.options = {
         state: location.hash.split('/')[2],
-        market: location.hash.split('/')[3],
+        market: decodeURIComponent(location.hash.split('/')[3]),
         year: location.hash.split('/')[4],
         quarter: location.hash.split('/')[5],
     }
@@ -19,7 +19,7 @@ myApp.controller('MarketController', function (NgMap, DataService) {
     self.marker = {
         path: google.maps.SymbolPath.CIRCLE,
         fillColor: 'red',
-        fillOpacity: .4,
+        fillOpacity: 1,
         scale: 4.5,
         strokeWeight: 1,
         strokeColor: 'white'
@@ -27,9 +27,9 @@ myApp.controller('MarketController', function (NgMap, DataService) {
 
     //Color options of Google Maps marker based on class
     self.locationColor = {
-        'Class A': 'green',
-        'Class B': 'yellow',
-        'Class C': 'red',
+        'Class A': '#003865',
+        'Class B': '#9bd3dd',
+        'Class C': '#b5bd00',
     }
 
     //Dynamically places color on Google maps marker
