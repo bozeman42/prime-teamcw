@@ -8,11 +8,11 @@ myApp.controller('MarketController', function (NgMap, DataService, $location) {
         market: decodeURIComponent(location.hash.split('/')[3]),
         year: location.hash.split('/')[4],
         quarter: location.hash.split('/')[5],
-    }
+    };
 
     self.getMarkets = function(state) {
         DataService.getMarkets(state);
-    }
+    };
     self.getMarkets(self.options.state);
 
     //Google Maps markers
@@ -23,19 +23,19 @@ myApp.controller('MarketController', function (NgMap, DataService, $location) {
         scale: 4.5,
         strokeWeight: 1,
         strokeColor: 'white'
-    }
+    };
 
     //Color options of Google Maps marker based on class
     self.locationColor = {
         'Class A': '#003865',
         'Class B': '#9bd3dd',
         'Class C': '#b5bd00',
-    }
+    };
 
     //Dynamically places color on Google maps marker
     self.customMarker = function (location) {
         return Object.assign(self.marker, {fillColor: self.locationColor[location.Class] || 'red'})
-    }
+    };
 
     //Click event on Google maps markers
     self.click = function (event, item) {
@@ -76,7 +76,7 @@ myApp.controller('MarketController', function (NgMap, DataService, $location) {
         self.getAbsorptionData(value);
         self.getVacancyData(value);
         self.getMarketPropertyData(value);
-    }
+    };
 
     self.getMarketData = function(value){
         DataService.getMarketData(value).then(function(properties){
@@ -94,9 +94,9 @@ myApp.controller('MarketController', function (NgMap, DataService, $location) {
                     }],
                     labels: self.marketData.data.map(item => item.Class),
                 }
-            })
-        })
-    }
+            });
+        });
+    };
 
     self.getAbsorptionData = function(value){
         DataService.getAbsorptionData(value).then(function(){

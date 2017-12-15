@@ -28,6 +28,7 @@ myApp.service('DataService', function ($http, $location, $q) {
                 resolve(self.data.allProperties);
             });
         }
+    };
     //Retrieve State Dropdown on Homepage
     self.getStates = function () {
         return $http.get('/data/states').then(function (response) {
@@ -36,7 +37,7 @@ myApp.service('DataService', function ($http, $location, $q) {
         }).catch(function (err) {
             console.log('Error retrieving all states', err);
         });
-    }
+    };
 
     //Retrieve Market Dropdown on Homepage
     self.getMarkets = function (value) {
