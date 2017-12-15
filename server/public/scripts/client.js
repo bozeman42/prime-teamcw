@@ -22,19 +22,19 @@ myApp.config(function ($routeProvider, $locationProvider) {
         })
         .when('/register', {
             templateUrl: '/views/templates/register.html',
-            controller: 'LoginController as lc'
-            // resolve: {
-            //     getuser: function (UserService) {
-            //         return UserService.getuser();
-            //     }
-            // }
+            controller: 'LoginController as lc',
+            resolve: {
+                getuser: function (UserService) {
+                    return UserService.getadmin();
+                }
+            }
         })
         .when('/admin', {
             templateUrl: '/views/templates/admin.html',
             controller: 'UserController as uc',
             resolve: {
                 getuser: function (UserService) {
-                    return UserService.getuser();
+                    return UserService.getadmin();
                 }
             }
         })
@@ -43,7 +43,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
             controller: 'OfficeController as vm',
             resolve: {
                 getuser: function (UserService) {
-                    return UserService.getuser();
+                    return UserService.getowner();
                 }
             }
         })
@@ -52,7 +52,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
             controller: 'OfficeController as vm',
             resolve: {
                 getuser: function (UserService) {
-                    return UserService.getuser();
+                    return UserService.getowner();
                 }
             }
         })
@@ -85,7 +85,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
         })
         .when('/forgot-password', {
             templateUrl: '/views/templates/forgot-password.html',
-            controller: 'UserController as vm',
+            controller: 'UserController as vm'
         })
         // www.domain.com/password-reset/123asdfa3f
         .when('/password-reset/:code', {
