@@ -32,6 +32,31 @@ html {
     box-shadow: 0px -1px 1px #a7a8aa;
 } */
 
+#hero {
+    background-image: url('images/heroimage.jpeg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 70vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+    padding: 0 20px;
+}
+
+#hero-menu {
+    padding: 10px 20px;
+    height: 70%;
+    width: 20%;
+    min-width:400px;
+    box-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
+    background-color: rgba(255, 255, 255, .8);
+    border-radius: 3px;
+}
+
 table {
     width: 100%;
     border: 1px solid rgba(0,0,0,.24);
@@ -123,12 +148,22 @@ li a:hover {
     color: #eee;
 }
 
-footer.ng-scope {
+/* footer.ng-scope {
     background-color: lightgrey;
     padding: 0px 10px 5px;
-}
+} */
 
 .employeeLogin {
     float: right;
     font-size: 10px;
 }
+
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+  }

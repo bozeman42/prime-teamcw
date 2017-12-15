@@ -21,7 +21,43 @@ myApp.service('UserService', function ($http, $location) {
             console.log('UserService -- getuser -- failure: ', response);
             $location.path("/home");
         });
-    },
+    }
+
+    self.getadmin = function () {
+        $http.get('/user/admin').then(function (response) {
+            if (response.data.username) {
+                // user has a current session on the server
+                console.log(response.data);
+                self.userObject.userName = response.data.username;
+                self.userObject.role = response.data.role;
+            } else {
+                console.log('UserService -- getuser -- failure');
+                // user has no session, bounce them back to the login page
+                $location.path("/home");
+            }
+        }, function (response) {
+            console.log('UserService -- getuser -- failure: ', response);
+            $location.path("/home");
+        });
+    }
+
+    self.getowner = function () {
+        $http.get('/user/owner').then(function (response) {
+            if (response.data.username) {
+                // user has a current session on the server
+                console.log(response.data);
+                self.userObject.userName = response.data.username;
+                self.userObject.role = response.data.role;
+            } else {
+                console.log('UserService -- getuser -- failure');
+                // user has no session, bounce them back to the login page
+                $location.path("/home");
+            }
+        }, function (response) {
+            console.log('UserService -- getuser -- failure: ', response);
+            $location.path("/home");
+        });
+    }
 
     self.logout = function () {
         console.log('UserService -- logout');
@@ -54,7 +90,8 @@ myApp.service('UserService', function ($http, $location) {
         o_id: null,
         role: '',
         username: '',
-        employeeId: ''
+        employeeId: '',
+        email: ''
     }
 //how to create superuser without register
     self.editUser = function (user) {
@@ -66,7 +103,8 @@ myApp.service('UserService', function ($http, $location) {
             o_id: user.o_id,
             role: user.role,
             username: user.username,
-            employeeId: user.e_id
+            employeeId: user.e_id,
+            email: user.email
         }
         console.log(self.userToEdit);
         self.editingUser = true;
