@@ -25,14 +25,6 @@ INSERT INTO "offices" (
   "office") VALUES (
   'Minneapolis');
 
-CREATE TABLE "email_batch" (
-	"batch_id" SERIAL PRIMARY KEY,
-	"file_name" VARCHAR(200),
-	"date" TIMESTAMP,
-	"user_id" SERIAL REFERENCES "users",
-	"office_id" SERIAL REFERENCES "offices"
-);
-
   CREATE TABLE "dbo_RPRT_Dataset" (
     "Report_Dataset_ID" integer NOT NULL,
     "Dataset_ID" integer,
@@ -93,6 +85,14 @@ CREATE TABLE "dbo_RPRT_Property" (
     "Construction" numeric,
     "IsInAbsorptionCalculation" boolean,
     "TenancyTypeId" integer
+);
+
+CREATE TABLE "email_batch" (
+	"batch_id" SERIAL PRIMARY KEY,
+	"file_name" VARCHAR(200),
+	"date" TIMESTAMP,
+	"user_id" SERIAL REFERENCES "users",
+	"office_id" SERIAL REFERENCES "offices"
 );
 
 CREATE TABLE "emails" (

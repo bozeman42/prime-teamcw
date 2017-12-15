@@ -293,6 +293,9 @@ function storeDataCSV(dataInfo) {
     let user = dataInfo.user;
     let batchId = dataInfo.batchId;
     data.forEach((property) => {
+      if (success){
+
+      }
       pool.connect(function (errorConnecting, db, done) {
         if (errorConnecting) {
           console.log('Error connecting', errorConnecting);
@@ -356,11 +359,10 @@ function storeDataCSV(dataInfo) {
           ], function (errorMakingQuery, result) {
             done();
             if (errorMakingQuery) {
-              console.log('error making query', errorMakingQuery);
+              success = false;
+              console.log('Error making property database entries',errorMakingQuery);
               console.log('error with this property:',property);
               reject(errorMakingQuery);
-            } else {
-
             }
           });
         }

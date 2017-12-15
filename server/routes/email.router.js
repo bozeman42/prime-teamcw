@@ -242,7 +242,7 @@ function storeEmailCSV(dataInfo) {
           ], function (errorMakingQuery, result) {
             done();
             if (errorMakingQuery) {
-              console.log('error making query', errorMakingQuery);
+              console.log('error making email entry query', errorMakingQuery);
               reject(errorMakingQuery);
             } else {
 
