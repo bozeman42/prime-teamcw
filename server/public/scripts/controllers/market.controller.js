@@ -1,6 +1,7 @@
-myApp.controller('MarketController', function (NgMap, DataService, $location) {
+myApp.controller('MarketController', function ($location,NgMap, DataService, EmailService) {
     console.log('MarketController created');
     var self = this;
+    var es = EmailService;
     self.marketData = DataService.data;
 
     self.options = {
@@ -72,10 +73,22 @@ myApp.controller('MarketController', function (NgMap, DataService, $location) {
     };
 
     self.searchData = function(value) {
+        DataService.searchData(value);
         self.getMarketData(value);
         self.getAbsorptionData(value);
         self.getVacancyData(value);
         self.getMarketPropertyData(value);
+    };
+
+    self.emailTrack = function(){
+        var queries = $location.search();
+        
+        if (queries.hasOwnProperty('eid')){
+            console.log('eid',queries.eid);
+            es.emailClickthrough(queries.eid);
+        } else {
+            console.log('no eid');
+        }
     };
 
     self.getMarketData = function(value){
@@ -165,6 +178,11 @@ myApp.controller('MarketController', function (NgMap, DataService, $location) {
         })
     }
 
+    // self.getAbsorption = function() {
+    //     DataService.getAbsorption();
+    // }
+    // self.getAbsorption();
+    self.emailTrack();
     self.getVacancyData = function(value) {
         DataService.getVacancyData(value).then(function(){
             let ctx = document.getElementById("vacancyChart").getContext("2d");

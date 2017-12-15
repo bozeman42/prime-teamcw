@@ -125,6 +125,33 @@ router.get('/single/', function (req, res) {
 
 });
 
+router.put('/track/',function(req,res){
+    var eid = req.query.eid;
+    console.log('eid',eid);
+    pool.connect(function (errorConnecting, db, done) {
+        if (errorConnecting) {
+            console.log("error connecting",errorConnecting);
+            res.sendStatus(500);
+        } else {
+            var queryText = 'UPDATE "emails" SET "click_through" = TRUE WHERE "email_id" = $1 RETURNING "market";';
+            db.query(queryText, [
+                eid
+            ], function (errorMakingQuery, result) {
+                done();
+                if (errorMakingQuery) {
+                    console.log('error making query',errorMakingQuery);
+                    res.sendStatus(500);
+                } else {
+                    res.send({
+                        market: result.rows[0].market
+                    });
+                }
+            });
+        }
+    }); //end of pool
+});
+
+
 function createBatch(dataInfo) {
   return new Promise((resolve, reject) => {
     pool.connect(function (errorConnecting, db, done) {
@@ -148,6 +175,7 @@ function createBatch(dataInfo) {
     }); //end of pool
   });
 }
+
 
 function processContactCSV(dataInfo) {
   return new Promise((resolve, reject) => {
