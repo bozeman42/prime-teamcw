@@ -179,6 +179,8 @@ router.get('/marketproperties', function (req, res) {
     } else {
       //select owner, pet, breed, color, checkin, and checkout
       var queryText = `SELECT "dbo_RPRT_Property"."Property_SubType" as "Class",
+        "dbo_RPRT_Property"."Report_Property_ID" as "Property_Id",
+        "dbo_RPRT_Property"."Submarket" as "Submarket",
         ("dbo_RPRT_Property"."Building_Size") as "NRA", 
         ("dbo_RPRT_Property"."Squarefeet_Vacant") as "Vacant_Space", 
         ("dbo_RPRT_Property"."Squarefeet_Sublease") as "Sublease_Space",
