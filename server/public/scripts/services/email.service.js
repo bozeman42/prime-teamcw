@@ -41,11 +41,11 @@ myApp.service('EmailService', function ($http, UploadService) {
         console.log('single record config',config);
         return $http.get('/email/single/', config)
         .then(function(response){
-            console.log('single email refresh',response)
+            console.log('single email refresh',response);
             
             self.data.contacts[response.data.index] = response.data.contact;
         });
-    }
+    };
 
     self.clickEmailLink = function(contact,index){
         console.log(contact);

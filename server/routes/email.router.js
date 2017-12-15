@@ -21,7 +21,7 @@ router.get('/', function (req, res) {
       db.query(queryText, [
         batchId
       ], function (errorMakingQuery, result) {
-        console.log('used this batchId', batchId)
+        console.log('used this batchId', batchId);
         done();
         if (errorMakingQuery) {
           console.log('error making query', errorMakingQuery);
