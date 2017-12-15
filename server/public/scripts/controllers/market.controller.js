@@ -54,22 +54,15 @@ myApp.controller('MarketController', function (NgMap, DataService, $location) {
             }
         }
         calcQuarter();
-        $location.path(`/property/${encodeURIComponent(item.Submarket)}/${item.State}/${year}/${quarter}/${item.Property_Id}`);
+        $location.path(`/property/${item.State}/${encodeURIComponent(item.Submarket)}/${year}/${quarter}/${item.Property_Id}`);
     };
 
-    self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY'
+    self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY';
     NgMap.getMap().then(function (map) {
         console.log(map.getCenter());
         console.log('markers', map.markers);
         console.log('shapes', map.shapes);
     })
-
-    self.onMapOverlayCompleted = function (e) {
-        if (e.type == google.maps.drawing.OverlayType.MARKER) {
-            var pos = e.overlay.getPosition();
-            alert(pos.toString());
-        }
-    };
 
     self.searchData = function(value) {
         self.getMarketData(value);
@@ -79,11 +72,7 @@ myApp.controller('MarketController', function (NgMap, DataService, $location) {
     }
 
     self.getMarketData = function(value){
-        DataService.getMarketData(value).then(function(properties){
-            self.marketData.properties.map(function (property, index) {
-                return Object.assign(property, {marker: Object.assign({}, self.marker, {fillColor: self.locationColor[property.Class] || 'red'})}, {id: '' + index});
-            });
-
+        DataService.getMarketData(value).then(function(){
             let ctx = document.getElementById("inventoryChart").getContext("2d");
             let inventoryChart = new Chart(ctx, {
                 type: 'doughnut',

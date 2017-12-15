@@ -8,7 +8,8 @@ myApp.service('DataService', function ($http, $location, $q) {
         properties: '',
         allProperties: '',
         states: '',
-        markets: ''
+        markets: '',
+        property: ''
     };
     self.userObject = {};
 
@@ -34,7 +35,6 @@ myApp.service('DataService', function ($http, $location, $q) {
 
     //Retrieve data for table and inventory on Market Page
     self.getMarketData = function (value) {
-        console.log('THIS IS THE MARKET DATA VALUE', value)
         return $http.get(`/data/all?state=${value.state}&year=${value.year}&quarter=${value.quarter}&market=${value.market}`).then(function (response) {
             self.data.data = response.data;
             console.log('Succesfully retrieved market data', response.data);
@@ -68,6 +68,17 @@ myApp.service('DataService', function ($http, $location, $q) {
         return $http.get(`/data/marketproperties?state=${value.state}&year=${value.year}&quarter=${value.quarter}&market=${value.market}`).then(function (response) {
             self.data.properties = response.data;
             console.log('Success', self.data.properties);
+        }).catch(function (err) {
+            console.log('Error retrieving property data', err)
+        })
+    }
+
+    //Return properties for market page map
+    self.getProperty = function (value) {
+        return $http.get(`/data/propertydata?state=${value.state}&year=${value.year}&quarter=${value.quarter}&market=${value.market}&propid=${value.id}`).then(function (response) {
+            console.log(response.data);
+            self.data.property = response.data;
+            console.log('Success', self.data.property);
         }).catch(function (err) {
             console.log('Error retrieving property data', err)
         })
