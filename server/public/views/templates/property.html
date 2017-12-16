@@ -1,3 +1,22 @@
 <div class="container">
-    <h1>Property page</h1>
+    <h1>{{vm.data.property[0].City}}, {{vm.data.property[0].State}}</h1>
+    <h3>{{vm.data.property[0].Address}}</h3>
+    <p>Market: {{vm.data.property[0].Submarket}}</p>
+    <p>Class: {{vm.data.property[0].Class}}</p>
+    <p>Floors: {{vm.data.property[0].Number_Of_Floors}}</p>
+    <p>Year Built: {{vm.data.property[0].Year_Built}}</p>
+    <p>Vacancy: {{vm.data.property[0].Percent_Vacant}}%</p>
+    <p>Rate Low: {{vm.data.property[0].Rate_Low}}</p>
+    <p>Rate High: {{vm.data.property[0].Rate_High}}</p>
+    <p>Square Feet Available: {{vm.data.property[0].Squarefeet_Available}}</p>
+        <div >
+            <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{vm.data.property[0].X}},{{vm.data.property[0].Y}}&zoom=14&size=400x400&key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY"
+                alt="Map">
+        </div>
+        <div >
+            <ng-map zoom="18" center="[{{vm.data.property[0].X}},{{vm.data.property[0].Y}}]" default-style="false" map-type-id="MapTypeId.SATELLITE"tilt="45">
+                <street-view-panorama container="streetview"></street-view-panorama>
+            </ng-map>
+        </div>
+
 </div>

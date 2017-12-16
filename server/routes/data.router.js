@@ -108,7 +108,6 @@ router.get('/absorption', function (req, res) {
       console.log('Error connecting ', errorConnecting);
       res.sendStatus(500);
     } else {
-      //select owner, pet, breed, color, checkin, and checkout
       var queryText = `SELECT "dbo_RPRT_Property"."Property_SubType" as "Class",
         "dbo_RPRT_Dataset"."Period_Year" || '-' || SUBSTRING("dbo_RPRT_Dataset"."Dataset_Label",1,1) as "Time",
         SUM("dbo_RPRT_Property"."Absorption") as "Absorption"
@@ -143,7 +142,6 @@ router.get('/vacancy', function (req, res) {
       console.log('Error connecting ', errorConnecting);
       res.sendStatus(500);
     } else {
-      //select owner, pet, breed, color, checkin, and checkout
       var queryText = `SELECT "dbo_RPRT_Property"."Property_SubType" as "Class",
         "dbo_RPRT_Dataset"."Period_Year" || '-' || SUBSTRING("dbo_RPRT_Dataset"."Dataset_Label",1,1) as "Time",
         (SUM("dbo_RPRT_Property"."Squarefeet_Vacant")/SUM("dbo_RPRT_Property"."Building_Size")*100)::numeric(4,2) as "Squarefeet_Vacant"
@@ -169,6 +167,7 @@ router.get('/vacancy', function (req, res) {
   });//end of pool
 });
 
+//RETRIEVE LIST OF PROPERTIES FOR MARKET PAGE
 router.get('/marketproperties', function (req, res) {
   let state = req.query.state;
   let year = req.query.year;
@@ -179,7 +178,6 @@ router.get('/marketproperties', function (req, res) {
       console.log('Error connecting ', errorConnecting);
       res.sendStatus(500);
     } else {
-      //select owner, pet, breed, color, checkin, and checkout
       var queryText = `SELECT "dbo_RPRT_Property"."Property_SubType" as "Class",
         "dbo_RPRT_Property"."Report_Property_ID" as "Property_Id",
         "dbo_RPRT_Property"."Submarket" as "Submarket",
@@ -215,6 +213,71 @@ router.get('/marketproperties', function (req, res) {
     }
   });//end of pool
 });
+
+//RETRIEVE SPECIFIC PROPERTY DATA FOR PROPERTY PAGE
+router.get('/propertydata', function (req, res) {
+  let state = req.query.state;
+  let year = req.query.year;
+  let quarter = req.query.quarter;
+  let market = req.query.market;
+  let propid = req.query.propid;
+  console.log(state, year, quarter, market, propid);
+  console.log(typeof(state), typeof(propid));
+  pool.connect(function (errorConnecting, db, done) {
+    if (errorConnecting) {
+      console.log('Error connecting ', errorConnecting);
+      res.sendStatus(500);
+    } else {
+      var queryText = `SELECT "dbo_RPRT_Property"."Report_Property_ID",
+      "dbo_RPRT_Property"."Property_SubType" as "Class",
+      "dbo_RPRT_Property"."Year_Built",
+      "dbo_RPRT_Property"."Year_Renovated",
+      "dbo_RPRT_Property"."Building_Size" as "NRA",
+      "dbo_RPRT_Property"."Number_Of_Floors",
+      "dbo_RPRT_Property"."Divisible_Min",
+      "dbo_RPRT_Property"."Divisible_Max",
+      "dbo_RPRT_Property"."Squarefeet_Taxes",
+      "dbo_RPRT_Property"."Squarefeet_OP_Expenses",
+      "dbo_RPRT_Property"."Total_Op_Expenses_Taxes",
+      "dbo_RPRT_Property"."Squarefeet_Available" as "Squarefeet_Available",
+      "dbo_RPRT_Property"."Squarefeet_Vacant" as "Vacant_Space", 
+      "dbo_RPRT_Property"."Squarefeet_Sublease" as "Sublease_Space",
+      (("dbo_RPRT_Property"."Squarefeet_Vacant")/("dbo_RPRT_Property"."Building_Size")*100)::numeric(4,2) as "Percent_Vacant",
+      (("dbo_RPRT_Property"."Squarefeet_Vacant")/("dbo_RPRT_Property"."Building_Size")*100)::numeric(4,2) as "Percent_Vacant_With_Sublease",
+      ("dbo_RPRT_Property"."Absorption") as "Absorption",
+      "dbo_RPRT_Property"."Rate_Low",
+      "dbo_RPRT_Property"."Rate_High",
+      "dbo_RPRT_Property"."X_Coordinate" as "Y",
+      "dbo_RPRT_Property"."Y_Coordinate" as "X",
+      "dbo_PROP_City"."City" as "City",
+      "dbo_RPRT_Property"."Address_1" as "Address",
+      "dbo_RPRT_Property"."State" as "State",
+      "dbo_RPRT_Property"."Submarket"
+      FROM "dbo_RPRT_Property"
+      JOIN "dbo_RPRT_Dataset"
+      ON "dbo_RPRT_Property"."Report_Dataset_ID" = "dbo_RPRT_Dataset"."Report_Dataset_ID"
+      JOIN "dbo_PROP_City"
+      ON "dbo_RPRT_Property"."City_ID" = "dbo_PROP_City"."City_ID"
+      WHERE "dbo_RPRT_Dataset"."Period_Type_ID" = 2
+      AND "dbo_RPRT_Property"."State" = $1 
+      AND "dbo_RPRT_Dataset"."Period_Year" = $2
+      AND SUBSTRING("dbo_RPRT_Dataset"."Dataset_Label",1,1) = $3 
+      AND "dbo_RPRT_Property"."Submarket" = $4
+      AND "dbo_RPRT_Property"."Report_Property_ID" = $5;`
+      db.query(queryText, [state, year, quarter, market, propid], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('errorMakingQuery', errorMakingQuery);
+          res.sendStatus(500);
+        } else {
+          console.log('This is the result:', result);
+          res.send(result.rows);
+        }
+      });
+    }
+  });//end of pool
+});
+
 
 router.post('/csv/', function (req, res) {
   if (req.isAuthenticated) {
