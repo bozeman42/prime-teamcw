@@ -11,12 +11,12 @@
     <div class="row">
         <div class="col-md-12">
             <div class="btn col-md-4 col-xs-4 well propertyClass" ng-repeat="item in vm.marketData.data">
-                <div style="text-align: center; font-size: 40px; font-weight: 300px;">
-                    <strong>{{item.Class}}</strong>
+                <div style="text-align: center; font-size: 40px;">
+                    <strong style="font-weight: 300;">{{item.Class}}</strong>
                 </div>
                 <div class="" style="text-align: center;">
                     # of Buildings<br>
-                    <strong style="font-size: 30px">{{item.Total_Buildings}}</strong>
+                    <strong style="font-size: 30px;">{{item.Total_Buildings}}</strong>
                 </div>
                 <div class="" style="text-align: center;">
                         Average Rate<br>
@@ -47,7 +47,7 @@
                     <th>Avg Rate</th>
                     <th>Total OE & T</th>
                 </tr>
-                <tr ng-repeat="item in vm.marketData.data">
+                <tr ng-repeat="item in vm.marketData.data" style="font-weight: 300;">
                     <td>{{item.Class}}</td>
                     <td>{{item.Total_Buildings}}</td>
                     <td>{{item.NRA}}</td>
@@ -61,7 +61,7 @@
                 </tr>
             </table>
         </div>
-    <div class="row">
+    <div class="row" style="text-align: center;">
         <div class="col-md-12">
         <div class="col-md-4">
             <h3>Inventory Chart</h3>
