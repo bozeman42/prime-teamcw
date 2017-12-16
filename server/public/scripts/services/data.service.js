@@ -8,7 +8,8 @@ myApp.service('DataService', function ($http, $location, $q) {
         properties: '',
         allProperties: '',
         states: '',
-        markets: ''
+        markets: '',
+        property: ''
     };
     
     self.userObject = {};
@@ -89,5 +90,16 @@ myApp.service('DataService', function ($http, $location, $q) {
             console.log('Error retrieving property data', err);
         });
     };
+
+    //Return properties for market page map
+    self.getProperty = function (value) {
+        return $http.get(`/data/propertydata?state=${value.state}&year=${value.year}&quarter=${value.quarter}&market=${value.market}&propid=${value.id}`).then(function (response) {
+            console.log(response.data);
+            self.data.property = response.data;
+            console.log('Success', self.data.property);
+        }).catch(function (err) {
+            console.log('Error retrieving property data', err)
+        })
+    }
 
 });

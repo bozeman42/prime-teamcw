@@ -24,7 +24,7 @@ myApp.controller('LoginController', function ($http, $location, UserService, Off
         } else {
             $http.post('/', vm.user).then(function (response) {
                 if (response.data.username) {
-                    $location.path('/home'); 
+                    $location.path('/admin'); 
                 } else {
                     vm.message = "Please check your login credentials.";
                 }

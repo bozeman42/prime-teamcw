@@ -1,19 +1,19 @@
-myApp.controller('MarketController', function ($location,NgMap, DataService, EmailService) {
+myApp.controller('MarketController', function (NgMap, DataService, $location, UserService) {
     console.log('MarketController created');
     var self = this;
-    var es = EmailService;
     self.marketData = DataService.data;
 
+    UserService.refreshUsers();
     self.options = {
         state: location.hash.split('/')[2],
         market: decodeURIComponent(location.hash.split('/')[3]),
         year: location.hash.split('/')[4],
         quarter: location.hash.split('/')[5],
-    };
+    }
 
     self.getMarkets = function(state) {
         DataService.getMarkets(state);
-    };
+    }
     self.getMarkets(self.options.state);
 
     //Google Maps markers
@@ -24,14 +24,14 @@ myApp.controller('MarketController', function ($location,NgMap, DataService, Ema
         scale: 4.5,
         strokeWeight: 1,
         strokeColor: 'white'
-    };
+    }
 
     //Color options of Google Maps marker based on class
     self.locationColor = {
         'Class A': '#003865',
         'Class B': '#9bd3dd',
         'Class C': '#b5bd00',
-    };
+    }
 
     //Dynamically places color on Google maps marker
     self.customMarker = function (location) {
@@ -55,7 +55,7 @@ myApp.controller('MarketController', function ($location,NgMap, DataService, Ema
             }
         }
         calcQuarter();
-        $location.path(`/property/${encodeURIComponent(item.Submarket)}/${item.State}/${year}/${quarter}/${item.Property_Id}`);
+        $location.path(`/property/${item.State}/${encodeURIComponent(item.Submarket)}/${year}/${quarter}/${item.Property_Id}`);
     };
 
     self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY';
@@ -65,38 +65,15 @@ myApp.controller('MarketController', function ($location,NgMap, DataService, Ema
         console.log('shapes', map.shapes);
     });
 
-    self.onMapOverlayCompleted = function (e) {
-        if (e.type == google.maps.drawing.OverlayType.MARKER) {
-            var pos = e.overlay.getPosition();
-            alert(pos.toString());
-        }
-    };
-
     self.searchData = function(value) {
-        DataService.searchData(value);
         self.getMarketData(value);
         self.getAbsorptionData(value);
         self.getVacancyData(value);
         self.getMarketPropertyData(value);
-    };
-
-    self.emailTrack = function(){
-        var queries = $location.search();
-        
-        if (queries.hasOwnProperty('eid')){
-            console.log('eid',queries.eid);
-            es.emailClickthrough(queries.eid);
-        } else {
-            console.log('no eid');
-        }
-    };
+    }
 
     self.getMarketData = function(value){
-        DataService.getMarketData(value).then(function(properties){
-            self.marketData.properties.map(function (property, index) {
-                return Object.assign(property, {marker: Object.assign({}, self.marker, {fillColor: self.locationColor[property.Class] || 'red'})}, {id: '' + index});
-            });
-
+        DataService.getMarketData(value).then(function(){
             let ctx = document.getElementById("inventoryChart").getContext("2d");
             let inventoryChart = new Chart(ctx, {
                 type: 'doughnut',
@@ -107,9 +84,9 @@ myApp.controller('MarketController', function ($location,NgMap, DataService, Ema
                     }],
                     labels: self.marketData.data.map(item => item.Class),
                 }
-            });
-        });
-    };
+            })
+        })
+    }
 
     self.getAbsorptionData = function(value){
         DataService.getAbsorptionData(value).then(function(){
@@ -178,11 +155,6 @@ myApp.controller('MarketController', function ($location,NgMap, DataService, Ema
         });
     };
 
-    // self.getAbsorption = function() {
-    //     DataService.getAbsorption();
-    // }
-    // self.getAbsorption();
-    self.emailTrack();
     self.getVacancyData = function(value) {
         DataService.getVacancyData(value).then(function(){
             let ctx = document.getElementById("vacancyChart").getContext("2d");
