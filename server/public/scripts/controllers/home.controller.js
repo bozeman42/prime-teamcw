@@ -1,7 +1,9 @@
-myApp.controller('HomeController', function (NgMap, DataService, $location) {
+myApp.controller('HomeController', function (NgMap, DataService, $location, UserService) {
     console.log('HomeController created');
     var self = this;
     self.data = DataService.data;
+
+    UserService.refreshUsers();
 
     self.getStates = function() {
         DataService.getStates();
