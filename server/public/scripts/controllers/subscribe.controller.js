@@ -4,7 +4,7 @@ myApp.controller('SubscribeController', function ($http) {
 
     vm.checkSubs = function() {
         $http.get('/subscribe').then(function(response) {
-        console.log(response.data);
+        console.log(response.data.members);
         })
     }   
 });
