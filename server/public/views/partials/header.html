@@ -1,7 +1,29 @@
 <div class="instructions">
-    <div class="container">
         <div>
-            <a href="#/home"><img src="/styles/images/CW_Logo_Color_resized.png" alt=""></a>
+            <a href="#/home">
+                <img src="/styles/images/CW_Logo_Color_resized.png" alt="">
+            </a>
         </div>
-    </div>
+        <div class="navbar pull-right" ng-controller="NavController as nc">
+                    <ul>
+                        <li>
+                            <a href="#/home">Home</a>
+                        </li>
+                        <!-- <li>
+                            <a href="#/market" >Market Page</a>
+                        </li> -->
+                        <li>
+                            <a href="#/admin" ng-if="nc.user.userObject.role === 'admin'||nc.user.userObject.role === 'owner'">Users</a>
+                        </li>
+                        <li>
+                            <a href="#/office" ng-if="nc.user.userObject.role === 'owner'">Offices</a>
+                        </li>
+                        <li>
+                            <a href="#/email-upload" ng-if="nc.user.userObject.userName">Upload Email</a>
+                        </li>
+                        <li>
+                            <a href="#/email-history" ng-if="nc.user.userObject.userName">Email History</a>
+                        </li>
+                    </ul>
+            </div>
 </div>

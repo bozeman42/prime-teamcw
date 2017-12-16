@@ -49,12 +49,11 @@ html {
 
 #hero-menu {
     padding: 10px 20px;
-    height: 70%;
-    width: 20%;
-    min-width:400px;
+    /* height: 50%;
+    width: 20%; */
+    min-width:200px;
     box-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
-    background-color: rgba(255, 255, 255, .8);
-    border-radius: 3px;
+    background-color: rgba(255, 255, 255, .9);
 }
 
 table {
@@ -166,4 +165,8 @@ li a:hover {
     padding: 1rem;
     background-color: #efefef;
     text-align: center;
+  }
+
+  th {
+      text-align: center;
   }

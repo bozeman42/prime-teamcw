@@ -1,8 +1,6 @@
 <div class="container">
-    <h1 class="lead">Market Page</h1>
     <div>
         <div style="display:inline-block">
-            <p>Market</p>
             <select name="market" id="marketDropdown" placeholder="Market" ng-model="vm.options.market">
                     <option ng-repeat="item in vm.marketData.markets" value="{{item.Submarket}}">{{item.Submarket}}</option>
                 </select>
@@ -10,17 +8,35 @@
 
         <button ng-click="vm.searchData(vm.options)">Search</button>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="btn col-md-4 col-xs-4 well propertyClass" ng-repeat="item in vm.marketData.data">
+                <div style="text-align: center; font-size: 40px; font-weight: 300px;">
+                    <strong>{{item.Class}}</strong>
+                </div>
+                <div class="" style="text-align: center;">
+                    # of Buildings<br>
+                    <strong style="font-size: 30px">{{item.Total_Buildings}}</strong>
+                </div>
+                <div class="" style="text-align: center;">
+                        Average Rate<br>
+                        <strong style="font-size: 30px">{{item.Avg_Rate}}</strong>
+                    </div>
+            </div> 
+        </div>
+    </div>
+
     <div layout="row">
-        <div flex map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="{{vm.googleMapsUrl}}">
-            <ng-map center="44.9778,-93.2650" zoom="10">
+        <div map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="{{vm.googleMapsUrl}}">
+            <ng-map center="44.9778,-93.2650" zoom="15">
                     <marker ng-repeat="item in vm.marketData.properties track by item.id" position="[{{item.X}},{{item.Y}}]" icon="{{item.marker}}"  on-click="vm.click(item)"></marker>
             </ng-map>
         </div>
     </div>
     <div layout="row">
-            <table>
+            <table class="table-bordered">
                 <tr>
-                    <th>{{vm.options.market}}</th>
+                    <th>Class</th>
                     <th>Total # of Buildings</th>
                     <th>NRA</th>
                     <th>Vacant Space</th>
@@ -45,18 +61,20 @@
                 </tr>
             </table>
         </div>
-    <div layout="row">
-        <div flex style="width:400px; height: 400px; display:inline-block">
+    <div class="row">
+        <div class="col-md-12">
+        <div class="col-md-4">
             <h3>Inventory Chart</h3>
-            <canvas id="inventoryChart" width="400" height="400"></canvas>
+            <canvas id="inventoryChart"></canvas>
         </div>
-        <div flex style="width:400px; height: 400px; display:inline-block">
+        <div class="col-md-4">
             <h3>Absorption Chart</h3>
-            <canvas id="absorptionChart" width="400" height="400"></canvas>
+            <canvas id="absorptionChart"></canvas>
         </div>
-        <div flex style="width:400px; height: 400px; display:inline-block">
+        <div class="col-md-4">
             <h3>Vacancy Chart</h3>
-            <canvas id="vacancyChart" width="400" height="400"></canvas>
+            <canvas id="vacancyChart"></canvas>
         </div>
+    </div>
     </div>
 </div>
