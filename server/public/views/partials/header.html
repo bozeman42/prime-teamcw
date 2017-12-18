@@ -1,13 +1,18 @@
-<div class="instructions">
-        <div>
-            <a href="#/home" class="pull-left">
-                <img src="/styles/images/CW_Logo_Color_resized.png" alt="">
-            </a>
-            <div class="nav" ng-controller="NavController as nc">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <a href="#/home" class="pull-left">
+                    <img src="/styles/images/CW_Logo_Color_resized.png" alt="">
+                </a>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <div class="nav" ng-controller="NavController as nc">
                     <ul>
-                        <li>
+                        <!-- <li>
                             <a href="#/home">Home</a>
-                        </li>
+                        </li> -->
                         <!-- <li><pre>{{nc.user | json}}</pre></li> -->
                         <!-- <li>
                             <a href="#/market" >Market Page</a>
@@ -25,6 +30,8 @@
                             <a href="#/email-history" ng-if="nc.user.userObject.userName">Email History</a>
                         </li>
                     </ul>
+                </div>
             </div>
         </div>
+    </div>
 </div>
