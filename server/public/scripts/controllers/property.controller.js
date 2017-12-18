@@ -13,6 +13,8 @@ myApp.controller('PropertyController', function (NgMap, DataService, $http) {
 
     self.getProperty = function () {
         DataService.getProperty(self.options);
+        console.log(self.options);
+        console.log(self.data);
     }
     self.getProperty();
 
