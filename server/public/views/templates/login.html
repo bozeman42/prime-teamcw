@@ -1,4 +1,6 @@
-<div class="container">
+<div class="hero row">
+    <div class="col-md-12">
+        <div class="col-md-4 col-md-offset-4 hero-menu" id="login">
     <h1 class="lead">Login</h1>
     <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
         <form ng-submit="lc.login()">
@@ -15,4 +17,6 @@
             </div>
             <a href="#/forgot-password">Forgot Password</a>
         </form>
+    </div>
+    </div>
 </div>
