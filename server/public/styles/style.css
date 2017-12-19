@@ -166,12 +166,6 @@ li a:hover {
     color: #eee;
 }
 
-
-/* footer.ng-scope {
-    background-color: lightgrey;
-    padding: 0px 10px 5px;
-} */
-
 .employeeLogin {
     float: right;
     font-size: 10px;
@@ -192,11 +186,11 @@ th {
 }
 
 .class-0 {
-    color: #003865;
+    color: #063C62;
 }
 
 .class-1 {
-    color: #9bd3dd;
+    color: #0590AE;
 }
 
 .class-2 {
@@ -226,4 +220,10 @@ th {
 
 #footer {
     border-top: 2px solid lightgray;
+}
+
+.button {
+    background-color: #E83533;
+    color: snow;
+    border-radius: 2px;
 }

@@ -28,9 +28,9 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
 
     //Color options of Google Maps marker based on class
     self.locationColor = {
-        'Class A': '#003865',
-        'Class B': '#9bd3dd',
-        'Class C': '#b5bd00',
+        'Class A': '#063C62',
+        'Class B': '#0590AE',
+        'Class C': '#BDBF2E',
     }
 
     //Dynamically places color on Google maps marker
@@ -80,7 +80,7 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
                 data: {
                     datasets: [{
                         data: self.marketData.data.map(item => item.NRA),
-                        backgroundColor: ['#003865', '#9bd3dd', '#b5bd00']
+                        backgroundColor: ['#063C62', '#0590AE', '#BDBF2E']
                     }],
                     labels: self.marketData.data.map(item => item.Class),
                 }
@@ -103,11 +103,11 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
                     this.borderColor = [],
                     this.calcBorderColor = function () {
                         if (this.label === 'Class A') {
-                            this.borderColor = ['#003865'];
+                            this.borderColor = ['#063C62'];
                         } else if (this.label === 'Class B') {
-                            this.borderColor = ['#9bd3dd'];
+                            this.borderColor = ['#0590AE'];
                         } else {
-                            this.borderColor = ['#b5bd00'];
+                            this.borderColor = ['#BDBF2E'];
                         }
                     }
             }
@@ -170,11 +170,11 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
                     this.backgroundColor = [],
                     this.calcBackgroundColor = function () {
                         if (this.label === 'Class A') {
-                            this.backgroundColor = ['#003865', '#003865', '#003865', '#003865', '#003865', '#003865', '#003865', '#003865', '#003865', '#003865'];
+                            this.backgroundColor = ['#063C62', '#063C62', '#063C62', '#063C62', '#063C62', '#063C62', '#063C62', '#063C62', '#063C62', '#063C62'];
                         } else if (this.label === 'Class B') {
-                            this.backgroundColor = ['#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd'];
+                            this.backgroundColor = ['#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE'];
                         } else {
-                            this.backgroundColor = ['#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00'];
+                            this.backgroundColor = ['#BDBF2E', '#BDBF2E', '#BDBF2E', '#BDBF2E', '#BDBF2E', '#BDBF2E', '#BDBF2E', '#BDBF2E', '#BDBF2E', '#BDBF2E'];
                         }
                     }
             }
