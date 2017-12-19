@@ -4,7 +4,9 @@ myApp.controller('SubscribeController', function ($http) {
 
     vm.checkSubs = function() {
         $http.get('/subscribe').then(function(response) {
-        console.log(response.data.members);
+        console.log('Subscribers Loaded');
         })
     }   
+
+    vm.checkSubs();
 });

@@ -106,6 +106,6 @@ myApp.config(function ($routeProvider, $locationProvider) {
             controller: 'PasswordResetController as vm'
         })
         .otherwise({
-            redirectTo: 'login'
+            redirectTo: 'home'
         });
 });
