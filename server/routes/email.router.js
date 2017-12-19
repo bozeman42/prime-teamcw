@@ -34,6 +34,48 @@ router.get('/', function (req, res) {
   }); //end of pool
 });
 
+router.get('/batches/', function (req, res) {
+  pool.connect(function (errorConnecting, db, done) {
+    if (errorConnecting) {
+      console.log('Error connecting', errorConnecting);
+      res.sendStatus(500);
+    } else {
+      var queryText = 'SELECT * FROM "email_batch"' +
+      'JOIN "offices" on "email_batch".office_id = "offices".office_id;';
+      db.query(queryText, function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('error making query', errorMakingQuery);
+          res.sendStatus(500);
+        } else {
+          res.send(result.rows);
+        }
+      });
+    }
+  }); //end of pool
+});
+
+router.delete('/batches/',function(req,res) {
+  var batch_id = req.query.batch_id;
+  pool.connect(function(errorConnecting, db, done){
+    if (errorConnecting) {
+      console.log('Error connecting to delete batch', errorConnecting);
+      res.sendStatus(500);
+    } else {
+      var queryText = 'DELETE FROM "email_batch" WHERE "batch_id" = $1';
+      db.query(queryText, [batch_id], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('Query error deleting batches', errorMakingQuery);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      });
+    }
+  });
+});
+
 router.post('/csv/', function (req, res) {
   if (req.isAuthenticated) {
     var dataInfo = {
@@ -132,6 +174,7 @@ router.put('/insertlink/', function (req, res) {
   var index = req.query.index;
   pool.connect(function (errorConnecting, db, done) {
     if (errorConnecting) {
+      console.log('error connecting marketlink',errorConnecting);
       res.sendStatus(500);
     } else {
       var queryText = 'UPDATE "emails" SET "market_link" = $2 WHERE "email_id" = $1 RETURNING *;';
@@ -141,6 +184,7 @@ router.put('/insertlink/', function (req, res) {
       ], function (errorMakingQuery, result) {
         done();
         if (errorMakingQuery) {
+          console.log('query error marketlink',errorMakingQuery);
           res.sendStatus(500);
         } else {
           res.send({
@@ -249,6 +293,7 @@ function storeEmailCSV(dataInfo) {
     let data = dataInfo.uploadedData;
     let user = dataInfo.user;
     let batchId = dataInfo.batchId;
+    console.log('attempting to store Email CSV');
     data.forEach((contact) => {
       pool.connect(function (errorConnecting, db, done) {
         if (errorConnecting) {

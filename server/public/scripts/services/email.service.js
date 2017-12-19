@@ -3,13 +3,20 @@ myApp.service('EmailService', function ($http, UploadService) {
     var self = this;
 
     self.data = {
-        contacts: []
+        contacts: [],
+        batches: [],
+        viewBatch: 0
     };
 
     self.uploaderOptions = {
         url: '/email/csv/',
         onSuccess: function(response, status, headers) {
             console.log('hey');
+            self.getEmailBatches()
+            .then(function(){
+                self.data.viewBatch = response.batchId;
+            })
+            console.log('set viewBatch', self.data.viewBatch);
             self.getContacts(response.batchId);
         }
     };
@@ -70,17 +77,21 @@ myApp.service('EmailService', function ($http, UploadService) {
         console.log(contact);
         var config = {
             method: 'PUT',
-            url: '/email/insertlink',
+            url: '/email/insertlink/',
             params: {
                 id: contact.email_id,
                 market_link: contact.market_link,
                 index: index
             }
         };
+        console.log('toggleInsertLink config', config);
         return $http(config)
         .then(function(response){
             console.log('market_link toggle success', response.data);
             self.data.contacts[response.data.index] = response.data.contact;
+        })
+        .catch(function(error){
+            console.log('error toggling link insert',error);
         });
     };
 
@@ -102,4 +113,22 @@ myApp.service('EmailService', function ($http, UploadService) {
             console.log('error in put route',error);
         });
     };
+
+    self.getEmailBatches = function () {
+        return $http.get('/email/batches/')
+        .then(function(response) {
+            self.data.batches = response.data;
+            return self.data.batches;
+        });
+    };
+
+    self.deleteEmailBatch = function(batch) {
+        var config = {
+            params: {
+                batch_id: batch.batch_id
+            }
+        };
+        return $http.delete('/email/batches', config)
+        .then(self.getEmailBatches);
+    }
 });

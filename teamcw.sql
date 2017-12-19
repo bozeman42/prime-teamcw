@@ -105,8 +105,8 @@ CREATE TABLE "emails" (
   "building" varchar(80),
   "market" varchar(80),
   "email" varchar(200),
-  "batch_id" serial REFERENCES "email_batch",
-  "office_id" serial references "offices",
+  "batch_id" serial REFERENCES "email_batch" ON DELETE CASCADE,
+  "office_id" serial references "offices" ON DELETE CASCADE,
   "clicked" BOOLEAN DEFAULT FALSE,
   "click_through" BOOLEAN DEFAULT FALSE,
   "market_link" BOOLEAN DEFAULT TRUE
