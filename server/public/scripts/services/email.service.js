@@ -16,7 +16,7 @@ myApp.service('EmailService', function ($http, UploadService) {
             self.getEmailBatches()
             .then(function(){
                 self.data.viewBatch = response.batchId;
-            })
+            });
             console.log('set viewBatch', self.data.viewBatch);
             self.getContacts(response.batchId);
         }
