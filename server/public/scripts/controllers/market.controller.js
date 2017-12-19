@@ -3,7 +3,7 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
     var self = this;
     self.marketData = DataService.data;
 
-    UserService.refreshUsers();
+    // UserService.refreshUsers();
     self.options = {
         state: location.hash.split('/')[2],
         market: decodeURIComponent(location.hash.split('/')[3]),
@@ -11,6 +11,7 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
         quarter: location.hash.split('/')[5],
     }
 
+    //Retrieve markets for dropdown selection
     self.getMarkets = function(state) {
         DataService.getMarkets(state);
     }
@@ -21,9 +22,9 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
         path: google.maps.SymbolPath.CIRCLE,
         fillColor: 'red',
         fillOpacity: 1,
-        scale: 4.5,
+        scale: 7.5,
         strokeWeight: 1,
-        strokeColor: 'white'
+        strokeColor: 'grey'
     }
 
     //Color options of Google Maps marker based on class
@@ -38,31 +39,37 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
         return Object.assign(self.marker, {fillColor: self.locationColor[location.Class] || 'red'})
     }
 
+    let year = (new Date()).getFullYear();
+    let month = (new Date()).getMonth() + 1;
+    let quarter;
+    function calcQuarter(){
+        if(month < 4){
+            quarter = 4
+        } else if(month > 3 && month < 7){
+            quarter = 1
+        } else if(month > 6 && month < 10){
+            quarter = 2
+        } else if(month > 9){
+            quarter = 3
+        }
+    }
+    calcQuarter();
+
+    self.mapSize = 'col-xs-12';
     //Click event on Google maps markers
     self.click = function (event, item) {
-        let year = (new Date()).getFullYear();
-        let month = (new Date()).getMonth() + 1;
-        let quarter;
-        function calcQuarter(){
-            if(month < 4){
-                quarter = 4
-            } else if(month > 3 && month < 7){
-                quarter = 1
-            } else if(month > 6 && month < 10){
-                quarter = 2
-            } else if(month > 9){
-                quarter = 3
-            }
-        }
-        calcQuarter();
-        $location.path(`/property/${item.State}/${encodeURIComponent(item.Submarket)}/${year}/${quarter}/${item.Property_Id}`);
+        self.selectedItem = item;
+        self.mapSize = 'col-xs-12 col-sm-10'
     };
+
+    //Navigate to selected property page
+    self.viewProperty = function() {
+        $location.path(`/property/${self.selectedItem.State}/${encodeURIComponent(self.selectedItem.Submarket)}/${year}/${quarter}/${self.selectedItem.Property_Id}`);
+    }
 
     self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY';
     NgMap.getMap().then(function (map) {
-        console.log(map.getCenter());
-        console.log('markers', map.markers);
-        console.log('shapes', map.shapes);
+
     })
 
     self.searchData = function(value) {
@@ -231,7 +238,6 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
                                 beginAtZero: true
                             }
                         }]
-
                     }
                 }
             })

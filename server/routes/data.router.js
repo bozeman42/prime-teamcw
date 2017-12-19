@@ -191,10 +191,13 @@ router.get('/marketproperties', function (req, res) {
         "dbo_RPRT_Property"."X_Coordinate" as "Y",
         "dbo_RPRT_Property"."Y_Coordinate" as "X",
         "dbo_RPRT_Property"."Address_1" as "Address",
-        "dbo_RPRT_Property"."State" as "State"
+        "dbo_RPRT_Property"."State" as "State",
+        "dbo_PROP_City"."City" as "City"
         FROM "dbo_RPRT_Property"
         JOIN "dbo_RPRT_Dataset"
         ON "dbo_RPRT_Property"."Report_Dataset_ID" = "dbo_RPRT_Dataset"."Report_Dataset_ID"
+        JOIN "dbo_PROP_City"
+        ON "dbo_RPRT_Property"."City_ID" = "dbo_PROP_City"."City_ID"
         WHERE "dbo_RPRT_Dataset"."Period_Type_ID" = 2
         AND "dbo_RPRT_Property"."State" = $1 
         AND "dbo_RPRT_Dataset"."Period_Year" = $2
