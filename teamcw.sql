@@ -108,7 +108,8 @@ CREATE TABLE "emails" (
   "batch_id" serial REFERENCES "email_batch",
   "office_id" serial references "offices",
   "clicked" BOOLEAN DEFAULT FALSE,
-  "click_through" BOOLEAN DEFAULT FALSE
+  "click_through" BOOLEAN DEFAULT FALSE,
+  "market_link" BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE "dbo_PROP_City" (

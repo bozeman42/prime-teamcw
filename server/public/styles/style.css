@@ -227,3 +227,20 @@ th {
 #footer {
     border-top: 2px solid lightgray;
 }
+
+#emailList tr:nth-child(odd) {
+    background-color: whitesmoke;
+}
+
+#emailList tr:nth-child(even) {
+    background-color: rgb(255, 228, 232);
+}
+
+#emailList tr:hover {
+    background-color: lightpink;
+}
+
+#emailList tr.clicked {
+    color: #aaa;
+    background-color: #777;
+}

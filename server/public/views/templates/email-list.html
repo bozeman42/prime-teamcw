@@ -6,19 +6,23 @@
                 <th>First</th>
                 <th>Last</th>
                 <th>Email</th>
+                <th>Market</th>
                 <th>Mail-to Link</th>
-                <th>Email Sent?</th>
+                <th>Include Link to Market</th>
             </tr>
         </thead>
-        <tbody>
-            <tr ng-repeat="contact in vm.es.data.contacts track by $index">
+        <tbody id="emailList">
+            <tr ng-class="{clicked: contact.clicked}" ng-repeat="contact in vm.es.data.contacts track by $index">
                 <td>{{contact.first}}</td>
                 <td>{{contact.last}}</td>
                 <td>{{contact.email}}</td>
+                <td></td>
                 <td>
                     <a ng-click="vm.clickEmailLink(contact,$index)" ng-href={{vm.emailTemplate(contact)}}>Email</a>
                 </td>
-                <td>{{contact.clicked}}</td>
+                <td>
+                    <input type="checkbox" ng-change="vm.updateLink(contact)" ng-model="contact.market_link">
+                </td>
             </tr>
         </tbody>
     </table>
