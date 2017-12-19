@@ -81,7 +81,7 @@ router.put('/', function (req, res) {
     if (errorConnecting) {
       res.sendStatus(500);
     } else {
-      var queryText = 'UPDATE "emails" SET "clicked" = TRUE WHERE "email_id" = $1 RETURNING "email_id";';
+      var queryText = 'UPDATE "emails" SET "clicked" = TRUE WHERE "email_id" = $1 RETURNING *;';
       db.query(queryText, [
         emailId
       ], function (errorMakingQuery, result) {
@@ -90,7 +90,7 @@ router.put('/', function (req, res) {
           res.sendStatus(500);
         } else {
           res.send({
-            email_id: result.rows[0].email_id,
+            contact: result.rows[0],
             index: index
           });
         }
@@ -123,6 +123,34 @@ router.get('/single/', function (req, res) {
     }
   }); //end of pool
 
+});
+
+router.put('/insertlink/', function (req, res) {
+  console.log('market link request', req.query);
+  var emailId = req.query.id;
+  var marketLink = req.query.market_link;
+  var index = req.query.index;
+  pool.connect(function (errorConnecting, db, done) {
+    if (errorConnecting) {
+      res.sendStatus(500);
+    } else {
+      var queryText = 'UPDATE "emails" SET "market_link" = $2 WHERE "email_id" = $1 RETURNING *;';
+      db.query(queryText, [
+        emailId,
+        marketLink
+      ], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          res.sendStatus(500);
+        } else {
+          res.send({
+            contact: result.rows[0],
+            index: index
+          });
+        }
+      });
+    }
+  }); //end of pool
 });
 
 router.put('/track/',function(req,res){

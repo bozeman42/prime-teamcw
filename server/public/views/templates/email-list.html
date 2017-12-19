@@ -21,7 +21,7 @@
                     <a ng-click="vm.clickEmailLink(contact,$index)" ng-href={{vm.emailTemplate(contact)}}>Email</a>
                 </td>
                 <td>
-                    <input type="checkbox" ng-change="vm.updateLink(contact)" ng-model="contact.market_link">
+                    <input type="checkbox" ng-change="vm.toggleInsertLink(contact, $index)" ng-model="contact.market_link">
                 </td>
             </tr>
         </tbody>

@@ -31,6 +31,8 @@ myApp.service('EmailService', function ($http, UploadService) {
             });
     };
 
+
+    // can probably get rid of this route
     self.getContact = function (email_id,index) {
         var config = {
             params: {
@@ -48,7 +50,6 @@ myApp.service('EmailService', function ($http, UploadService) {
     };
 
     self.clickEmailLink = function(contact,index){
-        console.log(contact);
         var config = {
             method: 'PUT',
             url: '/email/',
@@ -61,7 +62,25 @@ myApp.service('EmailService', function ($http, UploadService) {
         .then(function(response){
             console.log('click success');
             console.log('batch',response);
-            self.getContact(response.data.email_id,response.data.index);
+            self.data.contacts[response.data.index] = response.data.contact;
+        });
+    };
+
+    self.toggleInsertLink = function (contact,index) {
+        console.log(contact);
+        var config = {
+            method: 'PUT',
+            url: '/email/insertlink',
+            params: {
+                id: contact.email_id,
+                market_link: contact.market_link,
+                index: index
+            }
+        };
+        return $http(config)
+        .then(function(response){
+            console.log('market_link toggle success', response.data);
+            self.data.contacts[response.data.index] = response.data.contact;
         });
     };
 
