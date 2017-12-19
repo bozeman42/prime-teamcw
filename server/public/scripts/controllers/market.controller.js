@@ -3,7 +3,7 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
     var self = this;
     self.marketData = DataService.data;
 
-    UserService.refreshUsers();
+    // UserService.refreshUsers();
     self.options = {
         state: location.hash.split('/')[2],
         market: decodeURIComponent(location.hash.split('/')[3]),
@@ -238,7 +238,6 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
                                 beginAtZero: true
                             }
                         }]
-
                     }
                 }
             })
