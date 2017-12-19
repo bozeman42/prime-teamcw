@@ -1,6 +1,6 @@
 <div class="container">
     <h1 class="lead">Email List</h1>
-    <select ng-model="vm.data.viewBatch" ng-change="vm.getBatchEmails(vm.data.viewBatch)" ng-options="batch.batch_id as (batch.file_name + ' ' + batch.date) for batch in vm.data.batches track by batch.batch_id">
+    <select ng-model="vm.data.viewBatch" ng-change="vm.getBatchEmails(vm.data.viewBatch)" ng-options="batch.batch_id as (batch.file_name + ' ' + batch.date) for batch in vm.data.batches">
 
     </select>
     {{vm.data.viewBatch}}
