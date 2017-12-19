@@ -28,38 +28,26 @@
             <div class="col-xs-12 property-header class-{{$index}}">
                 <h4>{{item.Class}}</h4>
             </div>
-            <div class="property-content">
-                <div class="col-xs-3">
-                    <div>
-                        <img class="building-icon" src="../../styles/images/class-{{$index}}.svg" alt="Class A">
+            <div class="col-xs-3">
+                <img class="building-icon" src="../../styles/images/class-{{$index}}.svg" alt="Building Icon">
+            </div>
+            <div class="col-xs-9">
+                <div>
+                    <div class="col-sm-6 col-xs-6">
+                        # of Buildings
+                        <h4>{{item.Total_Buildings}}</h4>
                     </div>
-                </div>
-                <div class="col-xs-9">
-                    <div>
-                        <div class="col-sm-6 col-xs-6">
-                            <div style="text-align: center;">
-                                # of Buildings
-                                <h4>{{item.Total_Buildings}}</h4>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-xs-6">
-                            <div style="text-align: center;">
-                                Average Rate
-                                <h4>{{item.Avg_Rate}}</h4>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-xs-6">
-                            <div style="text-align: center;">
-                                NRA ft²
-                                <h4>{{item.NRA | number: fractionSize}}</h4>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-xs-6">
-                            <div style="text-align: center;">
-                                Vacant ft²
-                                <h4>{{item.Vacant_Space | number: fractionSize}}</h4>
-                            </div>
-                        </div>
+                    <div class="col-sm-6 col-xs-6">
+                        Average Rate
+                        <h4>{{item.Avg_Rate}}</h4>
+                    </div>
+                    <div class="col-sm-6 col-xs-6">
+                        NRA ft²
+                        <h4>{{item.NRA | number: fractionSize}}</h4>
+                    </div>
+                    <div class="col-sm-6 col-xs-6">
+                        Vacant ft²
+                        <h4>{{item.Vacant_Space | number: fractionSize}}</h4>
                     </div>
                 </div>
             </div>
