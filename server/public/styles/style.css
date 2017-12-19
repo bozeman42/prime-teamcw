@@ -21,17 +21,31 @@ html {
     padding: 0;
     font-family: sans-serif;
     font-size: 14px;
-    height:100%;
     background-color: #f7f7f7;
+    height: 100%;
 }
 
-/* footer {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    box-shadow: 0px -1px 1px #a7a8aa;
-} */
+.hero {
+    background-image: url('images/heroimage.jpeg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 83vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.hero-menu {
+    padding: 10px 20px;
+    min-width: 200px;
+    box-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
+    background-color: rgba(255, 255, 255, .9);
+}
 
 #hero {
     background-image: url('images/heroimage.jpeg');
@@ -39,7 +53,7 @@ html {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: center center;
-    height: 70vh;
+    height: 83vh;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -50,27 +64,28 @@ html {
 
 #hero-menu {
     padding: 10px 20px;
-    /* height: 50%;
-    width: 20%; */
-    min-width:200px;
+    min-width: 200px;
     box-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
     background-color: rgba(255, 255, 255, .9);
 }
 
 table {
     width: 100%;
-    border: 1px solid rgba(0,0,0,.24);
+    border: 1px solid rgba(0, 0, 0, .24);
 }
 
-tr, td {
-    text-align:center;
+tr,
+td {
+    text-align: center;
     padding: 5px;
 }
+
 .marker {
     background-color: black;
     cursor: none;
-    border:1px solid red;
+    border: 1px solid red;
 }
+
 .instructions .container h1 {
     font-size: 32px;
     font-weight: 600;
@@ -121,6 +136,10 @@ tr, td {
     border-radius: 0px;
 }
 
+.nav {
+    font-size: 15px;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -148,6 +167,7 @@ li a:hover {
     color: #eee;
 }
 
+
 /* footer.ng-scope {
     background-color: lightgrey;
     padding: 0px 10px 5px;
@@ -166,7 +186,44 @@ li a:hover {
     padding: 1rem;
     background-color: #efefef;
     text-align: center;
-  }
+}
+
+th {
+    text-align: center;
+}
+
+.class-0 {
+    color: #003865;
+}
+
+.class-1 {
+    color: #9bd3dd;
+}
+
+.class-2 {
+    color: #b5bd00;
+}
+
+.propertyClass {
+    padding: 0px;
+    border-radius: 0px;
+}
+
+#admin {
+    padding: 10px 20px;
+    border: 2px solid lightgrey;
+    min-width: 200px;
+    box-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
+    background-color: rgba(206, 206, 206, 0.9);
+}
+
+#login {
+    text-align: center;
+}
+
+#header {
+    border-bottom: 2px solid lightgray;
+}
 
   th {
       text-align: center;
@@ -192,3 +249,6 @@ li a:hover {
   .building-icon {
       max-width: 50px;
   }
+#footer {
+    border-top: 2px solid lightgray;
+}
