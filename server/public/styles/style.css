@@ -21,29 +21,8 @@ html {
     padding: 0;
     font-family: sans-serif;
     font-size: 14px;
+    background-color: #f7f7f7;
     height: 100%;
-}
-
-.hero {
-    background-image: url('images/heroimage.jpeg');
-    background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: center center;
-    height: 83vh;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: left;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.hero-menu {
-    padding: 10px 20px;
-    min-width: 200px;
-    box-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
-    background-color: rgba(255, 255, 255, .9);
 }
 
 #hero {
@@ -64,7 +43,7 @@ html {
 #hero-menu {
     padding: 10px 20px;
     min-width: 200px;
-    box-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, .64);
     background-color: rgba(255, 255, 255, .9);
 }
 
@@ -82,7 +61,7 @@ td {
 .marker {
     background-color: black;
     cursor: none;
-    border: 1px solid red;
+    border: 1px solid #e4002b;
 }
 
 .instructions .container h1 {
@@ -166,12 +145,6 @@ li a:hover {
     color: #eee;
 }
 
-
-/* footer.ng-scope {
-    background-color: lightgrey;
-    padding: 0px 10px 5px;
-} */
-
 .employeeLogin {
     float: right;
     font-size: 10px;
@@ -192,20 +165,31 @@ th {
 }
 
 .class-0 {
-    color: #003865;
+    background-color: #003865;
 }
 
 .class-1 {
-    color: #9bd3dd;
+    background-color: #9bd3dd;
 }
 
 .class-2 {
-    color: #b5bd00;
+    background-color: #b5bd00;
 }
 
-.propertyClass {
+.property-header {
+    text-align: left;
+    color: #FFFFFF;
+    border-bottom: 1px solid rgba(0,0,0,.64);
+}
+
+.property {
     padding: 0px;
-    border-radius: 0px;
+    min-height: 20px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border: 1px solid #e3e3e3;
+    -webkit-box-shadow:  1px 1px 1px rgba(0,0,0,.0.64);
+    box-shadow: 1px 1px 1px rgba(0,0,0,.64);
 }
 
 #admin {
@@ -221,9 +205,69 @@ th {
 }
 
 #header {
-    border-bottom: 2px solid lightgray;
+    border-bottom: 1px solid rgba(0,0,0,.64);
+    background-color: #FFFFFF;
 }
+
+  th {
+      text-align: center;
+  }
+
+  .map-container {
+    box-shadow: 1px 1px 1px rgba(0,0,0,.64);
+    margin-top: 20px;
+    margin-bottom:20px;
+  }
+
+  .map-box {
+    padding: 0px;
+  }
+
+  .map-menu-box {
+    border-top: 5px solid #e4002b;
+    background-color:white;
+    height: 100%;
+    min-height: 302px;
+    border-left: 1px solid rgba(0,0,0,.34);
+  }
 
 #footer {
     border-top: 2px solid lightgray;
+}
+
+#emailList tr:nth-child(odd) {
+    background-color: whitesmoke;
+}
+
+#emailList tr:nth-child(even) {
+    background-color: rgb(255, 228, 232);
+}
+
+#emailList tr:hover {
+    background-color: lightpink;
+}
+
+#emailList tr.clicked {
+    color: #aaa;
+    background-color: #777;
+}
+
+.button-cta {
+    -webkit-appearance: none;
+    background-color: #e4002b;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid #e4002b;
+    box-shadow: 0px 1px 1px rgba(0,0,0,1);
+}
+
+.map-static {
+    width: 100%;
+    max-width: 400px;
+}
+
+.building-icon {
+    max-width: 100px;
 }
