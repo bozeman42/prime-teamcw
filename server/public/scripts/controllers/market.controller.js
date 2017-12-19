@@ -3,7 +3,7 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
     var self = this;
     self.marketData = DataService.data;
 
-    UserService.refreshUsers();
+    // UserService.refreshUsers();
     self.options = {
         state: location.hash.split('/')[2],
         market: decodeURIComponent(location.hash.split('/')[3]),
@@ -11,7 +11,8 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
         quarter: location.hash.split('/')[5],
     }
 
-    self.getMarkets = function(state) {
+    //Retrieve markets for dropdown selection
+    self.getMarkets = function (state) {
         DataService.getMarkets(state);
     }
     self.getMarkets(self.options.state);
@@ -21,9 +22,9 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
         path: google.maps.SymbolPath.CIRCLE,
         fillColor: 'red',
         fillOpacity: 1,
-        scale: 4.5,
+        scale: 7.5,
         strokeWeight: 1,
-        strokeColor: 'white'
+        strokeColor: 'grey'
     }
 
     //Color options of Google Maps marker based on class
@@ -35,45 +36,52 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
 
     //Dynamically places color on Google maps marker
     self.customMarker = function (location) {
-        return Object.assign(self.marker, {fillColor: self.locationColor[location.Class] || 'red'});
+        return Object.assign(self.marker, { fillColor: self.locationColor[location.Class] || 'red' });
     };
 
-    //Click event on Google maps markers
-    self.click = function (event, item) {
-        let year = (new Date()).getFullYear();
-        let month = (new Date()).getMonth() + 1;
-        let quarter;
-        function calcQuarter(){
-            if(month < 4){
-                quarter = 4;
-            } else if(month > 3 && month < 7){
-                quarter = 1;
-            } else if(month > 6 && month < 10){
-                quarter = 2;
-            } else if(month > 9){
-                quarter = 3;
-            }
+    let year = (new Date()).getFullYear();
+    let month = (new Date()).getMonth() + 1;
+    let quarter;
+    function calcQuarter() {
+        if (month < 4) {
+            quarter = 4
+        } else if (month > 3 && month < 7) {
+            quarter = 1
+        } else if (month > 6 && month < 10) {
+            quarter = 2
+        } else if (month > 9) {
+            quarter = 3
         }
-        calcQuarter();
-        $location.path(`/property/${item.State}/${encodeURIComponent(item.Submarket)}/${year}/${quarter}/${item.Property_Id}`);
+    }
+    calcQuarter();
+
+    self.mapSize = 'col-xs-12';
+
+
+    self.click = function (event, item) {
+        self.selectedItem = item;
+        self.mapSize = 'col-xs-12 col-sm-10'
     };
+
+    //Navigate to selected property page
+    self.viewProperty = function () {
+        $location.path(`/property/${self.selectedItem.State}/${encodeURIComponent(self.selectedItem.Submarket)}/${year}/${quarter}/${self.selectedItem.Property_Id}`);
+    }
 
     self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY';
     NgMap.getMap().then(function (map) {
-        console.log(map.getCenter());
-        console.log('markers', map.markers);
-        console.log('shapes', map.shapes);
-    });
 
-    self.searchData = function(value) {
+    })
+
+    self.searchData = function (value) {
         self.getMarketData(value);
         self.getAbsorptionData(value);
         self.getVacancyData(value);
         self.getMarketPropertyData(value);
     }
 
-    self.getMarketData = function(value){
-        DataService.getMarketData(value).then(function(){
+    self.getMarketData = function (value) {
+        DataService.getMarketData(value).then(function () {
             let ctx = document.getElementById("inventoryChart").getContext("2d");
             let inventoryChart = new Chart(ctx, {
                 type: 'doughnut',
@@ -88,8 +96,8 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
         })
     }
 
-    self.getAbsorptionData = function(value){
-        DataService.getAbsorptionData(value).then(function(){
+    self.getAbsorptionData = function (value) {
+        DataService.getAbsorptionData(value).then(function () {
             let ctx = document.getElementById("absorptionChart").getContext("2d");
             let year = [];
             let className = [];
@@ -155,8 +163,8 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
         });
     };
 
-    self.getVacancyData = function(value) {
-        DataService.getVacancyData(value).then(function(){
+    self.getVacancyData = function (value) {
+        DataService.getVacancyData(value).then(function () {
             let ctx = document.getElementById("vacancyChart").getContext("2d");
             let year = [];
             let className = [];
@@ -231,22 +239,21 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
                                 beginAtZero: true
                             }
                         }]
-
                     }
                 }
             });
         });
     };
 
-    self.getMarketPropertyData = function(value) {
-        DataService.getMarketPropertyData(value).then(function(properties){
+    self.getMarketPropertyData = function (value) {
+        DataService.getMarketPropertyData(value).then(function (properties) {
             self.marketData.properties.map(function (property, index) {
-                return Object.assign(property, {marker: Object.assign({}, self.marker, {fillColor: self.locationColor[property.Class] || 'red'})}, {id: '' + index});
+                return Object.assign(property, { marker: Object.assign({}, self.marker, { fillColor: self.locationColor[property.Class] || 'red' }) }, { id: '' + index });
             });
         });
     };
 
-    self.pageLoad = function(value){
+    self.pageLoad = function (value) {
         self.getMarketData(value);
         self.getAbsorptionData(value);
         self.getVacancyData(value);
