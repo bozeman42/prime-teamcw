@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.6.6",
+    "angular-cookies": "^1.6.7",
     "angular-file-upload": "^2.5.0",
     "angular-route": "^1.6.6",
     "bcrypt": "^1.0.2",

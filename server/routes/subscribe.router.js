@@ -31,7 +31,6 @@ router.get('/', function (req, res) {
                             res.sendStatus(500);
                         } else {
                             for (let j = 0; j < result.rows.length; j += 1) {
-                                console.log(result.rows[j].email_address);
                                 dbSubs.push(result.rows[j].email_address);
                             }
                             for (let k = 0; k < mcSubs.length; k += 1) {
@@ -56,6 +55,8 @@ router.get('/', function (req, res) {
                                     });
                                 } else {
                                     console.log('Subscriber exists');
+                                    console.log(dbSubs);
+                                    console.log(mcSubs);
                                 }
 
                             }
