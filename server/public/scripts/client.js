@@ -101,6 +101,15 @@ myApp.config(function ($routeProvider, $locationProvider) {
                 }
             }
         })
+        .when('/email-clickthroughs', {
+            templateUrl: '/views/templates/email-clickthroughs.html',
+            controller: 'ClickthroughController as vm',
+            resolve: {
+                getuser: function (UserService) {
+                    return UserService.getuser();
+                }
+            }
+        })
         .when('/forgot-password', {
             templateUrl: '/views/templates/forgot-password.html',
             controller: 'UserController as vm'
