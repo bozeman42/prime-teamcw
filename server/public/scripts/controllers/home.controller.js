@@ -14,6 +14,15 @@ myApp.controller('HomeController', function (NgMap, DataService, $location, User
         DataService.getMarkets(state);
     }
 
+    self.dropdown = function (state){
+        if (state) {
+            return true
+        } 
+        else {
+            return false
+        }
+    }
+
     self.click = function (state, submarket) {
         let year = (new Date()).getFullYear();
         let month = (new Date()).getMonth() + 1;
