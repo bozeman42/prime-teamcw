@@ -3,6 +3,7 @@ myApp.service('SubscribeService', function ($http, $location) {
     var self = this;
 
     self.launchSub = function () {
+        console.log('hey');
     require(["mojo/signup-forms/Loader"], function (L) { L.start({ "baseUrl": "mc.us17.list-manage.com", "uuid": "eb35150d92904da6a2eead60a", "lid": "8bb5bb9fba" }) })
     };
 
@@ -16,6 +17,4 @@ myApp.service('SubscribeService', function ($http, $location) {
             }
         })
     }
-
-    self.launchSub();
 });

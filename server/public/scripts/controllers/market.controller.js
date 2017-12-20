@@ -65,17 +65,19 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
 
     //Navigate to selected property page
     self.viewProperty = function () {
-        if ($cookies.get('MCPopupClosed') === '' || $cookies.get('MCPopupClosed') == undefined || $cookies.get('MCPopupSubscribed') === '' || $cookies.get('MCPopupSubscribed') == undefined) {
-        SubscribeService.launchSub();
-        // $location.path('/not-subscribed');
-        console.log('hey');
-        } else if($cookies.get('MCPopupClosed') && $cookies.get('MCPopupSubscribed')) {
-            $location.path(`/property/${self.selectedItem.State}/${encodeURIComponent(self.selectedItem.Submarket)}/${year}/${quarter}/${self.selectedItem.Property_Id}`);
-        }
-        console.log('nope');
-        $cookies.remove('MCPopupClosed')
         console.log($cookies.getAll());
-        console.log($cookies.get('MCPopupSubscribed'));
+        console.log($cookies.get('MCPopupClosed'));
+        if ($cookies.get('MCPopupClosed') === '' || $cookies.get('MCPopupClosed') == undefined || $cookies.get('MCPopupSubscribed') === '' || $cookies.get('MCPopupSubscribed') == undefined) {
+            $cookies.remove('MCPopupClosed');
+            SubscribeService.launchSub();
+            // $location.path('/not-subscribed');
+        } else if ($cookies.get('MCPopupClosed') && $cookies.get('MCPopupSubscribed')) {
+            $location.path(`/property/${self.selectedItem.State}/${encodeURIComponent(self.selectedItem.Submarket)}/${year}/${quarter}/${self.selectedItem.Property_Id}`);
+        } else {
+            alert('Something went wrong. Please refresh and try again.')
+            $cookies.remove('MCPopupClosed');
+            $cookies.remove('MCPopupSubscribed');
+        }
     }
 
     self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY';
