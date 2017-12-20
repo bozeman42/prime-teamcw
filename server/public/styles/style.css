@@ -21,6 +21,7 @@ html {
     padding: 0;
     font-family: sans-serif;
     font-size: 14px;
+    background-color: #f7f7f7;
     height: 100%;
 }
 
@@ -82,7 +83,7 @@ td {
 .marker {
     background-color: black;
     cursor: none;
-    border: 1px solid red;
+    border: 1px solid #e4002b;
 }
 
 .instructions .container h1 {
@@ -186,20 +187,31 @@ th {
 }
 
 .class-0 {
-    color: #063C62;
+    background-color: #003865;
 }
 
 .class-1 {
-    color: #0590AE;
+    background-color: #0590AE;
 }
 
 .class-2 {
-    color: #b5bd00;
+    background-color: #b5bd00;
 }
 
-.propertyClass {
+.property-header {
+    text-align: left;
+    color: #FFFFFF;
+    border-bottom: 1px solid rgba(0,0,0,.64);
+}
+
+.property {
     padding: 0px;
-    border-radius: 0px;
+    min-height: 20px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border: 1px solid #e3e3e3;
+    -webkit-box-shadow:  1px 1px 1px rgba(0,0,0,.0.64);
+    box-shadow: 1px 1px 1px rgba(0,0,0,.64);
 }
 
 #admin {
@@ -218,12 +230,43 @@ th {
     border-bottom: 2px solid lightgray;
 }
 
+  th {
+      text-align: center;
+  }
+
+  .map-container {
+    box-shadow: 1px 1px 1px rgba(0,0,0,.64);
+    margin-top: 20px;
+    margin-bottom:20px;
+  }
+
+  .map-box {
+    padding: 0px;
+  }
+
+  .map-menu-box {
+    border-top: 5px solid #e4002b;
+    background-color:white;
+    height: 100%;
+    min-height: 302px;
+    border-left: 1px solid rgba(0,0,0,.34);
+  }
+
 #footer {
     border-top: 2px solid lightgray;
 }
 
-.button {
-    background-color: #E83533;
-    color: snow;
-    border-radius: 2px;
+.button-cta {
+    -webkit-appearance: none;
+    background-color: #e4002b;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid #e4002b;
+    box-shadow: 0px 1px 1px rgba(0,0,0,1);
+}
+
+.building-icon {
+    margin-top: 10px;
 }
