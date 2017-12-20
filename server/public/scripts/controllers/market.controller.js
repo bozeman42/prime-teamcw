@@ -65,8 +65,6 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
 
     //Navigate to selected property page
     self.viewProperty = function () {
-        console.log($cookies.getAll());
-        console.log($cookies.get('MCPopupClosed'));
         if ($cookies.get('MCPopupClosed') === '' || $cookies.get('MCPopupClosed') == undefined || $cookies.get('MCPopupSubscribed') === '' || $cookies.get('MCPopupSubscribed') == undefined) {
             $cookies.remove('MCPopupClosed');
             SubscribeService.launchSub();
