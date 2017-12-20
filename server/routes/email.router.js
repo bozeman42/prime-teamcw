@@ -159,7 +159,7 @@ router.put('/', function (req, res) {
 
 // get indivitual email record
 router.get('/single/', function (req, res) {
-  if (req.isAuthenticated(401)) {
+  if (req.isAuthenticated()) {
     var email_id = req.query.email_id;
     var index = req.query.index;
     pool.connect(function (errorConnecting, db, done) {
