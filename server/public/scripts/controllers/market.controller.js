@@ -113,7 +113,7 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
                     if (this.label === 'Class A') {
                         this.borderColor = ['#003865'];
                     } else if (this.label === 'Class B') {
-                        this.borderColor = ['#9bd3dd'];
+                        this.borderColor = ['#0590AE'];
                     } else {
                         this.borderColor = ['#b5bd00'];
                     }
@@ -180,7 +180,7 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
                     if (this.label === 'Class A') {
                         this.backgroundColor = ['#003865', '#003865', '#003865', '#003865', '#003865', '#003865', '#003865', '#003865', '#003865', '#003865'];
                     } else if (this.label === 'Class B') {
-                        this.backgroundColor = ['#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd'];
+                        this.backgroundColor = ['#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE'];
                     } else {
                         this.backgroundColor = ['#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00'];
                     }
