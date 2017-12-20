@@ -8,6 +8,7 @@ myApp.service('EmailService', function ($http, UploadService) {
         viewBatch: 0
     };
 
+    // options for the uploader for uploading email list
     self.uploaderOptions = {
         url: '/email/csv/',
         onSuccess: function(response, status, headers) {
@@ -15,12 +16,13 @@ myApp.service('EmailService', function ($http, UploadService) {
             self.getEmailBatches()
             .then(function(){
                 self.data.viewBatch = response.batchId;
-            })
+            });
             console.log('set viewBatch', self.data.viewBatch);
             self.getContacts(response.batchId);
         }
     };
     
+    // get all emails from a particular CSV upload
     self.getContacts = function (batchId) {
         var config = {
             params: {
@@ -56,6 +58,7 @@ myApp.service('EmailService', function ($http, UploadService) {
         });
     };
 
+    // marks record as user having produced an email from this link
     self.clickEmailLink = function(contact,index){
         var config = {
             method: 'PUT',
@@ -73,6 +76,7 @@ myApp.service('EmailService', function ($http, UploadService) {
         });
     };
 
+    // toggles whether a link to the market page should be included in the email
     self.toggleInsertLink = function (contact,index) {
         console.log(contact);
         var config = {
@@ -95,6 +99,7 @@ myApp.service('EmailService', function ($http, UploadService) {
         });
     };
 
+    // indicates that the potential client clicked the market email link in the produced email
     self.emailClickthrough = function(eid){
         var config = {
             method: 'PUT',
@@ -114,6 +119,7 @@ myApp.service('EmailService', function ($http, UploadService) {
         });
     };
 
+    // gets a list of email batch uploads
     self.getEmailBatches = function () {
         return $http.get('/email/batches/')
         .then(function(response) {
@@ -122,6 +128,7 @@ myApp.service('EmailService', function ($http, UploadService) {
         });
     };
 
+    // deletes an email batch and all associated emails
     self.deleteEmailBatch = function(batch) {
         var config = {
             params: {

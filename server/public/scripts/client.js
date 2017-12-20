@@ -2,6 +2,7 @@ var myApp = angular.module('myApp', ['ngRoute','angularFileUpload','ngMap', 'ngC
 
 /// Routes ///
 myApp.config(function ($routeProvider, $locationProvider) {
+
     $locationProvider.hashPrefix('');
     $routeProvider
         .when('/home', {
@@ -51,7 +52,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
                 }
             }
         })
-        .when('/data-upload',{
+        .when('/data-upload', {
             templateUrl: '/views/templates/data-upload.html',
             controller: 'DataUploadController as vm',
             resolve: {
@@ -117,4 +118,13 @@ myApp.config(function ($routeProvider, $locationProvider) {
         .otherwise({
             redirectTo: 'home'
         });
+});
+
+myApp.run(function ($rootScope, $location) {
+    $rootScope.$on("$locationChangeStart", function (event, next, current) {
+        window.dataLayer.push({
+            event: 'pageView',
+            action: $location.path(),
+        });
+    });
 });

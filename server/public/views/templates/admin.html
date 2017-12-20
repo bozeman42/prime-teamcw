@@ -18,7 +18,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="user in uc.users.data">
-                    <td>{{user.e_id}}</td>
+                    <td>{{$index + 1}}</td>
                     <td>{{user.username}}</td>
                     <td>{{user.firstname}}</td>
                     <td>{{user.lastname}}</td>

@@ -6,7 +6,7 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
     // UserService.refreshUsers();
     self.options = {
         state: location.hash.split('/')[2],
-        market: decodeURIComponent(location.hash.split('/')[3]),
+        market: decodeURIComponent(decodeURIComponent(location.hash.split('/')[3])),
         year: location.hash.split('/')[4],
         quarter: location.hash.split('/')[5],
     }
@@ -29,9 +29,9 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
 
     //Color options of Google Maps marker based on class
     self.locationColor = {
-        'Class A': '#003865',
-        'Class B': '#9bd3dd',
-        'Class C': '#b5bd00',
+        'Class A': '#063C62',
+        'Class B': '#0590AE',
+        'Class C': '#BDBF2E',
     }
 
     //Dynamically places color on Google maps marker
@@ -98,7 +98,7 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
                 data: {
                     datasets: [{
                         data: self.marketData.data.map(item => item.NRA),
-                        backgroundColor: ['#003865', '#9bd3dd', '#b5bd00']
+                        backgroundColor: ['#063C62', '#0590AE', '#BDBF2E']
                     }],
                     labels: self.marketData.data.map(item => item.Class),
                 }
@@ -123,7 +123,7 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
                     if (this.label === 'Class A') {
                         this.borderColor = ['#003865'];
                     } else if (this.label === 'Class B') {
-                        this.borderColor = ['#9bd3dd'];
+                        this.borderColor = ['#0590AE'];
                     } else {
                         this.borderColor = ['#b5bd00'];
                     }
@@ -190,7 +190,7 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
                     if (this.label === 'Class A') {
                         this.backgroundColor = ['#003865', '#003865', '#003865', '#003865', '#003865', '#003865', '#003865', '#003865', '#003865', '#003865'];
                     } else if (this.label === 'Class B') {
-                        this.backgroundColor = ['#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd', '#9bd3dd'];
+                        this.backgroundColor = ['#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE', '#0590AE'];
                     } else {
                         this.backgroundColor = ['#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00', '#b5bd00'];
                     }

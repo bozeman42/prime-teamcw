@@ -4,6 +4,10 @@ myApp.service('UploadService', function ($http,FileUploader) {
     
     self.uploader = new FileUploader({
         removeAfterUpload: true,
+        onAfterAddingFile: function(item){
+            console.log('Added item to queue',item);
+            console.log('queue',this.queue);
+        },
         filters: [{
             name: 'csv',
             fn: function(item) {
