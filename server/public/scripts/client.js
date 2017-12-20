@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute', 'angularFileUpload', 'ngMap']);
+var myApp = angular.module('myApp', ['ngRoute','angularFileUpload','ngMap', 'ngCookies']);
 
 /// Routes ///
 myApp.config(function ($routeProvider, $locationProvider) {
@@ -20,6 +20,15 @@ myApp.config(function ($routeProvider, $locationProvider) {
         .when('/property/:state/:market/:year/:quarter/:id', {
             templateUrl: '/views/templates/property.html',
             controller: 'PropertyController as vm',
+            // resolve: {
+            //     checkSub: function(SubscriberService) {
+            //         return SubscriberService.checkSubStatus();
+            //     }
+            // }
+        })
+        .when('/not-subscribed', {
+            templateUrl: '/views/templates/not-subscribed.html',
+            controller: 'SubscribeController as vm'
         })
         .when('/login', {
             templateUrl: '/views/templates/login.html',
@@ -116,7 +125,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
             controller: 'PasswordResetController as vm'
         })
         .otherwise({
-            redirectTo: 'login'
+            redirectTo: 'home'
         });
 });
 

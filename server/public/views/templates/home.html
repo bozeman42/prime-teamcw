@@ -1,3 +1,4 @@
+<div class="container">
 <div class="row">
     <div id="hero"class="col-md-12">
         <div id="hero-menu" class="col-md-4 col-md-offset-4">
@@ -7,11 +8,11 @@
                 <option ng-repeat="item in vm.data.states" value="{{item.State}}">{{item.State}}</option>
             </select>
             <h3>Market</h3>            
-            <select class="form-control" name="market" id="marketDropdown" placeholder="Market" ng-model="vm.market">
+            <select class="form-control" name="market" id="marketDropdown" placeholder="Market" ng-model="vm.market" ng-disabled="!vm.state">
                 <option ng-repeat="item in vm.data.markets" value="{{item.Submarket}}">{{item.Submarket}}</option>
             </select>
             <br>
-            <button class="button-cta" ng-click="vm.click(vm.state, vm.market)">View Market</button>
+            <button class="button-cta" ng-click="vm.click(vm.state, vm.market)" ng-disabled="!vm.market">View Market</button>
         </div>
     </div>
    <!-- <div> -->

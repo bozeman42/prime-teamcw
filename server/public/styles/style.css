@@ -169,7 +169,7 @@ th {
 }
 
 .class-1 {
-    background-color: #9bd3dd;
+    background-color: #0590AE;
 }
 
 .class-2 {
@@ -270,4 +270,8 @@ th {
 
 .building-icon {
     max-width: 100px;
+}
+
+button:disabled {
+    background-color:#df7565;
 }

@@ -1,4 +1,4 @@
-myApp.controller('PropertyController', function (NgMap, DataService) {
+myApp.controller('PropertyController', function (NgMap, DataService, $http) {
     console.log('PropertyController created');
     var self = this;
     self.data = DataService.data;
@@ -13,6 +13,8 @@ myApp.controller('PropertyController', function (NgMap, DataService) {
 
     self.getProperty = function () {
         DataService.getProperty(self.options);
+        console.log(self.options);
+        console.log(self.data);
     }
     self.getProperty();
 
@@ -23,5 +25,4 @@ myApp.controller('PropertyController', function (NgMap, DataService) {
         console.log('markers', map.markers);
         console.log('shapes', map.shapes);
     })
-
 });

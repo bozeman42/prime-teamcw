@@ -2,6 +2,7 @@ myApp.controller('HomeController', function (NgMap, DataService, $location, User
     console.log('HomeController created');
     var self = this;
     self.data = DataService.data;
+    self.userService = UserService;
 
     // UserService.refreshUsers();
 
@@ -12,6 +13,15 @@ myApp.controller('HomeController', function (NgMap, DataService, $location, User
 
     self.getMarkets = function(state) {
         DataService.getMarkets(state);
+    }
+
+    self.dropdown = function (state){
+        if (state) {
+            return true
+        } 
+        else {
+            return false
+        }
     }
 
     self.click = function (state, submarket) {
