@@ -1,14 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var csv = require('fast-csv');
-var fs = require('fs');
 var pool = require('../modules/pool');
-
-// process lines of email CSV data to produce generated email addresses. Returns an array of data lines
-var processLine = require('../modules/address.generator');
+var processContactCSV = require('../modules/store.email.csv');
 
 var uploadedData = [];
 
+// retrieves all potential client email records
 router.get('/', function (req, res) {
   console.log(req.query);
   batchId = req.query.batchId;
@@ -21,7 +18,7 @@ router.get('/', function (req, res) {
       db.query(queryText, [
         batchId
       ], function (errorMakingQuery, result) {
-        console.log('used this batchId', batchId)
+        console.log('used this batchId', batchId);
         done();
         if (errorMakingQuery) {
           console.log('error making query', errorMakingQuery);
@@ -34,6 +31,51 @@ router.get('/', function (req, res) {
   }); //end of pool
 });
 
+// retrieves all email upload batches
+router.get('/batches/', function (req, res) {
+  pool.connect(function (errorConnecting, db, done) {
+    if (errorConnecting) {
+      console.log('Error connecting', errorConnecting);
+      res.sendStatus(500);
+    } else {
+      var queryText = 'SELECT * FROM "email_batch"' +
+      'JOIN "offices" on "email_batch".office_id = "offices".office_id;';
+      db.query(queryText, function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('error making query', errorMakingQuery);
+          res.sendStatus(500);
+        } else {
+          res.send(result.rows);
+        }
+      });
+    }
+  }); //end of pool
+});
+
+// deletes email upload batch 
+router.delete('/batches/',function(req,res) {
+  var batch_id = req.query.batch_id;
+  pool.connect(function(errorConnecting, db, done){
+    if (errorConnecting) {
+      console.log('Error connecting to delete batch', errorConnecting);
+      res.sendStatus(500);
+    } else {
+      var queryText = 'DELETE FROM "email_batch" WHERE "batch_id" = $1';
+      db.query(queryText, [batch_id], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('Query error deleting batches', errorMakingQuery);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      });
+    }
+  });
+});
+
+// upload CSV and create potential client email records
 router.post('/csv/', function (req, res) {
   if (req.isAuthenticated) {
     var dataInfo = {
@@ -73,6 +115,7 @@ router.post('/csv/', function (req, res) {
   }
 });
 
+// marks mailto link as clicked
 router.put('/', function (req, res) {
   console.log('request', req.query);
   var emailId = req.query.id;
@@ -81,7 +124,7 @@ router.put('/', function (req, res) {
     if (errorConnecting) {
       res.sendStatus(500);
     } else {
-      var queryText = 'UPDATE "emails" SET "clicked" = TRUE WHERE "email_id" = $1 RETURNING "email_id";';
+      var queryText = 'UPDATE "emails" SET "clicked" = TRUE WHERE "email_id" = $1 RETURNING *;';
       db.query(queryText, [
         emailId
       ], function (errorMakingQuery, result) {
@@ -90,7 +133,7 @@ router.put('/', function (req, res) {
           res.sendStatus(500);
         } else {
           res.send({
-            email_id: result.rows[0].email_id,
+            contact: result.rows[0],
             index: index
           });
         }
@@ -99,6 +142,7 @@ router.put('/', function (req, res) {
   }); //end of pool
 });
 
+// get indivitual email record
 router.get('/single/', function (req, res) {
   var email_id = req.query.email_id;
   var index = req.query.index;
@@ -123,6 +167,37 @@ router.get('/single/', function (req, res) {
     }
   }); //end of pool
 
+});
+
+// sets whether 
+router.put('/insertlink/', function (req, res) {
+  console.log('market link request', req.query);
+  var emailId = req.query.id;
+  var marketLink = req.query.market_link;
+  var index = req.query.index;
+  pool.connect(function (errorConnecting, db, done) {
+    if (errorConnecting) {
+      console.log('error connecting marketlink',errorConnecting);
+      res.sendStatus(500);
+    } else {
+      var queryText = 'UPDATE "emails" SET "market_link" = $2 WHERE "email_id" = $1 RETURNING *;';
+      db.query(queryText, [
+        emailId,
+        marketLink
+      ], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('query error marketlink',errorMakingQuery);
+          res.sendStatus(500);
+        } else {
+          res.send({
+            contact: result.rows[0],
+            index: index
+          });
+        }
+      });
+    }
+  }); //end of pool
 });
 
 router.put('/track/',function(req,res){
@@ -175,85 +250,5 @@ function createBatch(dataInfo) {
     }); //end of pool
   });
 }
-
-
-function processContactCSV(dataInfo) {
-  return new Promise((resolve, reject) => {
-    fs.exists(dataInfo.path, function (exists) {
-      if (exists) {
-        var stream = fs.createReadStream(dataInfo.path);
-        csv.fromStream(stream, {
-          headers: true
-          // use the array below instead of 'true' if you wish to 
-          // omit headers from the CSV instead of the headers being
-          // in the first line of the CSV
-          //
-          // [
-          //     'first',
-          //     'last',
-          //     'title',
-          //     'company',
-          //     'domain',
-          //     'building',
-          //     'market',
-          //     'email'
-          // ]
-        })
-          .on("data", function (data) {
-            // generates email addresses from names and company domains and pushes the results to uploadedData
-            processLine(data).forEach((line) => {
-              dataInfo.uploadedData.push(line);
-            });
-          })
-          .on("end", function (data) {
-            resolve(storeEmailCSV(dataInfo));
-          });
-      }
-    });
-  });
-}
-
-
-// store email CSV in database
-function storeEmailCSV(dataInfo) {
-  return new Promise((resolve, reject) => {
-    let success = true;
-    let data = dataInfo.uploadedData;
-    let user = dataInfo.user;
-    let batchId = dataInfo.batchId;
-    data.forEach((contact) => {
-      pool.connect(function (errorConnecting, db, done) {
-        if (errorConnecting) {
-          console.log('Error connecting', errorConnecting);
-          reject(errorConnecting);
-        } else {
-          var queryText = 'INSERT INTO "emails" ("first","last","title","company","domain","building","market","email","office_id","batch_id") VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);';
-          db.query(queryText, [
-            contact.first,
-            contact.last,
-            contact.title,
-            contact.company,
-            contact.domain,
-            contact.building,
-            contact.market,
-            contact.email,
-            user.o_id,
-            batchId
-          ], function (errorMakingQuery, result) {
-            done();
-            if (errorMakingQuery) {
-              console.log('error making query', errorMakingQuery);
-              reject(errorMakingQuery);
-            } else {
-
-            }
-          });
-        }
-      }); //end of pool
-    });
-    resolve(batchId);
-  });
-}
-
 
 module.exports = router;
