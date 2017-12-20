@@ -273,5 +273,6 @@ myApp.controller('MarketController', function ($location, NgMap, EmailService, D
         self.getVacancyData(value);
         self.getMarketPropertyData(value);
     };
+    self.emailTrack();
     self.pageLoad(self.options);
 });
