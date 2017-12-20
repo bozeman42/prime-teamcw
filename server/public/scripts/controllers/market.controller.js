@@ -4,19 +4,18 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
     var es = EmailService;
     self.marketData = DataService.data;
     
-
-    // UserService.refreshUsers();
     self.options = {
         state: location.hash.split('/')[2],
         market: decodeURIComponent(decodeURIComponent(location.hash.split('/')[3])),
         year: location.hash.split('/')[4],
-        quarter: location.hash.split('/')[5],
-    }
+        quarter: location.hash.split('/')[5].split('?')[0]
+    };
 
+    console.log(self.options);
     //Retrieve markets for dropdown selection
     self.getMarkets = function (state) {
         DataService.getMarkets(state);
-    }
+    };
     self.getMarkets(self.options.state);
 
     //Google Maps markers
@@ -27,14 +26,14 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
         scale: 7.5,
         strokeWeight: 1,
         strokeColor: 'grey'
-    }
+    };
 
     //Color options of Google Maps marker based on class
     self.locationColor = {
         'Class A': '#063C62',
         'Class B': '#0590AE',
         'Class C': '#BDBF2E',
-    }
+    };
 
     // Tracks email clickthroughs
     self.emailTrack = function () {
