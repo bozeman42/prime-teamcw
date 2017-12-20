@@ -1,7 +1,9 @@
-myApp.controller('MarketController', function (NgMap, DataService, $location, UserService) {
+myApp.controller('MarketController', function ($location, NgMap, EmailService, DataService, UserService) {
     console.log('MarketController created');
     var self = this;
+    var es = EmailService;
     self.marketData = DataService.data;
+    
 
     // UserService.refreshUsers();
     self.options = {
@@ -33,6 +35,18 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
         'Class B': '#9bd3dd',
         'Class C': '#b5bd00',
     }
+
+    // Tracks email clickthroughs
+    self.emailTrack = function () {
+        var queries = $location.search();
+
+        if (queries.hasOwnProperty('eid')) {
+            console.log('eid', queries.eid);
+            es.emailClickthrough(queries.eid);
+        } else {
+            console.log('no eid');
+        }
+    };
 
     //Dynamically places color on Google maps marker
     self.customMarker = function (location) {

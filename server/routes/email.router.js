@@ -223,33 +223,29 @@ router.put('/insertlink/', function (req, res) {
 });
 
 router.put('/track/', function (req, res) {
-  if (req.isAuthenticated()) {
-    var eid = req.query.eid;
-    console.log('eid', eid);
-    pool.connect(function (errorConnecting, db, done) {
-      if (errorConnecting) {
-        console.log("error connecting", errorConnecting);
-        res.sendStatus(500);
-      } else {
-        var queryText = 'UPDATE "emails" SET "click_through" = TRUE WHERE "email_id" = $1 RETURNING "market";';
-        db.query(queryText, [
-          eid
-        ], function (errorMakingQuery, result) {
-          done();
-          if (errorMakingQuery) {
-            console.log('error making query', errorMakingQuery);
-            res.sendStatus(500);
-          } else {
-            res.send({
-              market: result.rows[0].market
-            });
-          }
-        });
-      }
-    }); //end of pool
-  } else {
-    res.sendStatus(401);
-  }
+  var eid = req.query.eid;
+  console.log('eid', eid);
+  pool.connect(function (errorConnecting, db, done) {
+    if (errorConnecting) {
+      console.log("error connecting", errorConnecting);
+      res.sendStatus(500);
+    } else {
+      var queryText = 'UPDATE "emails" SET "click_through" = TRUE WHERE "email_id" = $1 RETURNING "market";';
+      db.query(queryText, [
+        eid
+      ], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('error making query', errorMakingQuery);
+          res.sendStatus(500);
+        } else {
+          res.send({
+            market: result.rows[0].market
+          });
+        }
+      });
+    }
+  }); //end of pool
 });
 
 module.exports = router;
