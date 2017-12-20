@@ -16,6 +16,4 @@ myApp.service('SubscribeService', function ($http, $location) {
             }
         })
     }
-
-    self.launchSub();
 });
