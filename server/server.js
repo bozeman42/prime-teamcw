@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var fileUpload = require('express-fileupload');
+require('dotenv').config();
 
 var passport = require('./strategies/sql.localstrategy');
 var sessionConfig = require('./modules/session.config');
@@ -13,6 +14,7 @@ var registerRouter = require('./routes/register.router');
 var officeRouter = require('./routes/office.router.js');
 var emailRouter = require('./routes/email.router.js');
 var dataRouter = require('./routes/data.router');
+var subscribeRouter = require('./routes/subscribe.router')
 
 var port = process.env.PORT || 5000;
 
@@ -39,6 +41,7 @@ app.use('/user', userRouter);
 app.use('/office', officeRouter);
 app.use('/email', emailRouter);
 app.use('/data', dataRouter);
+app.use('/subscribe', subscribeRouter);
 
 // Catch all bucket, must be last!
 app.use('/', indexRouter);

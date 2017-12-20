@@ -273,7 +273,6 @@ router.get('/propertydata', function (req, res) {
           console.log('errorMakingQuery', errorMakingQuery);
           res.sendStatus(500);
         } else {
-          console.log('This is the result:', result);
           res.send(result.rows);
         }
       });
