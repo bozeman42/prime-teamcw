@@ -3,7 +3,7 @@ myApp.controller('HomeController', function (NgMap, DataService, $location, User
     var self = this;
     self.data = DataService.data;
 
-    UserService.refreshUsers();
+    // UserService.refreshUsers();
 
     self.getStates = function() {
         DataService.getStates();
