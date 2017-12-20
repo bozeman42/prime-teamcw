@@ -13,13 +13,27 @@ myApp.service('DataService', function ($http, $location, $q) {
     };
     
     self.userObject = {};
-
     self.uploaderOptions = {
-        url: '/data/csv/',
-        onSuccess: function(response, status, headers) {
-            console.log('data uploaded');
+        property: {
+            url: '/data/csv/property/',
+            onSuccess: function(response, status, headers) {
+                console.log('property data uploaded');
+            }
+        },
+        city: {
+            url: '/data/csv/city/',
+            onSuccess: function(response, status, headers) {
+                console.log('city data uploaded');
+            }
+        },
+        dataset: {
+            url: '/data/csv/dataset/',
+            onSuccess: function(response, status, headers) {
+                console.log('dataset data uploaded');
+            }
         }
     };
+
 
     //Retrieve all properties
     self.getAllProperties = function() {
