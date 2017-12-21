@@ -60,8 +60,8 @@ router.get('/', function (req, res) {
             });
             res.sendStatus(200);
         }
-    })
-})
+    });
+});
 
 router.get('/:email', function (req, res) {
     let emailToCheck = req.params.email;
