@@ -90,7 +90,7 @@ CREATE TABLE "dbo_RPRT_Property" (
 CREATE TABLE "email_batch" (
 	"batch_id" SERIAL PRIMARY KEY,
 	"file_name" VARCHAR(200),
-	"date" TIMESTAMP,
+	"date" TIMESTAMP DEFAULT NOW(),
 	"user_id" SERIAL REFERENCES "users",
 	"office_id" SERIAL REFERENCES "offices"
 );
@@ -148,3 +148,8 @@ CREATE OR REPLACE FUNCTION clickthrough(INTEGER) RETURNS BOOLEAN AS $$
     END IF;
     END $$
 LANGUAGE plpgsql;
+
+CREATE TABLE "subscribers" (
+  "sub_id" serial primary key,
+  "email_address" varchar (240) NOT NULL unique
+  );

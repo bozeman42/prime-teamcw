@@ -58,14 +58,13 @@ router.get('/', function (req, res) {
                                     console.log(dbSubs);
                                     console.log(mcSubs);
                                 }
-
                             }
                         }
                     });
             });
             res.sendStatus(200);
         }
-    })
-})
+    });
+});
 
 module.exports = router;

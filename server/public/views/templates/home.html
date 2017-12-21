@@ -4,10 +4,12 @@
             <h1>Office Retail Market Reports</h1>
             <h3>State</h3>
             <select class="form-control" name="state" id="stateDropdown" placeholder="State" ng-model="vm.state" ng-change="vm.getMarkets(vm.state)">
+                <option value="">Select a state...</option>
                 <option ng-repeat="item in vm.data.states" value="{{item.State}}">{{item.State}}</option>
             </select>
             <h3>Market</h3>            
             <select class="form-control" name="market" id="marketDropdown" placeholder="Market" ng-model="vm.market" ng-disabled="!vm.state">
+                <option value="">Select your market...</option>
                 <option ng-repeat="item in vm.data.markets" value="{{item.Submarket}}">{{item.Submarket}}</option>
             </select>
             <br>
