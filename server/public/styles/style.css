@@ -265,6 +265,10 @@ th {
     background-color: #777;
 }
 
+#emailList tr.clickThrough {
+    background-color: purple;
+}
+
 .button-cta {
     -webkit-appearance: none;
     background-color: #e4002b;
