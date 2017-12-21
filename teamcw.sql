@@ -90,7 +90,7 @@ CREATE TABLE "dbo_RPRT_Property" (
 CREATE TABLE "email_batch" (
 	"batch_id" SERIAL PRIMARY KEY,
 	"file_name" VARCHAR(200),
-	"date" TIMESTAMP,
+	"date" TIMESTAMP DEFAULT NOW(),
 	"user_id" SERIAL REFERENCES "users",
 	"office_id" SERIAL REFERENCES "offices"
 );
