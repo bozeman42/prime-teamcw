@@ -4,5 +4,9 @@ node_modules/
 *.log
 *.logs
 .vscode/
-server/upload/
+server/upload/city/*.*
+server/upload/dataset/*.*
+server/upload/emailcsvs/*.*
+server/upload/property/*.*
+
 .env
