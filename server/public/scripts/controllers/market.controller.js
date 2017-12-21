@@ -68,13 +68,13 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
     }
     calcQuarter();
 
-    self.mapSize = 'col-xs-12';
-
-
     self.click = function (event, item) {
         self.selectedItem = item;
-        self.mapSize = 'col-xs-12 col-sm-10'
     };
+
+    self.close = function() {
+        self.selectedItem = false;
+    }
 
     //Navigate to selected property page
     self.viewProperty = function () {
