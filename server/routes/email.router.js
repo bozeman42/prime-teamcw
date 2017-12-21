@@ -222,6 +222,28 @@ router.put('/insertlink/', function (req, res) {
   }
 });
 
+router.get('/track/',(req,res) => {
+  if (req.isAuthenticated()) {
+    pool.connect(function (errorConnecting, db, done) {
+      if (errorConnecting) {
+        res.sendStatus(500);
+      } else {
+        var queryText = 'SELECT * FROM "email_clickthroughs";';
+        db.query(queryText, function (errorMakingQuery, result) {
+          done();
+          if (errorMakingQuery) {
+            res.sendStatus(500);
+          } else {
+            res.send(result.rows);
+          }
+        });
+      }
+    }); //end of pool
+  } else {
+    res.sendStatus(401);
+  }
+});
+
 router.put('/track/', function (req, res) {
   var eid = req.query.eid;
   console.log('eid', eid);
@@ -230,7 +252,7 @@ router.put('/track/', function (req, res) {
       console.log("error connecting", errorConnecting);
       res.sendStatus(500);
     } else {
-      var queryText = 'UPDATE "emails" SET "click_through" = TRUE WHERE "email_id" = $1 RETURNING "market";';
+      var queryText = 'SELECT clickthrough($1);';
       db.query(queryText, [
         eid
       ], function (errorMakingQuery, result) {
@@ -239,9 +261,8 @@ router.put('/track/', function (req, res) {
           console.log('error making query', errorMakingQuery);
           res.sendStatus(500);
         } else {
-          res.send({
-            market: result.rows[0].market
-          });
+          console.log('clickthrough result',result.rows[0].clickthrough);
+          res.sendStatus(201);
         }
       });
     }
