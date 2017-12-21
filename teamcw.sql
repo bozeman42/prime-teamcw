@@ -96,17 +96,17 @@ CREATE TABLE "email_batch" (
 );
 
 CREATE TABLE "emails" (
-  "email_id" serial primary key,
-  "first" varchar(80),
-  "last" varchar(80),
-  "title" varchar(200),
-  "company" varchar(80),
-  "domain" varchar(80),
-  "building" varchar(80),
-  "market" varchar(80),
-  "email" varchar(200),
-  "batch_id" serial REFERENCES "email_batch" ON DELETE CASCADE,
-  "office_id" serial references "offices" ON DELETE CASCADE,
+  "email_id" SERIAL PRIMARY KEY,
+  "first" VARCHAR(80),
+  "last" VARCHAR(80),
+  "title" VARCHAR(200),
+  "company" VARCHAR(80),
+  "domain" VARCHAR(80),
+  "building" VARCHAR(80),
+  "market" VARCHAR(80),
+  "email" VARCHAR(200),
+  "batch_id" SERIAL REFERENCES "email_batch" ON DELETE CASCADE,
+  "office_id" SERIAL REFERENCES "offices" ON DELETE CASCADE,
   "clicked" BOOLEAN DEFAULT FALSE,
   "click_through" BOOLEAN DEFAULT FALSE,
   "market_link" BOOLEAN DEFAULT TRUE
@@ -120,3 +120,31 @@ CREATE TABLE "dbo_PROP_City" (
   "Modified_User" integer,
   "Modified_Date" date
 );
+
+CREATE TABLE "email_clickthroughs" (
+  "id" SERIAL primary key,
+  "eid" SERIAL UNIQUE,
+  "first" VARCHAR(80),
+  "last" VARCHAR(80),
+  "title" VARCHAR(200),
+  "company" VARCHAR(80),
+  "market" VARCHAR(80),
+  "email" VARCHAR(200),
+  "office_id" serial references "offices" ON DELETE CASCADE
+);
+
+CREATE OR REPLACE FUNCTION clickthrough(INTEGER) RETURNS BOOLEAN AS $$
+    BEGIN 
+      UPDATE "emails" SET "click_through" = TRUE WHERE "email_id" = $1;
+    IF NOT FOUND 
+    THEN
+      RETURN FALSE;
+    ELSE
+      INSERT INTO "email_clickthroughs" ("eid","first","last","title","company","market","email","office_id")
+      SELECT "email_id","first","last","title","company","market","email","office_id" 
+      FROM "emails" WHERE "email_id" = $1
+      ON CONFLICT ("eid") DO NOTHING;
+      RETURN TRUE;
+    END IF;
+    END $$
+LANGUAGE plpgsql;
