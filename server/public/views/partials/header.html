@@ -184,13 +184,22 @@
                             <a href="#/admin" ng-if="nc.user.userObject.role === 'admin'||nc.user.userObject.role === 'owner'">Users</a>
                         </li>
                         <li>
+                            <a href="#/data-upload" ng-if="nc.user.userObject.role === 'admin'||nc.user.userObject.role === 'owner'">Upload Market Data</a>
+                        </li>
+                        <li>
                             <a href="#/office" ng-if="nc.user.userObject.role === 'owner'">Offices</a>
                         </li>
                         <li>
-                            <a href="#/email-upload" ng-if="nc.user.userObject.userName">Upload Email</a>
+                            <a href="#/email-upload" ng-if="nc.user.userObject.userName">Email Potential Clients</a>
+                        </li>
+                        <li>
+                            <a href="#/email-list" ng-if="nc.user.userObject.userName">Email Generation List</a>
                         </li>
                         <li>
                             <a href="#/email-history" ng-if="nc.user.userObject.userName">Email History</a>
+                        </li>
+                        <li>
+                            <a href="#/email-clickthroughs" ng-if="nc.user.userObject.userName">Email Clickthroughs</a>
                         </li>
                     </ul>
                 </div>
