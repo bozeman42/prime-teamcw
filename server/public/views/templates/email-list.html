@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody id="emailList">
-            <tr ng-class="{clicked: contact.clicked}" ng-repeat="contact in vm.data.contacts track by $index">
+            <tr ng-class="{clicked: contact.clicked, clickThrough: contact.click_through}" ng-repeat="contact in vm.data.contacts track by $index">
                 <td>{{contact.first}}</td>
                 <td>{{contact.last}}</td>
                 <td>{{contact.email}}</td>
