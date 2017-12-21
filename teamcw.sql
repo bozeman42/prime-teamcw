@@ -148,3 +148,8 @@ CREATE OR REPLACE FUNCTION clickthrough(INTEGER) RETURNS BOOLEAN AS $$
     END IF;
     END $$
 LANGUAGE plpgsql;
+
+CREATE TABLE "subscribers" (
+  "sub_id" serial primary key,
+  "email_address" varchar (240) NOT NULL unique
+  );
