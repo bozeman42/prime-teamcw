@@ -15,10 +15,11 @@
         })(window, document, 'script', 'dataLayer', 'GTM-K7GK7H7');
         </script>
     <!-- End Google Tag Manager -->
-
+    <link rel="stylesheet" href="vendors/sweetalert2.min.css">
     <link rel="stylesheet" href="vendors/bootstrap.min.css">
     <link rel="stylesheet" href="vendors/angular-bootstrap.min.js">
     <link rel="stylesheet" href="styles/style.css">
+    <script type="text/javascript" src="vendors/sweetalert2.min.js"></script>
     <script type="text/javascript" src="vendors/angular/angular.min.js"></script>
     <script type="text/javascript" src="vendors/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="vendors/angular-file-upload/angular-file-upload.js"></script>
@@ -62,6 +63,7 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <header id="header" ng-include="'/views/partials/header.html'"></header>
+    <nav id="nav" ng-include="'/views/partials/nav.html'"></nav>
     <main ng-view></main>
     <footer id="footer" ng-include="'/views/partials/footer.html'"></footer>
 </body>

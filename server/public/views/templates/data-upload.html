@@ -1,27 +1,21 @@
 <div class="container">
     <h1 class="lead">Upload Property Data</h1>
-    <a href="">Download Property Data CSV Template</a>
+    <span class="glyphicon glyphicon-file"></span><a href="">Download Property Data CSV Template</a>
     <form ng-submit="vm.dataUpload(vm.uploaderOptions)">
-        <div nv-file-drop="" uploader="vm.uploader" style="border: 5px dashed grey; padding: 20px; width: 400px">
+        <div nv-file-drop="" uploader="vm.uploader" class="dataUpload">
             <label for="officeName">Upload Property Data CSV</label>
             <input type="file" name="dataCSV" nv-file-select options="vm.uploaderOptions.property" uploader="vm.uploader" accept=".csv" />
         </div>
-        <div>
-            <input class="btn btn-default" type="submit" name="submit" value="Submit Email CSV" />
-        </div>
-        <div nv-file-drop="" uploader="vm.uploader" style="border: 5px dashed grey; padding: 20px; width: 400px">
+        <div nv-file-drop="" uploader="vm.uploader" class="dataUpload">
             <label for="officeName">Upload City Data CSV</label>
             <input type="file" name="dataCSV" nv-file-select options="vm.uploaderOptions.city" uploader="vm.uploader" accept=".csv" />
         </div>
-        <div>
-            <input class="btn btn-default" type="submit" name="submit" value="Submit Email CSV" />
-        </div>
-        <div nv-file-drop="" uploader="vm.uploader" style="border: 5px dashed grey; padding: 20px; width: 400px">
+        <div nv-file-drop="" uploader="vm.uploader" class="dataUpload">
             <label for="officeName">Upload Dataset Data CSV</label>
             <input type="file" name="dataCSV" nv-file-select options="vm.uploaderOptions.dataset" uploader="vm.uploader" accept=".csv" />
         </div>
         <div>
-            <input class="btn btn-default" type="submit" name="submit" value="Submit Data CSVs" />
+            <input class="btn btn-default dataCSVbtn" type="submit" name="submit" value="Upload Data" />
         </div>
     </form>
 </div>

@@ -4,6 +4,7 @@
             <ng-map zoom="18" center="[{{vm.data.property[0].X}},{{vm.data.property[0].Y}}]" default-style="false" map-type-id="MapTypeId.SATELLITE"
                 tilt="45">
                 <street-view-panorama container="streetview"></street-view-panorama>
+                <marker position="{{vm.data.property[0].X}},{{vm.data.property[0].Y}}"></marker>
             </ng-map>
         </div>
     </div>
@@ -20,7 +21,7 @@
                         <h4>Square Feet Available: {{vm.data.property[0].Squarefeet_Available | number:fractionSize}}</h4>
                 </div>
                 <div class="col-md-6 col-sm-12">
-                        <img class="map-static" ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{vm.data.property[0].X}},{{vm.data.property[0].Y}}&zoom=14&size=600x600&key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY"
+                        <img class="map-static" ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{vm.data.property[0].X}},{{vm.data.property[0].Y}}&zoom=16&size=600x600&markers=color:red%7C{{vm.data.property[0].X}},{{vm.data.property[0].Y}}&key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY"
                         alt="Static Google Map">
                     </div>
                 
