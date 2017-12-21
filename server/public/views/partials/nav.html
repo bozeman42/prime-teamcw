@@ -14,7 +14,14 @@
                 <a href="#/office" ng-if="nc.user.userObject.role === 'owner'">Offices</a>
             </li>
             <li>
-                <a href="#/email-upload" ng-if="nc.user.userObject.userName">Upload Email</a>
+                <ul>
+                    <li>
+                        <a href="#/email-upload" ng-if="nc.user.userObject.userName">Upload Client CSVs</a>
+                    </li>
+                    <li>
+                        <a href="#/email-list" ng-if="nc.user.userObject.userName">Stuff</a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a href="#/email-history" ng-if="nc.user.userObject.userName">Email History</a>
