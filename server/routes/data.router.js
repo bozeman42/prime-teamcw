@@ -224,8 +224,6 @@ router.get('/propertydata', function (req, res) {
   let quarter = req.query.quarter;
   let market = req.query.market;
   let propid = req.query.propid;
-  console.log(state, year, quarter, market, propid);
-  console.log(typeof(state), typeof(propid));
   pool.connect(function (errorConnecting, db, done) {
     if (errorConnecting) {
       console.log('Error connecting ', errorConnecting);

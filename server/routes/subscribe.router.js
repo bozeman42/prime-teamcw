@@ -6,7 +6,7 @@ const API_KEY = process.env.API_KEY;
 var username = 'cushwake';
 
 router.get('/', function (req, res) {
-    var uri = 'https://' + username + ':' + API_KEY + '@us17.api.mailchimp.com/3.0/lists/8bb5bb9fba/members';
+    let uri = 'https://' + username + ':' + API_KEY + '@us17.api.mailchimp.com/3.0/lists/8bb5bb9fba/members';
     let mcSubs = [];
     let dbSubs = [];
     request({ method: 'GET', uri: uri }, function (err, response, body) {
@@ -43,9 +43,9 @@ router.get('/', function (req, res) {
                                         } else {
                                             console.log('email to add: ', mcSubs[k]);
                                             let queryText = 'INSERT INTO subscribers (email_address) VALUES ($1)'
-                                            db.query(queryText, [mcSubs[k]], function(err,result) {
+                                            db.query(queryText, [mcSubs[k]], function (err, result) {
                                                 done();
-                                                if(err) {
+                                                if (err) {
                                                     res.sendStatus(500);
                                                 } else {
                                                     console.log(mcSubs[k], 'added');
@@ -53,19 +53,36 @@ router.get('/', function (req, res) {
                                             })
                                         }
                                     });
-                                } else {
-                                    console.log('Subscriber exists');
-                                    console.log(dbSubs);
-                                    console.log(mcSubs);
                                 }
-
                             }
-                        }
+                        } console.log('MailChimp subscribers added to database');
                     });
             });
             res.sendStatus(200);
         }
     })
+})
+
+router.get('/:email', function (req, res) {
+    let emailToCheck = req.params.email;
+    let emailExist = false;
+    pool.connect(function (errorConnecting, db, done) {
+        if (errorConnecting) {
+            console.log('Error connecting ', errorConnecting);
+            res.sendStatus(500);
+        } else {
+            var queryText = `SELECT * FROM subscribers WHERE email_address = $1`;
+            db.query(queryText, [emailToCheck], function (errorMakingQuery, result) {
+                done();
+                if (errorMakingQuery) {
+                    console.log('errorMakingQuery', errorMakingQuery);
+                    res.sendStatus(500);
+                } else {
+                    res.send(true);
+                }
+            });
+        }
+    });//end of pool
 })
 
 module.exports = router;
