@@ -19,12 +19,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
         })
         .when('/property/:state/:market/:year/:quarter/:id', {
             templateUrl: '/views/templates/property.html',
-            controller: 'PropertyController as vm',
-            // resolve: {
-            //     checkSub: function(SubscriberService) {
-            //         return SubscriberService.checkSubStatus();
-            //     }
-            // }
+            controller: 'PropertyController as vm'
         })
         .when('/not-subscribed', {
             templateUrl: '/views/templates/not-subscribed.html',
@@ -100,6 +95,15 @@ myApp.config(function ($routeProvider, $locationProvider) {
         .when('/email-list', {
             templateUrl: '/views/templates/email-list.html',
             controller: 'EmailController as vm',
+            resolve: {
+                getuser: function (UserService) {
+                    return UserService.getuser();
+                }
+            }
+        })
+        .when('/email-clickthroughs', {
+            templateUrl: '/views/templates/email-clickthroughs.html',
+            controller: 'ClickthroughController as vm',
             resolve: {
                 getuser: function (UserService) {
                     return UserService.getuser();

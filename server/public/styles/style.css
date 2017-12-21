@@ -23,6 +23,11 @@ html {
     font-size: 14px;
     background-color: #f7f7f7;
     height: 100%;
+    font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    font-weight: 300;
 }
 
 #hero {
@@ -165,31 +170,23 @@ th {
 }
 
 .class-0 {
-    background-color: #003865;
+    color: #003865;
 }
 
 .class-1 {
-    background-color: #0590AE;
+    color: #0590AE;
 }
 
 .class-2 {
-    background-color: #b5bd00;
-}
-
-.property-header {
-    text-align: left;
-    color: #FFFFFF;
-    border-bottom: 1px solid rgba(0,0,0,.64);
+    color: #b5bd00;
 }
 
 .property {
-    padding: 0px;
-    min-height: 20px;
+    border-top: 5px solid #686b6b;
     margin-bottom: 20px;
     background-color: #ffffff;
-    border: 1px solid #e3e3e3;
     -webkit-box-shadow:  1px 1px 1px rgba(0,0,0,.0.64);
-    box-shadow: 1px 1px 1px rgba(0,0,0,.64);
+    box-shadow: 0px 1px 1px rgba(0,0,0,.64);
 }
 
 #admin {
@@ -214,22 +211,38 @@ th {
   }
 
   .map-container {
-    box-shadow: 1px 1px 1px rgba(0,0,0,.64);
+    box-shadow: 0px 1px 1px rgba(0,0,0,.64);
     margin-top: 20px;
     margin-bottom:20px;
+    padding: 0px;
   }
 
   .map-box {
     padding: 0px;
   }
 
-  .map-menu-box {
-    border-top: 5px solid #e4002b;
-    background-color:white;
-    height: 100%;
-    min-height: 302px;
-    border-left: 1px solid rgba(0,0,0,.34);
-  }
+.map-menu-box {
+    position: absolute;
+    padding: 0px 20px 20px 20px;
+    right: 0;
+    z-index: 1000;
+    max-width: 250px;
+    max-height: 400px;
+    margin-top: 20px;
+    margin-right: 20px;
+    border-top: 5px solid #e63631;
+    background-color: white;
+    box-shadow: 0px 1px 10px black;
+}
+
+.map-menu-box-close {
+    -webkit-appearance: none;
+    border: none;
+    padding: 5px 0px;
+    float:right;
+    color: rgba(0,0,0,.64);
+}
+
 
 #footer {
     border-top: 2px solid lightgray;
@@ -252,6 +265,10 @@ th {
     background-color: #777;
 }
 
+#emailList tr.clickThrough {
+    background-color: purple;
+}
+
 .button-cta {
     -webkit-appearance: none;
     background-color: #e4002b;
@@ -265,6 +282,7 @@ th {
 
 .map-static {
     width: 100%;
+    margin: 20px 0px;
     max-width: 400px;
 }
 
@@ -275,3 +293,27 @@ th {
 button:disabled {
     background-color:#df7565;
 }
+
+.property-details {
+    border-top: 5px solid #686b6b;
+    padding: 0px 10px 20px 10px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    -webkit-box-shadow:  1px 1px 1px rgba(0,0,0,.0.64);
+    box-shadow: 0px 1px 1px rgba(0,0,0,.64);
+}
+
+.contact-form {
+    border-top: 5px solid #e4002b;
+    box-shadow: 0px 1px 1px rgba(0,0,0,.64);
+    padding: 0px 10px 20px 10px;
+    background-color:white;
+    height: 100%;
+    min-height: 302px;
+}
+
+.divider {
+    width: 100%;
+    border-bottom: 1px solid rgba(0,0,0,.24);
+    padding: 5px 0px;
+  }

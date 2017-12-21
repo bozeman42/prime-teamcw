@@ -1,20 +1,21 @@
-myApp.controller('MarketController', function (NgMap, DataService, $location, UserService, SubscribeService, $cookies) {
+myApp.controller('MarketController', function ($location, $cookies, NgMap, EmailService, DataService, UserService, SubscribeService) {
     console.log('MarketController created');
     var self = this;
+    var es = EmailService;
     self.marketData = DataService.data;
-
-    // UserService.refreshUsers();
+    
     self.options = {
         state: location.hash.split('/')[2],
         market: decodeURIComponent(decodeURIComponent(location.hash.split('/')[3])),
         year: location.hash.split('/')[4],
-        quarter: location.hash.split('/')[5],
-    }
+        quarter: location.hash.split('/')[5].split('?')[0]
+    };
 
+    console.log(self.options);
     //Retrieve markets for dropdown selection
     self.getMarkets = function (state) {
         DataService.getMarkets(state);
-    }
+    };
     self.getMarkets(self.options.state);
 
     //Google Maps markers
@@ -25,14 +26,26 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
         scale: 7.5,
         strokeWeight: 1,
         strokeColor: 'grey'
-    }
+    };
 
     //Color options of Google Maps marker based on class
     self.locationColor = {
         'Class A': '#063C62',
         'Class B': '#0590AE',
         'Class C': '#BDBF2E',
-    }
+    };
+
+    // Tracks email clickthroughs
+    self.emailTrack = function () {
+        var queries = $location.search();
+
+        if (queries.hasOwnProperty('eid')) {
+            console.log('eid', queries.eid);
+            es.emailClickthrough(queries.eid);
+        } else {
+            console.log('no eid');
+        }
+    };
 
     //Dynamically places color on Google maps marker
     self.customMarker = function (location) {
@@ -55,13 +68,13 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
     }
     calcQuarter();
 
-    self.mapSize = 'col-xs-12';
-
-
     self.click = function (event, item) {
         self.selectedItem = item;
-        self.mapSize = 'col-xs-12 col-sm-10'
     };
+
+    self.close = function() {
+        self.selectedItem = false;
+    }
 
     //Navigate to selected property page
     self.viewProperty = function () {
@@ -269,5 +282,6 @@ myApp.controller('MarketController', function (NgMap, DataService, $location, Us
         self.getVacancyData(value);
         self.getMarketPropertyData(value);
     };
+    self.emailTrack();
     self.pageLoad(self.options);
 });

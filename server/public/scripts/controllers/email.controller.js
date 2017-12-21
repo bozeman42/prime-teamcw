@@ -19,6 +19,7 @@ myApp.controller('EmailController', function (UserService, $location, UploadServ
     self.getBatchEmails = function (batch_id) {
         self.data.viewBatch = batch_id;
         es.getContacts(batch_id)
+        
     }
 
     // generates email template for mailto link

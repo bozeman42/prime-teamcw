@@ -67,6 +67,7 @@ myApp.service('DataService', function ($http, $location, $q) {
     //Retrieve data for table and inventory on Market Page
     self.getMarketData = function (value) {
         console.log('THIS IS THE MARKET DATA VALUE', value);
+        console.log(`Request URL: /data/all?state=${value.state}&year=${value.year}&quarter=${value.quarter}&market=${value.market}`);
         return $http.get(`/data/all?state=${value.state}&year=${value.year}&quarter=${value.quarter}&market=${value.market}`).then(function (response) {
             self.data.data = response.data;
             console.log('Succesfully retrieved market data', response.data);

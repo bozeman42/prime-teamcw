@@ -5,6 +5,7 @@ myApp.service('EmailService', function ($http, UploadService) {
     self.data = {
         contacts: [],
         batches: [],
+        clickthroughs: [],
         viewBatch: 0
     };
 
@@ -39,6 +40,15 @@ myApp.service('EmailService', function ($http, UploadService) {
                 console.log('failed to get email list:', error);
             });
     };
+
+    self.getClickthroughs = function() {
+        return $http.get('/email/track/')
+        .then(function(response){
+            console.log('received clickthrough response:',response.data);
+            self.data.clickthroughs = response.data;
+            return response;
+        });
+    }
 
 
     // can probably get rid of this route
@@ -109,11 +119,6 @@ myApp.service('EmailService', function ($http, UploadService) {
             }
         };
         return $http(config)
-        .then(function(response){
-            //return the market associated with the email
-            console.log(response.data);
-            return response.data.market;
-        })
         .catch(function(error){
             console.log('error in put route',error);
         });

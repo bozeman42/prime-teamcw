@@ -1,6 +1,5 @@
 <div class="container" ng-controller="SubscribeController as sc">
     <div class="row">
-        <h1>{{vm.data.property[0].City}}, {{vm.data.property[0].State}}</h1>
         <div class="map-container">
             <ng-map zoom="18" center="[{{vm.data.property[0].X}},{{vm.data.property[0].Y}}]" default-style="false" map-type-id="MapTypeId.SATELLITE"
                 tilt="45">
@@ -8,21 +7,46 @@
             </ng-map>
         </div>
     </div>
-    <div class="row property">
-        <div class="col-sm-6 col-xs-12">
-                <h3>{{vm.data.property[0].Address}}</h3>
-                <p>Market: {{vm.data.property[0].Submarket}}</p>
-                <p>Class: {{vm.data.property[0].Class}}</p>
-                <p>Floors: {{vm.data.property[0].Number_Of_Floors}}</p>
-                <p>Year Built: {{vm.data.property[0].Year_Built}}</p>
-                <p>Vacancy: {{vm.data.property[0].Percent_Vacant}}%</p>
-                <p>Rate Low: {{vm.data.property[0].Rate_Low}}</p>
-                <p>Rate High: {{vm.data.property[0].Rate_High}}</p>
-                <p>Square Feet Available: {{vm.data.property[0].Squarefeet_Available}}</p>
-        </div>
-        <div class="col-sm-6 col-xs-12">
-                <img class="map-static" ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{vm.data.property[0].X}},{{vm.data.property[0].Y}}&zoom=14&size=400x400&key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY"
-                    alt="Static Google Map">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="row property-details">
+                <div class="col-md-6 col-sm-12">
+                        <h1>{{vm.data.property[0].Address}}, {{vm.data.property[0].City}} {{vm.data.property[0].State}}</h1>
+                        <h4>Market: {{vm.data.property[0].Submarket}}</h4>
+                        <h4>{{vm.data.property[0].Class}}</h4>
+                        <h4>Floors: {{vm.data.property[0].Number_Of_Floors}}</h4>
+                        <h4>Year Built: {{vm.data.property[0].Year_Built}}</h4>
+                        <h4>Vacancy: {{vm.data.property[0].Percent_Vacant}}%</h4>
+                        <h4>Square Feet Available: {{vm.data.property[0].Squarefeet_Available | number:fractionSize}}</h4>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                        <img class="map-static" ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{vm.data.property[0].X}},{{vm.data.property[0].Y}}&zoom=14&size=600x600&key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY"
+                        alt="Static Google Map">
+                    </div>
+                
             </div>
+        </div>
+        <div class="col-sm-4 col-xs-12">
+            <div class="contact-form">
+                <h3>Contact for Full Details</h3>
+                <div class="form-group">
+                    <label for="first">First Name:</label>
+                    <input type="text" class="form-control" id="first">
+                </div>
+                <div class="form-group">
+                    <label for="last">Last Name:</label>
+                    <input type="text" class="form-control" id="last">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="text" class="form-control" id="phone">
+                </div>
+                <div class="form-group">
+                    <label for="notes">Additional Notes:</label>
+                    <input type="text" class="form-control" id="notes">
+                </div>
+                <button class="button-cta">Request More Info</button>
+            </div>
+        </div>
     </div>
 </div>
