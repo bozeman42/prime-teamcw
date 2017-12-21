@@ -19,12 +19,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
         })
         .when('/property/:state/:market/:year/:quarter/:id', {
             templateUrl: '/views/templates/property.html',
-            controller: 'PropertyController as vm',
-            // resolve: {
-            //     checkSub: function(SubscriberService) {
-            //         return SubscriberService.checkSubStatus();
-            //     }
-            // }
+            controller: 'PropertyController as vm'
         })
         .when('/not-subscribed', {
             templateUrl: '/views/templates/not-subscribed.html',
