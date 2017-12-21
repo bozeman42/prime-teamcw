@@ -1,6 +1,6 @@
-# Name of Project
+# Cushman & Wakefield Marketing Application
 
-One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.
+An application that displays marketing information for 
 
 ## Built With
 
