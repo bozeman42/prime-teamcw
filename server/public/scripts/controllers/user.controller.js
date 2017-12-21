@@ -16,8 +16,6 @@ myApp.controller('UserController', function (UserService, $location, $route) {
     }
 
     vm.newUser = function (user){
-        console.log('alkjsdhflkajdshfaklsjdhaklsjdfhk');
-        
         return $location.path('/register')
     }
 
