@@ -30,7 +30,7 @@ router.get('/states', function (req, res) {
     }
   });//end of pool
 });
-
+  
 //RETRIEVE MARKET DROPDOWN INFORMATION ON HOMEPAGE
 router.get('/markets/:state', function (req, res) {
   let state = req.params.state;
