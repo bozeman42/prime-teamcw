@@ -15,7 +15,7 @@ myApp.service('SubscribeService', function ($http, $location, $cookies) {
         $http.get('/subscribe/' + self.email).then(function(response) {
             if (response.data) {
                 console.log('User is subscribed');
-                // $cookies.put()
+                $cookies.put('MCSubbed','true')
                 $location.path(`/property/${self.selectedItem.State}/${encodeURIComponent(self.selectedItem.Submarket)}/${self.selectedItem.year}/${self.selectedItem.quarter}/${self.selectedItem.Property_Id}`);
             } else if (response.data === false) {
                 console.log('User is not subscribed');
@@ -24,5 +24,9 @@ myApp.service('SubscribeService', function ($http, $location, $cookies) {
                 alert('Something went wrong.');
             }
         })
+    }
+
+    self.subscribe = function () {
+        $cookies.put('MCSubbed', 'true');
     }
 });
