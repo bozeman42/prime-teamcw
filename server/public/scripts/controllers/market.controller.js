@@ -11,7 +11,6 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
         quarter: location.hash.split('/')[5].split('?')[0]
     };
 
-    console.log(self.options);
     //Retrieve markets for dropdown selection
     self.getMarkets = function (state) {
         DataService.getMarkets(state);

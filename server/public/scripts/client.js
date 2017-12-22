@@ -32,11 +32,11 @@ myApp.config(function ($routeProvider, $locationProvider) {
         .when('/register', {
             templateUrl: '/views/templates/register.html',
             controller: 'LoginController as lc',
-            resolve: {
-                getuser: function (UserService) {
-                    return UserService.getadmin();
-                }
-            }
+            // resolve: {
+            //     getuser: function (UserService) {
+            //         return UserService.getadmin();
+            //     }
+            // }
         })
         .when('/admin', {
             templateUrl: '/views/templates/admin.html',
@@ -110,6 +110,15 @@ myApp.config(function ($routeProvider, $locationProvider) {
                 }
             }
         })
+        .when('/messages', {
+            templateUrl: '/views/templates/messages.html',
+            controller: 'MessagesController as vm',
+            resolve: {
+                getuser: function (UserService) {
+                    return UserService.getuser();
+                }
+            }
+        })
         .when('/forgot-password', {
             templateUrl: '/views/templates/forgot-password.html',
             controller: 'UserController as vm'
@@ -119,6 +128,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
             templateUrl: '/views/templates/password-reset.html',
             controller: 'PasswordResetController as vm'
         })
+        .when('/contact', {
+            templateUrl: '/views/templates/contact.html',
+            controller: 'ContactController as vm'
+        }) 
         .otherwise({
             redirectTo: 'home'
         });
