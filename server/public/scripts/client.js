@@ -21,8 +21,8 @@ myApp.config(function ($routeProvider, $locationProvider) {
             templateUrl: '/views/templates/property.html',
             controller: 'PropertyController as vm'
         })
-        .when('/not-subscribed', {
-            templateUrl: '/views/templates/not-subscribed.html',
+        .when('/subscribeForm', {
+            templateUrl: '/views/templates/subscribeForm.html',
             controller: 'SubscribeController as vm'
         })
         .when('/login', {

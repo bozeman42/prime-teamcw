@@ -28,6 +28,7 @@ html {
 
 h1, h2, h3, h4, h5, h6, p {
     font-weight: 300;
+    margin: 10px 10px 10px 10px;;
 }
 
 #hero {
@@ -54,16 +55,27 @@ h1, h2, h3, h4, h5, h6, p {
 
 #contact-hero {
     background-image: url('images/heroimage.jpeg');
+}
+.hero {
+    background-image: url('images/loginbg.jpg');
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: center center;
+    height: 83vh;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: left;
     align-items: center;
-    padding: 20px 20px;
+    padding: 0 20px;
+}
+
+.hero-menu {
+    padding: 10px 20px;
+    min-width: 200px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, .64);
+    background-color: rgba(255, 255, 255, .9);
 }
 
 table {
@@ -135,6 +147,10 @@ td {
 
 .nav {
     font-size: 15px;
+}
+
+#nav {
+    background-color: lightgray;
 }
 
 ul {
@@ -336,4 +352,29 @@ button:disabled {
     width: 100%;
     border-bottom: 1px solid rgba(0,0,0,.24);
     padding: 5px 0px;
+  }
+
+  .emailCSV {
+    background-color: #e4002b;
+    margin: 10px;
+    color: white;
+    border-radius: 2px;
+  }
+
+  .redBtn {
+    background-color: #e4002b;
+    margin: 5px 5px 5px 0px;
+    color: white;
+    border-radius: 2px;
+  }
+
+  .uploadFile {
+    border: 3px dashed rgb(185, 185, 185); 
+    padding: 20px; 
+    width: 400px;
+    margin: 20px 0px;
+  }
+
+  .cleanFooter {
+    margin-bottom: 45vh;
   }

@@ -1,6 +1,6 @@
-<div>
+<div ng-show="lc.userService.userObject.role === 'owner'">
     <div class="container">
-        <div ng-hide="lc.userService.editingUser">
+        <div ng-if="!lc.userService.editingUser">
             <h1 class="lead">Create New User</h1>
             <h2 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
             <form ng-submit="lc.registerUser()">
@@ -48,7 +48,7 @@
                 <a href="#/admin">Cancel</a>
             </form>
         </div>
-        <div ng-show="lc.userService.editingUser">
+        <div ng-if="lc.userService.editingUser">
             <h1 class="lead">Edit User</h1>
             <form ng-submit="lc.userService.saveUserEdit()">
                 <div>
