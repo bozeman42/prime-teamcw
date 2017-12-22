@@ -6,36 +6,7 @@
             <label for="officeName">Upload CSV</label>
             <input type="file" name="emailCSV" nv-file-select options="vm.uploaderOptions" uploader="vm.uploader" accept=".csv"/>
         </div>
-        <div>
-                <label for="officeName">Select Email Script</label>
-                <select name="script" id="scriptDropdown" disabled>
-                    <option value="default">Default</option>
-                </select>
-            </div>
-        <div>
-            <h2>Preview of Email Script</h2>
-            <p style="max-width: 500px">Good afternoon Mr. Buettner,
-                    
-                    I will be delivering our 2017 Facilities Leasing Report to corporate office users residing in the Minneapolis area within the next few weeks and am searching for the appropriate person in your office to deliver it to. I have attached a Market Snapshot from our 2016 edition for your review.
-
-                    What is the report:
-                    Following recent activity and new best practices in corporate real estate management, we have assembled a report that is useful for corporate users looking to evaluate their space needs in the upcoming 12-24 months, in addition to firms that would simply like to stay current with the national and local market.
-                    
-                    The report cites:
-                    1.               Average local asking rents from landlords
-                    2.               Average local operating costs and taxes
-                    3.               Average local tenant build-out allowances
-                    4.               Federal Accounting Standard Boards (FASB) changes and impacts to portfolio real estate
-                    5.               Recent Twin Cities major lease transactions
-                    6.               A market analysis for portfolio companies
-                    
-                    It would be a big help if you can refer me an appropriate time to deliver the report or the appropriate person I should contact.
-                    
-                    Regards,
-                    Garrett</p>
-        </div>
-        <div>
-            <input class="btn btn-default" type="submit" name="submit" value="Submit Email CSV" />
+            <input class="btn btn-default emailCSV" type="submit" name="submit" value="Submit Email CSV" />
         </div>
     </form>
 </div>
