@@ -78,11 +78,15 @@ router.get('/:email', function (req, res) {
                     console.log('errorMakingQuery', errorMakingQuery);
                     res.sendStatus(500);
                 } else {
-                    res.send(true);
+                    if(result.rows.length === 0) {
+                        res.send(false)
+                    } else {
+                        res.send(true);
+                    }
                 }
             });
         }
     });//end of pool
-})
+});
 
 module.exports = router;

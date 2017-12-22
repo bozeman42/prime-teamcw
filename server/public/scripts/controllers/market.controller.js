@@ -3,7 +3,7 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
     var self = this;
     var es = EmailService;
     self.marketData = DataService.data;
-    
+
     self.options = {
         state: location.hash.split('/')[2],
         market: decodeURIComponent(decodeURIComponent(location.hash.split('/')[3])),
@@ -69,26 +69,31 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
     calcQuarter();
 
     self.click = function (event, item) {
+        item.year = location.hash.split('/')[4];
+        item.quarter = location.hash.split('/')[5];
         self.selectedItem = item;
+        SubscribeService.selectedItem = item;
+        console.log(SubscribeService.selectedItem);
     };
 
-    self.close = function() {
+    self.close = function () {
         self.selectedItem = false;
+        SubscribeService.selectedItem = false;
     }
 
     //Navigate to selected property page
     self.viewProperty = function () {
-        if ($cookies.get('MCPopupClosed') === '' || $cookies.get('MCPopupClosed') == undefined || $cookies.get('MCPopupSubscribed') === '' || $cookies.get('MCPopupSubscribed') == undefined) {
-            $cookies.remove('MCPopupClosed');
-            SubscribeService.launchSub();
-            // $location.path('/not-subscribed');
-        } else if ($cookies.get('MCPopupClosed') && $cookies.get('MCPopupSubscribed')) {
-            $location.path(`/property/${self.selectedItem.State}/${encodeURIComponent(self.selectedItem.Submarket)}/${year}/${quarter}/${self.selectedItem.Property_Id}`);
-        } else {
-            alert('Something went wrong. Please refresh and try again.')
-            $cookies.remove('MCPopupClosed');
-            $cookies.remove('MCPopupSubscribed');
-        }
+        $location.path('/subscribeForm');
+        // if ($cookies.get('MCPopupClosed') === '' || $cookies.get('MCPopupClosed') == undefined || $cookies.get('MCPopupSubscribed') === '' || $cookies.get('MCPopupSubscribed') == undefined) {
+        //     $cookies.remove('MCPopupClosed');
+        //     SubscribeService.launchSub();
+        // } else if ($cookies.get('MCPopupClosed') && $cookies.get('MCPopupSubscribed')) {
+        //     $location.path(`/property/${self.selectedItem.State}/${encodeURIComponent(self.selectedItem.Submarket)}/${year}/${quarter}/${self.selectedItem.Property_Id}`);
+        // } else {
+        //     alert('Something went wrong. Please refresh and try again.')
+        //     $cookies.remove('MCPopupClosed');
+        //     $cookies.remove('MCPopupSubscribed');
+        // }
     }
 
     self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY';
