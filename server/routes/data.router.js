@@ -394,4 +394,25 @@ router.post('/contact', function (req, res) {
   }) //end of pool
 }) // end of post
 
+//RETRIEVE COMMENT SUBMISSION MESSAGES FOR ADMINISTRATION MESSAGES VIEW
+router.get('/contact', function (req, res) {
+  pool.connect(function (errorConnecting, db, done) {
+    if (errorConnecting) {
+      console.log('Error connecting ', errorConnecting);
+      res.sendStatus(500);
+    } else {
+      var queryText = `SELECT * FROM "messages"`
+      db.query(queryText, function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('errorMakingQuery', errorMakingQuery);
+          res.sendStatus(500);
+        } else {
+          res.send(result.rows);
+        }
+      });
+    }
+  });//end of pool
+});//end of GET
+
 module.exports = router;

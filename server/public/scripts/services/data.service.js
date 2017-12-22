@@ -134,7 +134,7 @@ myApp.service('DataService', function ($http, $location, $q) {
     self.getComments = function() {
         $http.get(`/data/contact`).then(function(response){
             self.comments.messages = response.data;
-            console.log('Success', response.data);
+            console.log('Success', self.comments.messages);
         }).catch(function(err){
             console.log('Error retrieving messages', err)
         })

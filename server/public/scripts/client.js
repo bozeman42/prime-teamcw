@@ -110,6 +110,15 @@ myApp.config(function ($routeProvider, $locationProvider) {
                 }
             }
         })
+        .when('/messages', {
+            templateUrl: '/views/templates/messages.html',
+            controller: 'MessagesController as vm',
+            resolve: {
+                getuser: function (UserService) {
+                    return UserService.getuser();
+                }
+            }
+        })
         .when('/forgot-password', {
             templateUrl: '/views/templates/forgot-password.html',
             controller: 'UserController as vm'
@@ -122,7 +131,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
         .when('/contact', {
             templateUrl: '/views/templates/contact.html',
             controller: 'ContactController as vm'
-        })
+        }) 
         .otherwise({
             redirectTo: 'home'
         });
