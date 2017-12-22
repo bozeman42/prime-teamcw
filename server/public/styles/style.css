@@ -28,6 +28,7 @@ html {
 
 h1, h2, h3, h4, h5, h6, p {
     font-weight: 300;
+    margin: 10px 10px 10px 10px;;
 }
 
 #hero {
@@ -36,7 +37,7 @@ h1, h2, h3, h4, h5, h6, p {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: center center;
-    height: 83vh;
+    height: 80vh;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -53,7 +54,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .hero {
-    background-image: url('images/heroimage.jpeg');
+    background-image: url('images/loginbg.jpg');
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -351,16 +352,20 @@ button:disabled {
     border-radius: 2px;
   }
 
-  .dataCSVbtn {
+  .redBtn {
     background-color: #e4002b;
-    margin: 5px;
+    margin: 5px 5px 5px 0px;
     color: white;
     border-radius: 2px;
   }
 
-  .dataUpload {
+  .uploadFile {
     border: 3px dashed rgb(185, 185, 185); 
     padding: 20px; 
     width: 400px;
     margin: 20px 0px;
+  }
+
+  .cleanFooter {
+    margin-bottom: 45vh;
   }
