@@ -153,3 +153,15 @@ CREATE TABLE "subscribers" (
   "sub_id" serial primary key,
   "email_address" varchar (240) NOT NULL unique
   );
+
+CREATE TABLE "messages" (
+  "id" SERIAL primary key,
+  "email" VARCHAR(80),
+  "first" VARCHAR(80),
+  "last" VARCHAR(80),
+  "address" VARCHAR(200),
+  "size" VARCHAR(80),
+  "time" VARCHAR(80),
+  "phone" VARCHAR(20),
+  "notes" VARCHAR(300)
+);
