@@ -1,21 +1,24 @@
 <div class="container">
         <h1 class="lead">Email Upload History</h1>
-        <table class="table-bordered">
-            <tr>
-                <th>#</th>
-                <th>Date Uploaded</th>
-                <th>Office</th>
-                <th>Link</th>
-                <th>Delete</th>
-            </tr>
-            <tbody>
-                <tr ng-repeat="batch in vm.data.batches">
-                    <td>{{batch.batch_id}}</td>
-                    <td>{{batch.date}}</td>
-                    <td>{{batch.office}}</td>
-                    <td><a ng-click="vm.getBatchEmails(batch.batch_id)" href="/#/email-list">View Email List</a></td>
-                    <td><button ng-click="vm.deleteEmailBatch(batch)">Delete</button></td>
+        <div class="cleanFooter">
+            <table class="table-bordered">
+                <tr>
+                    <th>#</th>
+                    <th>Date Uploaded</th>
+                    <th>Office</th>
+                    <th>Link</th>
+                    <th>Delete</th>
                 </tr>
-            </tbody>
-        </table>
+                <tbody>
+                    <tr ng-repeat="batch in vm.data.batches">
+                        <td>{{batch.batch_id}}</td>
+                        <td>{{batch.date}}</td>
+                        <td>{{batch.office}}</td>
+                        <td><a ng-click="vm.getBatchEmails(batch.batch_id)" href="/#/email-list">View Email List</a></td>
+                        <td><button ng-click="vm.deleteEmailBatch(batch)">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+       
     </div>
