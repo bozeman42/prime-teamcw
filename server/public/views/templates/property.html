@@ -27,26 +27,7 @@
             </div>
         </div>
         <div class="col-sm-4 col-xs-12">
-            <div class="contact-form">
-                <h3>Contact for Full Details</h3>
-                <div class="form-group">
-                    <label for="first">First Name:</label>
-                    <input type="text" class="form-control" id="first">
-                </div>
-                <div class="form-group">
-                    <label for="last">Last Name:</label>
-                    <input type="text" class="form-control" id="last">
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number:</label>
-                    <input type="text" class="form-control" id="phone">
-                </div>
-                <div class="form-group">
-                    <label for="notes">Additional Notes:</label>
-                    <input type="text" class="form-control" id="notes">
-                </div>
-                <button class="button-cta">Request More Info</button>
-            </div>
+                <div ng-include="'/views/partials/contact.html'"></div>
         </div>
     </div>
 </div>
