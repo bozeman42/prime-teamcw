@@ -9,6 +9,7 @@
         </div>
     </div>
     <div class="row">
+        <h3>Click on a property from the map to view details:</h3>
         <div class="col-xs-12 map-container">
                 <div class="map-menu-box" ng-show="vm.selectedItem">
                         <button class="map-menu-box-close" ng-click="vm.close()">&#10006;</button>
@@ -36,13 +37,13 @@
                     </div>
                     <div class="col-xs-9">
                         <div class="row">
-                            <div ng-show="{{$index === 0}}"><p>Most prestigious buildings competing for premier office users with rents above average for the area.
+                            <div ng-show="{{item.Class === 'Class A'}}"><p>Most prestigious buildings competing for premier office users with rents above average for the area.
                                 Buildings have high quality standard finishes, state of the art systems, exceptional accessibility
                                 and a definite market presence.</p></div>
-                            <div ng-show="{{$index === 1}}"><p>Buildings competing for a wide range of users with rents in the average range for the area. Building
+                            <div ng-show="{{item.Class === 'Class B'}}"><p>Buildings competing for a wide range of users with rents in the average range for the area. Building
                                 finishes are fair to good for the area. Building finishes are fair to good for the area and systems
                                 are adequate, but the building does not compete with Class A at the same price.</p></div>
-                            <div ng-show="{{$index === 2}}"><p>Buildings competing for tenants requiring functional space at rents below the average for the area.</p></div>
+                            <div ng-show="{{item.Class === 'Class C'}}"><p>Buildings competing for tenants requiring functional space at rents below the average for the area.</p></div>
     
                             <div class="col-sm-6 col-xs-6">
                                 # of Buildings
@@ -68,17 +69,17 @@
                 <h2>Market Trends</h2>
                 <div class="col-xs-12">
                     <h3 class="divider">Inventory Chart</h3>
-                    Total aggregate of square feet for an propertyclass or property type in a defined market or submarket.
+                    Total aggregate amount of square feet for a property class in a defined market.
                     <canvas id="inventoryChart"></canvas>
                 </div>
                 <div class="col-xs-12">
                     <h3 class="divider">Absorption Chart</h3>
-                    Aggregate in square feet of new leases or lease expansions for an property class or property type in a defined market or submarket.
+                    Total aggregate amount of square feet for new leases or lease expansions for a property class in a defined market.
                     <canvas id="absorptionChart"></canvas>
                 </div>
                 <div class="col-xs-12">
                     <h3 class="divider">Vacancy Chart</h3>
-                    Aggregate in square feet of new vacancies or lease contractions for an property class or property type in a defined market or submarket.
+                    Total aggregate amout of square feet for new vacancies or lease contractions for a property class in a defined market.
                     <canvas id="vacancyChart"></canvas>
                 </div>
             </div>

@@ -1,34 +1,27 @@
 <div class="container">
-<div class="nav" ng-controller="NavController as nc">
-    <ul>
-        <!-- <li>
-            <a href="#/home">Home</a>
-        </li> -->
-        <!-- <li><pre>{{nc.user | json}}</pre></li> -->
-        <!-- <li>
-            <a href="#/market" >Market Page</a>
-        </li> -->
-        <li>
-            <a href="#/admin" ng-if="nc.user.userObject.role === 'admin'||nc.user.userObject.role === 'owner'">Users</a>
-        </li>
-        <li>
-            <a href="#/office" ng-if="nc.user.userObject.role === 'owner'">Offices</a>
-        </li>
-        <li>
-            <a href="#/data-upload" ng-if="nc.user.userObject.role === 'admin'||nc.user.userObject.role === 'owner'">Upload Market Data</a>
-        </li>
-        <li>
-            <a href="#/email-upload" ng-if="nc.user.userObject.userName">Upload Emails</a>
-        </li>
-        <!-- <li>
-            <a href="#/email-list" ng-if="nc.user.userObject.userName">Email Generation List</a>
-        </li> -->
-        <li>
-            <a href="#/email-history" ng-if="nc.user.userObject.userName">Email History</a>
-        </li>
-        <li>
-            <a href="#/email-clickthroughs" ng-if="nc.user.userObject.userName">Email Clickthroughs</a>
-        </li>
-    </ul>
-</div>
+    <div class="nav" ng-controller="NavController as nc">
+        <ul>
+            <li>
+                <a href="#/admin" ng-if="nc.user.userObject.role === 'admin'||nc.user.userObject.role === 'owner'">Users</a>
+            </li>
+            <li>
+                <a href="#/office" ng-if="nc.user.userObject.role === 'owner'">Offices</a>
+            </li>
+            <li>
+                <a href="#/data-upload" ng-if="nc.user.userObject.role === 'admin'||nc.user.userObject.role === 'owner'">Upload Market Data</a>
+            </li>
+            <li>
+                <a href="#/email-upload" ng-if="nc.user.userObject.userName">Upload Emails</a>
+            </li>
+            <li>
+                <a href="#/email-history" ng-if="nc.user.userObject.userName">Email History</a>
+            </li>
+            <li>
+                <a href="#/email-clickthroughs" ng-if="nc.user.userObject.userName">Email Clickthroughs</a>
+            </li>
+            <li>
+                <a href="#/messages" ng-if="nc.user.userObject.role === 'owner'">Messages</a>
+            </li>
+        </ul>
+    </div>
 </div>

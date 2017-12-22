@@ -372,4 +372,47 @@ router.post('/csv/dataset/', function (req, res) {
   }
 });
 
+//CONTACT FORM COMMENT SUBMISSION
+router.post('/contact', function (req, res) {
+  var comment = req.body;
+  pool.connect(function (errorConnecting, db, done) {
+      if (errorConnecting) {
+          console.log('Error connecting', errorConnecting);
+          res.sendStatus(500);
+      } else {
+          var queryText = 'INSERT INTO "messages" ("email", "first", "last", "address", "size", "time", "phone", "notes") VALUES ($1, $2, $3, $4, $5, $6, $7, $8);';
+          db.query(queryText, [comment.email, comment.first, comment.last, comment.address, comment.size, comment.time, comment.phone, comment.notes], function (errorMakingQuery, result){
+              done();
+              if (errorMakingQuery) {
+                  console.log('errorMakingQuery', errorMakingQuery);
+                  res.sendStatus(500);
+              } else {
+                  res.send(result.rows);
+              }
+          })
+      }
+  }) //end of pool
+}) // end of post
+
+//RETRIEVE COMMENT SUBMISSION MESSAGES FOR ADMINISTRATION MESSAGES VIEW
+router.get('/contact', function (req, res) {
+  pool.connect(function (errorConnecting, db, done) {
+    if (errorConnecting) {
+      console.log('Error connecting ', errorConnecting);
+      res.sendStatus(500);
+    } else {
+      var queryText = `SELECT * FROM "messages"`
+      db.query(queryText, function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('errorMakingQuery', errorMakingQuery);
+          res.sendStatus(500);
+        } else {
+          res.send(result.rows);
+        }
+      });
+    }
+  });//end of pool
+});//end of GET
+
 module.exports = router;
