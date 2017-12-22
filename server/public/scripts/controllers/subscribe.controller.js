@@ -9,9 +9,4 @@ myApp.controller('SubscribeController', function ($http, $cookies, SubscribeServ
     }   
 
     vm.checkSubs();
-
-    var name = $cookies.get('name');
-    console.log(name);
-
-    console.log(document.cookie);
 });
