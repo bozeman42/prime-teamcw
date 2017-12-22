@@ -16,7 +16,8 @@ myApp.controller('UserController', function (UserService, $location, $route) {
     }
 
     vm.newUser = function (user){
-        return $location.path('/register')
+        UserService.editUser(null);
+        $location.path('/register')
     }
 
     vm.requestPasswordChange = function () {
