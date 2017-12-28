@@ -1,4 +1,3 @@
-let fs = require('fs');
 let pool = require('../modules/pool.js');
 let csv = require('fast-csv');
 let Stream = require('stream');

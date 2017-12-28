@@ -1,11 +1,9 @@
 let pool = require('./pool.js');
 let csv = require('fast-csv');
-var fs = require('fs');
 let Stream = require('stream');
 
 function processDatasetCSV(dataInfo) {
   console.log('Processing data csv');
-  console.log('Path', dataInfo.path);
   return new Promise((resolve, reject) => {
     let bufferStream = new Stream.PassThrough();
     bufferStream.end(dataInfo.data);

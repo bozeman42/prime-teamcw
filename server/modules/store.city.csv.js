@@ -1,11 +1,9 @@
 let pool = require('./pool.js');
 let csv = require('fast-csv');
-var fs = require('fs');
 let Stream = require('stream');
 
 function processCityCSV(dataInfo) {
   console.log('Processing data csv');
-  console.log('Path', dataInfo.path);
   return new Promise((resolve, reject) => {
     console.log('checking if file exists');
     console.log('file exists');

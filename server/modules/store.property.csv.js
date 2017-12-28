@@ -1,6 +1,5 @@
 let pool = require('./pool.js');
 let csv = require('fast-csv');
-var fs = require('fs');
 let Stream = require('stream');
 
 function processPropertyCSV(dataInfo) {
