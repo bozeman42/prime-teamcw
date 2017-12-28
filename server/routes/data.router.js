@@ -284,18 +284,19 @@ router.post('/csv/property/', function (req, res) {
     var dataInfo = {
       uploadedData: [],
       user: req.user,
-      path: './server/upload/property/' + req.files.file.name,
-      fileName: req.files.file.name
+      // path: './server/upload/property/' + req.files.file.name,
+      fileName: req.files.file.name,
+      data: req.files.file.data
     };
 
     console.log('DATA INFO:', dataInfo);
 
     console.log('path', dataInfo.path);
-    req.files.file.mv(dataInfo.path, function (error) {
-      if (error) {
-        console.log('error moving file', error);
-        return res.sendStatus(500);
-      }
+    // req.files.file.mv(dataInfo.path, function (error) {
+    //   if (error) {
+    //     console.log('error moving file', error);
+    //     return res.sendStatus(500);
+    //   }
       console.log('No error moving file');
       processPropertyCSV(dataInfo)
       .then((result) => {
@@ -306,7 +307,7 @@ router.post('/csv/property/', function (req, res) {
         console.log('caught failure somewhere in processPropertyCSV');
         res.sendStatus(500);
       });
-    });
+    // });
   }
 });
 
@@ -316,17 +317,18 @@ router.post('/csv/city/', function (req, res) {
       uploadedData: [],
       user: req.user,
       path: './server/upload/city/' + req.files.file.name,
-      fileName: req.files.file.name
+      fileName: req.files.file.name,
+      data: req.files.file.data
     };
 
     console.log('DATA INFO:', dataInfo);
 
     console.log('path', dataInfo.path);
-    req.files.file.mv(dataInfo.path, function (error) {
-      if (error) {
-        console.log('error moving file', error);
-        return res.sendStatus(500);
-      }
+    // req.files.file.mv(dataInfo.path, function (error) {
+    //   if (error) {
+    //     console.log('error moving file', error);
+    //     return res.sendStatus(500);
+    //   }
       console.log('No error moving file');
       processCityCSV(dataInfo)
       .then((result) => {
@@ -337,7 +339,7 @@ router.post('/csv/city/', function (req, res) {
         console.log('caught failure somewhere in processCityCSV');
         res.sendStatus(500);
       });
-    });
+    // });
   }
 });
 
@@ -347,17 +349,18 @@ router.post('/csv/dataset/', function (req, res) {
       uploadedData: [],
       user: req.user,
       path: './server/upload/dataset/' + req.files.file.name,
-      fileName: req.files.file.name
+      fileName: req.files.file.name,
+      data: req.files.file.data
     };
 
     console.log('DATA INFO:', dataInfo);
 
     console.log('path', dataInfo.path);
-    req.files.file.mv(dataInfo.path, function (error) {
-      if (error) {
-        console.log('error moving file', error);
-        return res.sendStatus(500);
-      }
+    // req.files.file.mv(dataInfo.path, function (error) {
+    //   if (error) {
+    //     console.log('error moving file', error);
+    //     return res.sendStatus(500);
+    //   }
       console.log('No error moving file');
       processDatasetCSV(dataInfo)
       .then((result) => {
@@ -368,7 +371,7 @@ router.post('/csv/dataset/', function (req, res) {
         console.log('caught failure somewhere in processDatasetCSV');
         res.sendStatus(500);
       });
-    });
+    // });
   }
 });
 
