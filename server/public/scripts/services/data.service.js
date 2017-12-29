@@ -123,8 +123,7 @@ myApp.service('DataService', function ($http, $location, $q) {
 
     //Post a comment on contact page
     self.postComment = function(value) {
-        $http.post(`/data/contact`, value).then(function (response){
-
+        return $http.post(`/data/contact`, value).then(function (response){
         }).catch(function(err){
             console.log('Error posting comment', err);
         })
@@ -137,6 +136,15 @@ myApp.service('DataService', function ($http, $location, $q) {
             console.log('Success', self.comments.messages);
         }).catch(function(err){
             console.log('Error retrieving messages', err)
+        })
+    }
+
+    //Delete a message from the Administration Messages view
+    self.deleteMessage = function (message) {
+        return $http.delete('/data/contact/' + message.id).then(function(response){
+            console.log('Office deleted');
+        }).catch(function(err){
+            console.log('Error deleting message', err)
         })
     }
 

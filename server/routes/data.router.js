@@ -391,4 +391,30 @@ router.get('/contact', function (req, res) {
   });//end of pool
 });//end of GET
 
+//DELETE A MESSAGE FROM THE ADMINISTRATION MESSAGES VIEW
+router.delete('/contact/:id', function (req, res) {
+  if (req.isAuthenticated()) {
+      var messageToDelete = req.params.id;
+      pool.connect(function (errorConnecting, db, done) {
+          if (errorConnecting) {
+              console.log('Error connecting', errorConnecting);
+              res.sendStatus(500);
+          } else {
+              var queryText = 'DELETE FROM "messages" WHERE "id" = $1;'
+              db.query(queryText, [messageToDelete], function (errorMakingQuery, result) {
+                  done();
+                  if (errorMakingQuery) {
+                      console.log('errorMakingQuery', errorMakingQuery);
+                      res.sendStatus(500);
+                  } else {
+                      res.send(result.rows);
+                  }
+              })
+          }
+      }) //end of pool
+  } else {
+      res.sendStatus(401);
+  }
+}) // end of post
+
 module.exports = router;

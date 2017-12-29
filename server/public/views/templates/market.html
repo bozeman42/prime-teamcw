@@ -11,16 +11,15 @@
     <div class="row">
         <h3>Click on a property from the map to view details:</h3>
         <div class="col-xs-12 map-container">
-                <div class="map-menu-box" ng-show="vm.selectedItem">
-                        <button class="map-menu-box-close" ng-click="vm.close()">&#10006;</button>
-                        <h3>{{vm.selectedItem.Address}}, {{vm.selectedItem.City}}</h3>
-                        {{vm.selectedItem.Class}}, 
-                        Net Rentable Area: {{vm.selectedItem.NRA | number: fractionSize}} ft²,
-                        Vacant Space: {{vm.selectedItem.Vacant_Space | number: fractionSize}} ft²
-                        <button class="button-cta" ng-click="vm.viewProperty()">View Property</button>
-                </div>
+            <div class="map-menu-box" ng-show="vm.selectedItem">
+                <button class="map-menu-box-close" ng-click="vm.close()">&#10006;</button>
+                <h3>{{vm.selectedItem.Address}}, {{vm.selectedItem.City}}</h3>
+                {{vm.selectedItem.Class}}, Net Rentable Area: {{vm.selectedItem.NRA | number: fractionSize}} ft², Vacant Space: {{vm.selectedItem.Vacant_Space
+                | number: fractionSize}} ft²
+                <button class="button-cta" ng-click="vm.viewProperty()">View Property</button>
+            </div>
             <div class="map-box" map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="{{vm.googleMapsUrl}}">
-                <ng-map center="{{vm.marketData.properties[0].X}},{{vm.marketData.properties[0].Y}}" zoom="11" map-type-id="MapTypeId.ROADMAP">
+                <ng-map id="map" center="{{vm.marketData.properties[0].X}},{{vm.marketData.properties[0].Y}}" zoom="11" map-type-id="MapTypeId.ROADMAP">
                     <marker ng-repeat="item in vm.marketData.properties track by item.id" position="[{{item.X}},{{item.Y}}]" icon="{{item.marker}}"
                         on-click="vm.click(event, item)"></marker>
                 </ng-map>
@@ -28,60 +27,83 @@
         </div>
     </div>
     <div class="row property">
-            <div class="col-sm-6">
-                <h2>Building Classes</h2>
-                <div class="col-xs-12" ng-repeat="item in vm.marketData.data">
-                    <h3 class="class-{{$index}} divider">{{item.Class}}</h3>
-                    <div class="col-xs-3">
-                        <img class="building-icon" src="../../styles/images/class-{{$index}}.svg" alt="Building Icon">
-                    </div>
-                    <div class="col-xs-9">
-                        <div class="row">
-                            <div ng-show="{{item.Class === 'Class A'}}"><p>Most prestigious buildings competing for premier office users with rents above average for the area.
-                                Buildings have high quality standard finishes, state of the art systems, exceptional accessibility
-                                and a definite market presence.</p></div>
-                            <div ng-show="{{item.Class === 'Class B'}}"><p>Buildings competing for a wide range of users with rents in the average range for the area. Building
-                                finishes are fair to good for the area. Building finishes are fair to good for the area and systems
-                                are adequate, but the building does not compete with Class A at the same price.</p></div>
-                            <div ng-show="{{item.Class === 'Class C'}}"><p>Buildings competing for tenants requiring functional space at rents below the average for the area.</p></div>
-    
-                            <div class="col-sm-6 col-xs-6">
-                                # of Buildings
-                                <h4><strong>{{item.Total_Buildings}}</strong></h4>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                Average Rate
-                                <h4><strong>{{item.Avg_Rate}}</strong></h4>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                NRA ft²
-                                <h4><strong>{{item.NRA | number: fractionSize}}</strong></h4>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                Vacant ft²
-                                <h4><strong>{{item.Vacant_Space | number: fractionSize}}</strong></h4>
-                            </div>
+        <div class="col-sm-6">
+            <h2>Building Classes</h2>
+            <div class="col-xs-12" ng-repeat="item in vm.marketData.data">
+                <h3 class="class-{{$index}} divider">{{item.Class}}</h3>
+                <div class="col-xs-3">
+                    <img class="building-icon" src="../../styles/images/class-{{$index}}.svg" alt="Building Icon">
+                </div>
+                <div class="col-xs-9">
+                    <div class="row">
+                        <div ng-show="{{item.Class === 'Class A'}}">
+                            <p>Most prestigious buildings competing for premier office users with rents above average for the
+                                area. Buildings have high quality standard finishes, state of the art systems, exceptional
+                                accessibility and a definite market presence.</p>
+                        </div>
+                        <div ng-show="{{item.Class === 'Class B'}}">
+                            <p>Buildings competing for a wide range of users with rents in the average range for the area. Building
+                                finishes are fair to good for the area. Building finishes are fair to good for the area and
+                                systems are adequate, but the building does not compete with Class A at the same price.</p>
+                        </div>
+                        <div ng-show="{{item.Class === 'Class C'}}">
+                            <p>Buildings competing for tenants requiring functional space at rents below the average for the
+                                area.
+                            </p>
+                        </div>
+
+                        <div class="col-sm-6 col-xs-6">
+                            # of Buildings
+                            <h4>
+                                <strong>{{item.Total_Buildings}}</strong>
+                            </h4>
+                        </div>
+                        <div class="col-sm-6 col-xs-6">
+                            Average Rate
+                            <h4>
+                                <strong>{{item.Avg_Rate}}</strong>
+                            </h4>
+                        </div>
+                        <div class="col-sm-6 col-xs-6">
+                            NRA ft²
+                            <h4>
+                                <strong>{{item.NRA | number: fractionSize}}</strong>
+                            </h4>
+                        </div>
+                        <div class="col-sm-6 col-xs-6">
+                            Vacant ft²
+                            <h4>
+                                <strong>{{item.Vacant_Space | number: fractionSize}}</strong>
+                            </h4>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <h2>Market Trends</h2>
-                <div class="col-xs-12">
-                    <h3 class="divider">Inventory Chart</h3>
-                    Total aggregate amount of square feet for a property class in a defined market.
+        </div>
+        <div class="col-sm-6">
+            <h2>Market Trends</h2>
+            <div class="col-xs-12">
+                <h3 class="divider">Inventory Chart</h3>
+                Total aggregate amount of square feet for a property class in a defined market.
+                <div id="inventoryChartContainer">
                     <canvas id="inventoryChart"></canvas>
                 </div>
-                <div class="col-xs-12">
-                    <h3 class="divider">Absorption Chart</h3>
-                    Total aggregate amount of square feet for new leases or lease expansions for a property class in a defined market.
+            </div>
+            <div class="col-xs-12">
+                <h3 class="divider">Absorption Chart</h3>
+                Total aggregate amount of square feet for new leases or lease expansions for a property class in a defined market.
+                <div id="absorptionChartContainer">
                     <canvas id="absorptionChart"></canvas>
+
                 </div>
-                <div class="col-xs-12">
-                    <h3 class="divider">Vacancy Chart</h3>
-                    Total aggregate amout of square feet for new vacancies or lease contractions for a property class in a defined market.
+            </div>
+            <div class="col-xs-12">
+                <h3 class="divider">Vacancy Chart</h3>
+                Total aggregate amout of square feet for new vacancies or lease contractions for a property class in a defined market.
+                <div id="vacancyChartContainer">
                     <canvas id="vacancyChart"></canvas>
                 </div>
             </div>
         </div>
+    </div>
 </div>
