@@ -8,7 +8,7 @@ myApp.controller('PropertyController', function (NgMap, DataService, $http) {
         market: decodeURIComponent(location.hash.split('/')[3]),
         year: location.hash.split('/')[4],
         quarter: location.hash.split('/')[5],
-        id: location.hash.split('/')[6]
+        id: location.hash.split('/')[6].split('?')[0]
     }
 
     self.getProperty = function () {
