@@ -1,7 +1,7 @@
 <div class="container" ng-controller="SubscribeController as sc">
     <div class="row">
         <div class="map-container">
-            <ng-map zoom="18" center="[{{vm.data.property[0].X}},{{vm.data.property[0].Y}}]" default-style="false" map-type-id="MapTypeId.SATELLITE"
+            <ng-map id="map" zoom="18" center="[{{vm.data.property[0].X}},{{vm.data.property[0].Y}}]" default-style="false" map-type-id="MapTypeId.SATELLITE"
                 tilt="45">
                 <street-view-panorama container="streetview"></street-view-panorama>
                 <marker position="{{vm.data.property[0].X}},{{vm.data.property[0].Y}}"></marker>
