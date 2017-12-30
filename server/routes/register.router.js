@@ -59,7 +59,7 @@ router.get('/checkSuper', function (req, res, next) {
         }
         client.query("SELECT * FROM users WHERE superuser = true;",
             function (err, result) {
-                client.end();
+                done()
                 if (err) {
                     console.log("Error inserting data: ", err);
                     res.sendStatus(500);
@@ -68,7 +68,6 @@ router.get('/checkSuper', function (req, res, next) {
                 }
             });
     });
-
 });
 
 

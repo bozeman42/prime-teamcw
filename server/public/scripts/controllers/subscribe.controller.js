@@ -1,7 +1,7 @@
 myApp.controller('SubscribeController', function ($http, $cookies, SubscribeService) {
     console.log('SubscribeController created');
     var vm = this;
-
+    vm.subscribeService = SubscribeService
     vm.checkSubs = function() {
         $http.get('/subscribe').then(function(response) {
         console.log('Subscribers Loaded');
@@ -9,9 +9,4 @@ myApp.controller('SubscribeController', function ($http, $cookies, SubscribeServ
     }   
 
     vm.checkSubs();
-
-    var name = $cookies.get('name');
-    console.log(name);
-
-    console.log(document.cookie);
 });

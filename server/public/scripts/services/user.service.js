@@ -95,19 +95,25 @@ myApp.service('UserService', function ($http, $location) {
     };
 //how to create superuser without register
     self.editUser = function (user) {
-        console.log('editing this user',user);
-        self.userToEdit = {
-            e_id: user.e_id,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            o_id: user.o_id,
-            role: user.role,
-            username: user.username,
-            employeeId: user.e_id,
-            email: user.email
-        };
-        console.log(self.userToEdit);
-        self.editingUser = true;
+        if (user) {
+            console.log('editing this user',user);
+            self.userToEdit = {
+                e_id: user.e_id,
+                firstname: user.firstname,
+                lastname: user.lastname,
+                o_id: user.o_id,
+                role: user.role,
+                username: user.username,
+                employeeId: user.e_id,
+                email: user.email
+            };
+            console.log(self.userToEdit);
+            self.editingUser = true;
+        } else {
+            self.editingUser = false;
+            self.userToEdit = {};
+        }
+
         $location.path('/register');
     };
 

@@ -3,7 +3,7 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
     var self = this;
     var es = EmailService;
     self.marketData = DataService.data;
-    
+
     self.options = {
         state: location.hash.split('/')[2],
         market: decodeURIComponent(decodeURIComponent(location.hash.split('/')[3])),
@@ -11,7 +11,6 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
         quarter: location.hash.split('/')[5].split('?')[0]
     };
 
-    console.log(self.options);
     //Retrieve markets for dropdown selection
     self.getMarkets = function (state) {
         DataService.getMarkets(state);
@@ -68,32 +67,34 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
     }
     calcQuarter();
 
-    self.mapSize = 'col-xs-12';
-
-
     self.click = function (event, item) {
+        item.year = location.hash.split('/')[4];
+        item.quarter = location.hash.split('/')[5];
         self.selectedItem = item;
-        self.mapSize = 'col-xs-12 col-sm-10'
+        SubscribeService.selectedItem = item;
+        console.log(SubscribeService.selectedItem);
     };
+
+    self.close = function () {
+        self.selectedItem = false;
+        SubscribeService.selectedItem = false;
+    }
 
     //Navigate to selected property page
     self.viewProperty = function () {
-        if ($cookies.get('MCPopupClosed') === '' || $cookies.get('MCPopupClosed') == undefined || $cookies.get('MCPopupSubscribed') === '' || $cookies.get('MCPopupSubscribed') == undefined) {
-            $cookies.remove('MCPopupClosed');
-            SubscribeService.launchSub();
-            // $location.path('/not-subscribed');
-        } else if ($cookies.get('MCPopupClosed') && $cookies.get('MCPopupSubscribed')) {
+        if ($cookies.get('MCSubbed') === '' || $cookies.get('MCSubbed') == undefined || $cookies.get('MCSubbed') == false) {
+            $location.path('/subscribeForm');
+        } else if ($cookies.get('MCSubbed')) {
             $location.path(`/property/${self.selectedItem.State}/${encodeURIComponent(self.selectedItem.Submarket)}/${year}/${quarter}/${self.selectedItem.Property_Id}`);
         } else {
             alert('Something went wrong. Please refresh and try again.')
-            $cookies.remove('MCPopupClosed');
-            $cookies.remove('MCPopupSubscribed');
+            $cookies.remove('MCSubbed');
         }
     }
 
     self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY';
-    NgMap.getMap().then(function (map) {
-
+    NgMap.getMap("map").then(function (map) {
+        console.log('Logging map', map);
     })
 
     self.searchData = function (value) {
@@ -105,6 +106,7 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
 
     self.getMarketData = function (value) {
         DataService.getMarketData(value).then(function () {
+            document.getElementById("inventoryChartContainer").innerHTML = "<canvas id='inventoryChart'></canvas>";
             let ctx = document.getElementById("inventoryChart").getContext("2d");
             let inventoryChart = new Chart(ctx, {
                 type: 'doughnut',
@@ -121,6 +123,7 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
 
     self.getAbsorptionData = function (value) {
         DataService.getAbsorptionData(value).then(function () {
+            document.getElementById("absorptionChartContainer").innerHTML = "<canvas id='absorptionChart'></canvas>";
             let ctx = document.getElementById("absorptionChart").getContext("2d");
             let year = [];
             let className = [];
@@ -188,6 +191,7 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
 
     self.getVacancyData = function (value) {
         DataService.getVacancyData(value).then(function () {
+            document.getElementById("vacancyChartContainer").innerHTML = "<canvas id='vacancyChart'></canvas>";
             let ctx = document.getElementById("vacancyChart").getContext("2d");
             let year = [];
             let className = [];

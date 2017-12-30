@@ -23,10 +23,46 @@ html {
     font-size: 14px;
     background-color: #f7f7f7;
     height: 100%;
+    font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    font-weight: 300;
+    margin: 10px 10px 10px 10px;;
 }
 
 #hero {
     background-image: url('images/heroimage.jpeg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 80vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+    padding: 0 20px;
+}
+
+#hero-menu {
+    padding: 10px 20px;
+    min-width: 200px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, .64);
+    background-color: rgba(255, 255, 255, .9);
+}
+
+#contact-hero {
+    padding: 20px;
+    background-image: url('images/heroimage.jpeg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.hero {
+    background-image: url('images/loginbg.jpg');
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -40,7 +76,7 @@ html {
     padding: 0 20px;
 }
 
-#hero-menu {
+.hero-menu {
     padding: 10px 20px;
     min-width: 200px;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, .64);
@@ -118,6 +154,10 @@ td {
     font-size: 15px;
 }
 
+#nav {
+    background-color: lightgray;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -150,46 +190,33 @@ li a:hover {
     font-size: 10px;
 }
 
-.footer {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
-    background-color: #efefef;
-    text-align: center;
-}
-
 th {
     text-align: center;
 }
 
+textarea {
+    resize: none;
+    width: 99% !important;
+}
+
 .class-0 {
-    background-color: #003865;
+    color: #003865;
 }
 
 .class-1 {
-    background-color: #0590AE;
+    color: #0590AE;
 }
 
 .class-2 {
-    background-color: #b5bd00;
-}
-
-.property-header {
-    text-align: left;
-    color: #FFFFFF;
-    border-bottom: 1px solid rgba(0,0,0,.64);
+    color: #b5bd00;
 }
 
 .property {
-    padding: 0px;
-    min-height: 20px;
+    border-top: 5px solid #686b6b;
     margin-bottom: 20px;
     background-color: #ffffff;
-    border: 1px solid #e3e3e3;
     -webkit-box-shadow:  1px 1px 1px rgba(0,0,0,.0.64);
-    box-shadow: 1px 1px 1px rgba(0,0,0,.64);
+    box-shadow: 0px 1px 1px rgba(0,0,0,.64);
 }
 
 #admin {
@@ -214,25 +241,43 @@ th {
   }
 
   .map-container {
-    box-shadow: 1px 1px 1px rgba(0,0,0,.64);
+    box-shadow: 0px 1px 1px rgba(0,0,0,.64);
     margin-top: 20px;
     margin-bottom:20px;
+    padding: 0px;
   }
 
   .map-box {
     padding: 0px;
   }
 
-  .map-menu-box {
-    border-top: 5px solid #e4002b;
-    background-color:white;
-    height: 100%;
-    min-height: 302px;
-    border-left: 1px solid rgba(0,0,0,.34);
-  }
+.map-menu-box {
+    position: absolute;
+    padding: 0px 20px 20px 20px;
+    right: 0;
+    z-index: 1000;
+    max-width: 250px;
+    max-height: 400px;
+    margin-top: 20px;
+    margin-right: 20px;
+    border-top: 5px solid #e63631;
+    background-color: white;
+    box-shadow: 0px 1px 10px black;
+}
+
+.map-menu-box-close {
+    -webkit-appearance: none;
+    border: none;
+    padding: 5px 0px;
+    float:right;
+    color: rgba(0,0,0,.64);
+}
+
 
 #footer {
-    border-top: 2px solid lightgray;
+    padding: 0px 0px 20px 0px;
+    background-color: #cecfd1;
+    border-top: 1px solid #686b6b;
 }
 
 #emailList tr:nth-child(odd) {
@@ -269,6 +314,7 @@ th {
 
 .map-static {
     width: 100%;
+    margin: 20px 0px;
     max-width: 400px;
 }
 
@@ -279,3 +325,100 @@ th {
 button:disabled {
     background-color:#df7565;
 }
+
+.property-details {
+    border-top: 5px solid #686b6b;
+    padding: 0px 10px 20px 10px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    -webkit-box-shadow:  1px 1px 1px rgba(0,0,0,.0.64);
+    box-shadow: 0px 1px 1px rgba(0,0,0,.64);
+}
+
+.contact-form {
+    border-top: 5px solid #e4002b;
+    box-shadow: 0px 1px 1px rgba(0,0,0,.64);
+    padding: 0px 10px 20px 10px;
+    background-color:white;
+    max-width: 450px;
+    width: 100%;
+    margin: 0px auto;
+    min-height: 200px;
+}
+
+.contact-form1 {
+    border-top: 5px solid #e4002b;
+    box-shadow: 0px 1px 1px rgba(0,0,0,.64);
+    padding: 0px 10px 20px 10px;
+    background-color:white;
+    min-height: 200px;
+    margin-top: 50px;
+}
+
+.contact-form2 {
+    border-top: 5px solid #e4002b;
+    box-shadow: 0px 1px 1px rgba(0,0,0,.64);
+    background-color:white;
+}
+
+.divider {
+    width: 100%;
+    border-bottom: 1px solid rgba(0,0,0,.24);
+    padding: 5px 0px;
+  }
+
+  .redBtn {
+    background-color: #e4002b;
+    margin: 5px 5px 5px 0px;
+    color: white;
+    border-radius: 2px;
+  }
+
+  .uploadFile {
+    border: 3px dashed rgb(185, 185, 185); 
+    padding: 20px; 
+    width: 400px;
+    margin: 20px 0px;
+  }
+
+  .cleanFooter {
+    margin-bottom: 45vh;
+  }
+
+  .or {
+    margin-top: 125px;
+    margin-left: 50px;
+  }
+
+  .messages-table {
+      background-color: white;
+  }
+
+  #message-background {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.8)
+  }
+
+  #message-detail {
+    position: fixed;
+    margin: 100px auto;
+    left:0;
+    right: 0;
+    top: 0;
+    width: 400px;
+    padding: 20px;
+    z-index: 9999;
+    box-shadow: 1px 3px 5px rgba(0,0,0,.64);
+    background-color: white;
+  }
+
+  .messages-table-row:hover {
+    border: 1px solid black;
+    background-color: rgba(0,0,0,.1);
+    cursor: pointer;
+  }

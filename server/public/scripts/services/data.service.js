@@ -11,6 +11,10 @@ myApp.service('DataService', function ($http, $location, $q) {
         markets: '',
         property: ''
     };
+
+    self.comments = {
+        messages: ''
+    }
     
     self.userObject = {};
     self.uploaderOptions = {
@@ -44,6 +48,7 @@ myApp.service('DataService', function ($http, $location, $q) {
             });
         }
     };
+
     //Retrieve State Dropdown on Homepage
     self.getStates = function () {
         return $http.get('/data/states').then(function (response) {
@@ -109,11 +114,37 @@ myApp.service('DataService', function ($http, $location, $q) {
     //Return properties for market page map
     self.getProperty = function (value) {
         return $http.get(`/data/propertydata?state=${value.state}&year=${value.year}&quarter=${value.quarter}&market=${value.market}&propid=${value.id}`).then(function (response) {
-            console.log(response.data);
             self.data.property = response.data;
             console.log('Success', self.data.property);
         }).catch(function (err) {
             console.log('Error retrieving property data', err)
+        })
+    }
+
+    //Post a comment on contact page
+    self.postComment = function(value) {
+        return $http.post(`/data/contact`, value).then(function (response){
+        }).catch(function(err){
+            console.log('Error posting comment', err);
+        })
+    }
+
+    //Retrieve comments on administration page
+    self.getComments = function() {
+        $http.get(`/data/contact`).then(function(response){
+            self.comments.messages = response.data;
+            console.log('Success', self.comments.messages);
+        }).catch(function(err){
+            console.log('Error retrieving messages', err)
+        })
+    }
+
+    //Delete a message from the Administration Messages view
+    self.deleteMessage = function (message) {
+        return $http.delete('/data/contact/' + message.id).then(function(response){
+            console.log('Office deleted');
+        }).catch(function(err){
+            console.log('Error deleting message', err)
         })
     }
 

@@ -30,7 +30,7 @@ router.get('/states', function (req, res) {
     }
   });//end of pool
 });
-
+  
 //RETRIEVE MARKET DROPDOWN INFORMATION ON HOMEPAGE
 router.get('/markets/:state', function (req, res) {
   let state = req.params.state;
@@ -224,8 +224,6 @@ router.get('/propertydata', function (req, res) {
   let quarter = req.query.quarter;
   let market = req.query.market;
   let propid = req.query.propid;
-  console.log(state, year, quarter, market, propid);
-  console.log(typeof(state), typeof(propid));
   pool.connect(function (errorConnecting, db, done) {
     if (errorConnecting) {
       console.log('Error connecting ', errorConnecting);
@@ -286,18 +284,10 @@ router.post('/csv/property/', function (req, res) {
     var dataInfo = {
       uploadedData: [],
       user: req.user,
-      path: './server/upload/property/' + req.files.file.name,
-      fileName: req.files.file.name
+      fileName: req.files.file.name,
+      data: req.files.file.data
     };
-
     console.log('DATA INFO:', dataInfo);
-
-    console.log('path', dataInfo.path);
-    req.files.file.mv(dataInfo.path, function (error) {
-      if (error) {
-        console.log('error moving file', error);
-        return res.sendStatus(500);
-      }
       console.log('No error moving file');
       processPropertyCSV(dataInfo)
       .then((result) => {
@@ -308,7 +298,7 @@ router.post('/csv/property/', function (req, res) {
         console.log('caught failure somewhere in processPropertyCSV');
         res.sendStatus(500);
       });
-    });
+    // });
   }
 });
 
@@ -317,18 +307,10 @@ router.post('/csv/city/', function (req, res) {
     var dataInfo = {
       uploadedData: [],
       user: req.user,
-      path: './server/upload/city/' + req.files.file.name,
-      fileName: req.files.file.name
+      fileName: req.files.file.name,
+      data: req.files.file.data
     };
-
     console.log('DATA INFO:', dataInfo);
-
-    console.log('path', dataInfo.path);
-    req.files.file.mv(dataInfo.path, function (error) {
-      if (error) {
-        console.log('error moving file', error);
-        return res.sendStatus(500);
-      }
       console.log('No error moving file');
       processCityCSV(dataInfo)
       .then((result) => {
@@ -339,7 +321,7 @@ router.post('/csv/city/', function (req, res) {
         console.log('caught failure somewhere in processCityCSV');
         res.sendStatus(500);
       });
-    });
+    // });
   }
 });
 
@@ -348,18 +330,10 @@ router.post('/csv/dataset/', function (req, res) {
     var dataInfo = {
       uploadedData: [],
       user: req.user,
-      path: './server/upload/dataset/' + req.files.file.name,
-      fileName: req.files.file.name
+      fileName: req.files.file.name,
+      data: req.files.file.data
     };
-
     console.log('DATA INFO:', dataInfo);
-
-    console.log('path', dataInfo.path);
-    req.files.file.mv(dataInfo.path, function (error) {
-      if (error) {
-        console.log('error moving file', error);
-        return res.sendStatus(500);
-      }
       console.log('No error moving file');
       processDatasetCSV(dataInfo)
       .then((result) => {
@@ -370,8 +344,77 @@ router.post('/csv/dataset/', function (req, res) {
         console.log('caught failure somewhere in processDatasetCSV');
         res.sendStatus(500);
       });
-    });
+    // });
   }
 });
+
+//CONTACT FORM COMMENT SUBMISSION
+router.post('/contact', function (req, res) {
+  var comment = req.body;
+  pool.connect(function (errorConnecting, db, done) {
+      if (errorConnecting) {
+          console.log('Error connecting', errorConnecting);
+          res.sendStatus(500);
+      } else {
+          var queryText = 'INSERT INTO "messages" ("email", "first", "last", "address", "size", "time", "phone", "notes") VALUES ($1, $2, $3, $4, $5, $6, $7, $8);';
+          db.query(queryText, [comment.email, comment.first, comment.last, comment.address, comment.size, comment.time, comment.phone, comment.notes], function (errorMakingQuery, result){
+              done();
+              if (errorMakingQuery) {
+                  console.log('errorMakingQuery', errorMakingQuery);
+                  res.sendStatus(500);
+              } else {
+                  res.send(result.rows);
+              }
+          })
+      }
+  }) //end of pool
+}) // end of post
+
+//RETRIEVE COMMENT SUBMISSION MESSAGES FOR ADMINISTRATION MESSAGES VIEW
+router.get('/contact', function (req, res) {
+  pool.connect(function (errorConnecting, db, done) {
+    if (errorConnecting) {
+      console.log('Error connecting ', errorConnecting);
+      res.sendStatus(500);
+    } else {
+      var queryText = `SELECT * FROM "messages"`
+      db.query(queryText, function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('errorMakingQuery', errorMakingQuery);
+          res.sendStatus(500);
+        } else {
+          res.send(result.rows);
+        }
+      });
+    }
+  });//end of pool
+});//end of GET
+
+//DELETE A MESSAGE FROM THE ADMINISTRATION MESSAGES VIEW
+router.delete('/contact/:id', function (req, res) {
+  if (req.isAuthenticated()) {
+      var messageToDelete = req.params.id;
+      pool.connect(function (errorConnecting, db, done) {
+          if (errorConnecting) {
+              console.log('Error connecting', errorConnecting);
+              res.sendStatus(500);
+          } else {
+              var queryText = 'DELETE FROM "messages" WHERE "id" = $1;'
+              db.query(queryText, [messageToDelete], function (errorMakingQuery, result) {
+                  done();
+                  if (errorMakingQuery) {
+                      console.log('errorMakingQuery', errorMakingQuery);
+                      res.sendStatus(500);
+                  } else {
+                      res.send(result.rows);
+                  }
+              })
+          }
+      }) //end of pool
+  } else {
+      res.sendStatus(401);
+  }
+}) // end of post
 
 module.exports = router;

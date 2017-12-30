@@ -94,34 +94,25 @@ router.post('/csv/', function (req, res) {
       uploadedData: [],
       user: req.user,
       batchId: -1,
-      path: './server/upload/emailcsvs/' + req.files.file.name,
-      fileName: req.files.file.name
+      fileName: req.files.file.name,
+      data: req.files.file.data
     };
-
     console.log('DATA INFO:', dataInfo);
-
-    console.log('path', dataInfo.path);
-    req.files.file.mv(dataInfo.path, function (error) {
-      if (error) {
-        console.log('error moving file', error);
-        return res.sendStatus(500);
-      }
-      createBatch(dataInfo)
-        .then((batchId) => {
-          console.log('created batch');
-          dataInfo.batchId = batchId;
-          processContactCSV(dataInfo)
-            .then((batch) => {
-              console.log('responding positively!', batch);
-              result = {
-                batchId: batch
-              };
-              res.send(result);
-            });
-        })
-        .catch((error) => {
-          res.sendStatus(500);
+    createBatch(dataInfo)
+    .then((batchId) => {
+      console.log('created batch');
+      dataInfo.batchId = batchId;
+      processContactCSV(dataInfo)
+        .then((batch) => {
+          console.log('responding positively!', batch);
+          result = {
+            batchId: batch
+          };
+          res.send(result);
         });
+    })
+    .catch((error) => {
+      res.sendStatus(500);
     });
   }
 });
@@ -222,7 +213,7 @@ router.put('/insertlink/', function (req, res) {
   }
 });
 
-router.get('/track/',(req,res) => {
+router.get('/track/', (req, res) => {
   if (req.isAuthenticated()) {
     pool.connect(function (errorConnecting, db, done) {
       if (errorConnecting) {
@@ -261,7 +252,7 @@ router.put('/track/', function (req, res) {
           console.log('error making query', errorMakingQuery);
           res.sendStatus(500);
         } else {
-          console.log('clickthrough result',result.rows[0].clickthrough);
+          console.log('clickthrough result', result.rows[0].clickthrough);
           res.sendStatus(201);
         }
       });

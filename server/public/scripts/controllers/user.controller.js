@@ -16,6 +16,7 @@ myApp.controller('UserController', function (UserService, $location, $route) {
     }
 
     vm.newUser = function (user){
+        UserService.editUser(null);
         $location.path('/register')
     }
 

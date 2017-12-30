@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row cleanFooter">
+        <div class="col-xs-12">
+            <h1>Messages</h1>
+            <table class="table-bordered messages-table">
+                <tr>
+                    <th>First</th>
+                    <th>Last</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Square Feet</th>
+                    <th>Time Horizon</th>
+                </tr>
+                <tr class="messages-table-row" ng-repeat="item in vm.messages.messages" ng-click="vm.openMessage(item)">
+                    <td>{{item.email}}</td>
+                    <td>{{item.first}}</td>
+                    <td>{{item.last}}</td>
+                    <td>{{item.address}}</td>
+                    <td>{{item.size}}</td>
+                    <td>{{item.time}}</td>
+                    <td>{{item.phone}}</td>
+                </tr>
+            </table>
+            <div ng-show="vm.showMessage" id="message-background">
+                <div id="message-detail">
+                    <button class="map-menu-box-close" ng-click="vm.openMessage()">&#10006;</button>
+                    <h2>{{vm.selectedMessage.first}} {{vm.selectedMessage.last}}</h2>
+                    <p><strong>Email: </strong>{{vm.selectedMessage.email}}</p>
+                    <p><strong>Phone: </strong>{{vm.selectedMessage.email}} - {{vm.selectedMessage.phone}}</p>
+                    <p><strong>Address: </strong>{{vm.selectedMessage.address}}</p>
+                    <p><strong>Square Feet: </strong>{{vm.selectedMessage.size}}</p>
+                    <p><strong>Time Horizon: </strong>{{vm.selectedMessage.time}}</p>
+                    <p><strong>Notes:</strong><br>{{vm.selectedMessage.notes}}</p>
+                    <button class="button-cta" ng-click="vm.deleteMessage(vm.selectedMessage)">Delete Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
