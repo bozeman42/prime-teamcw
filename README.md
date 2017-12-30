@@ -1,6 +1,6 @@
 # Cushman & Wakefield Marketing Application
 
-An application that displays marketing information for 
+An application that displays corporate real estate
 
 ## Built With
 
