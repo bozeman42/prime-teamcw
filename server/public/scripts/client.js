@@ -1,3 +1,4 @@
+//Angular dependencies and setup
 var myApp = angular.module('myApp', ['ngRoute','angularFileUpload','ngMap', 'ngCookies']);
 
 /// Routes ///

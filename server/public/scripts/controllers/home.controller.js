@@ -28,6 +28,12 @@ myApp.controller('HomeController', function (NgMap, DataService, $location, User
         let year = (new Date()).getFullYear();
         let month = (new Date()).getMonth() + 1;
         let quarter;
+        function calcYear() {
+            if (month === 1) {           
+                year -= 1;
+            }
+        }
+        calcYear();
         function calcQuarter(){
             if(month < 4){
                 quarter = 4
