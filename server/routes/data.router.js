@@ -7,6 +7,9 @@ var processDatasetCSV = require('../modules/store.dataset.csv.js');
 var processCityCSV = require('../modules/store.city.csv.js');
 var poolModule = require('../modules/pool.js');
 var pool = poolModule;
+var calcReportDate = require('../modules/reportdate.js');
+
+let reportDate = calcReportDate();
 
 //RETRIEVE STATE DROPDOWN INFORMATION ON HOMEPAGE
 router.get('/states', function (req, res) {
@@ -16,9 +19,14 @@ router.get('/states', function (req, res) {
       res.sendStatus(500);
     } else {
       var queryText = `SELECT "dbo_RPRT_Property"."State" 
-      FROM "dbo_RPRT_Property" 
-      GROUP BY "dbo_RPRT_Property"."State";`;
-      db.query(queryText, function (errorMakingQuery, result) {
+      FROM "dbo_RPRT_Property"
+      JOIN "dbo_RPRT_Dataset"
+      ON "dbo_RPRT_Property"."Report_Dataset_ID" = "dbo_RPRT_Dataset"."Report_Dataset_ID"
+      WHERE "dbo_RPRT_Dataset"."Period_Type_ID" = 2
+      AND "dbo_RPRT_Dataset"."Period_Year" = $1
+      AND SUBSTRING("dbo_RPRT_Dataset"."Dataset_Label",1,1) = $2
+      GROUP BY "dbo_RPRT_Property"."State";`
+      db.query(queryText, [reportDate.year, reportDate.quarter], function (errorMakingQuery, result) {
         done();
         if (errorMakingQuery) {
           console.log('errorMakingQuery', errorMakingQuery);
@@ -40,10 +48,14 @@ router.get('/markets/:state', function (req, res) {
       res.sendStatus(500);
     } else {
       var queryText = `SELECT "dbo_RPRT_Property"."Submarket" 
-      FROM "dbo_RPRT_Property" 
+      FROM "dbo_RPRT_Property"
+      JOIN "dbo_RPRT_Dataset"
+      ON "dbo_RPRT_Property"."Report_Dataset_ID" = "dbo_RPRT_Dataset"."Report_Dataset_ID" 
       WHERE "dbo_RPRT_Property"."State" = $1
+      AND "dbo_RPRT_Dataset"."Period_Year" = $2
+      AND SUBSTRING("dbo_RPRT_Dataset"."Dataset_Label",1,1) = $3
       GROUP BY "dbo_RPRT_Property"."Submarket";`;
-      db.query(queryText, [state], function (errorMakingQuery, result) {
+      db.query(queryText, [state, reportDate.year, reportDate.quarter], function (errorMakingQuery, result) {
         done();
         if (errorMakingQuery) {
           console.log('errorMakingQuery', errorMakingQuery);
