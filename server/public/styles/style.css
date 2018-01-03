@@ -49,8 +49,10 @@ h1, h2, h3, h4, h5, h6, p {
 #hero-menu {
     padding: 10px 20px;
     min-width: 200px;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, .64);
-    background-color: rgba(255, 255, 255, .9);
+    border-radius: 5px;
+    border-top: 5px solid #ee1c2c;
+    box-shadow: 0px 5px 30px rgba(0, 0, 0, .24);
+    background-color: white;
 }
 
 #contact-hero {
@@ -232,8 +234,9 @@ textarea {
 }
 
 #header {
-    border-bottom: 1px solid rgba(0,0,0,.64);
+    border-bottom: 1px solid rgba(0,0,0,.24);
     background-color: #FFFFFF;
+    box-shadow: 0px 0px 5px rgba(0,0,0,.24);
 }
 
   th {
@@ -265,8 +268,13 @@ textarea {
     box-shadow: 0px 1px 10px black;
 }
 
+.map-menu-box h3 {
+    margin-left: 0px;
+}
+
 .map-menu-box-close {
     -webkit-appearance: none;
+    background-color: transparent;
     border: none;
     padding: 5px 0px;
     float:right;
@@ -275,9 +283,17 @@ textarea {
 
 
 #footer {
-    padding: 0px 0px 20px 0px;
-    background-color: #cecfd1;
-    border-top: 1px solid #686b6b;
+    padding: 10px 0px 10px 0px;
+    background-color: white;
+    box-shadow: inset 0px 0px 5px rgba(0,0,0,.24);
+    border-top: 1px solid rgba(0,0,0,.24);
+}
+
+
+
+.footer-text {
+    display:inline-block;
+    margin: 0px 10px;
 }
 
 #emailList tr:nth-child(odd) {
@@ -375,8 +391,9 @@ button:disabled {
   }
 
   .uploadFile {
-    border: 3px dashed rgb(185, 185, 185); 
-    padding: 20px; 
+    box-shadow: 0px 0px 1px rgba(0,0,0,.64);
+    background-color: white;
+    padding: 10px; 
     width: 400px;
     margin: 20px 0px;
   }
@@ -390,7 +407,7 @@ button:disabled {
     margin-left: 50px;
   }
 
-  .messages-table {
+  .styled-table {
       background-color: white;
   }
 
@@ -417,8 +434,12 @@ button:disabled {
     background-color: white;
   }
 
-  .messages-table-row:hover {
+  .styled-table-row:hover {
     border: 1px solid black;
     background-color: rgba(0,0,0,.1);
     cursor: pointer;
+  }
+
+  .input-small {
+      max-width: 300px;
   }
