@@ -4,7 +4,10 @@ An application that displays corporate real estate
 
 ## Built With
 
-List technologies and frameworks here
+- AngularJS
+- Express
+- Node.js
+- 
 
 ## Getting Started
 
