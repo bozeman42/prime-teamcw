@@ -1,53 +1,55 @@
 # Cushman & Wakefield Marketing Application
 
-An application that displays corporate real estate
+An application that displays corporate real estate data to potential clients with a call to action to contact our client.
 
 ## Built With
 
 - AngularJS
 - Express
 - Node.js
-- 
+- PostgreSQL
+- Google Maps
+- Google Analytics
+- Mailchimp API
+- Chart.js
+- angular-file-upload
+- fast-csv
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+- Download or clone this repository
+- (log in as admin) upload dataset, city, and property data CSVs. Templates can be downloaded from the site.
+- Get a [Mailchimp API key](http://developer.mailchimp.com/documentation/mailchimp/)
+- Get a [Google Maps API key](https://developers.google.com/maps/documentation/javascript/get-api-key)
+- copy the `example.env` file and rename to `.env` add your [Mailchimp API key](http://developer.mailchimp.com/documentation/mailchimp/)
+- 
 
 ### Prerequisites
 
 Link to software that is required to install the app (e.g. node).
 
 - [Node.js](https://nodejs.org/en/)
-- [PostgreSQL](https://www.postgresql.org/) 
-- List other prerequisites here
+- [PostgreSQL](https://www.postgresql.org/)
 
 
 ### Installing
 
 Steps to get the development environment running.
-
-```sql
-CREATE TABLE "users" (
-  "id" serial primary key,
-  "username" varchar(80) not null UNIQUE,
-  "password" varchar(240) not null
-);
-```
-
-## Screen Shot
-
-Include one or two screen shots of your project here (optional). Remove if unused.
+- set up database tables according to teamcw.sql file
+- run `npm install`
+- run `npm start` to start the server
+- navigate to [https://localhost:5000](https://localhost:5000)
 
 ## Documentation
 
-Link to a read-only version of your scope document or other relevant documentation here (optional). Remove if unused.
+- Here is this projects [scope document](https://docs.google.com/document/d/1FfKg5Itqu6kdVkCCw3OXBsRXonaJbQ-s_w922NXqDto/edit?usp=sharing)
 
 ### Completed Features
 
 High level list of items completed.
 
-- [x] Feature a
-- [x] Feature b
+- [x] Display real estate market information 
+- [x] Generate customized emails to send to CFOs and other potential clients
 
 ### Next Steps
 
@@ -61,7 +63,10 @@ Add additional notes about how to deploy this on a live system
 
 ## Authors
 
-* Name of author(s)
+* Aaron Kvarnlov-Leverty
+* David Beaudway
+* Elvis Hang
+* Xong Xiong
 
 
 ## Acknowledgments
