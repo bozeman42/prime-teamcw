@@ -22,7 +22,6 @@ An application that graphically displays real estate data through interactive ma
 - Get a [Mailchimp API key](http://developer.mailchimp.com/documentation/mailchimp/)
 - Get a [Google Maps API key](https://developers.google.com/maps/documentation/javascript/get-api-key)
 - copy the `example.env` file and rename to `.env` add your [Mailchimp API key](http://developer.mailchimp.com/documentation/mailchimp/)
-- 
 
 ### Prerequisites
 
