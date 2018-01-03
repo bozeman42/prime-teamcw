@@ -6,6 +6,8 @@ myApp.controller('EmailController', function (UserService, $location, UploadServ
     self.data = es.data;
     self.uploader = UploadService.uploader;
     self.uploaderOptions = es.uploaderOptions;
+    
+    // change to URL of live site when deploying
     var URL = 'http://localhost:5000';
 
     // upload CSV of potential client list
