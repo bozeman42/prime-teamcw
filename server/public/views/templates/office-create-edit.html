@@ -4,7 +4,7 @@
     <form ng-submit="vm.createOffice()">
         <div>
             <label for="officeName">Office:</label>
-            <input type="text" ng-model="vm.newOffice.name" />
+            <input class="form-control input-small" type="text" ng-model="vm.newOffice.name" />
         </div>
         <div>
             <input class="btn btn-default" type="submit" name="submit" value="Create Office" />
@@ -16,7 +16,7 @@
     <form ng-submit="vm.saveEditedOffice()">
         <div>
             <label for="officeName">Office:</label>
-            <input type="text" ng-model="vm.officeService.officeToEdit.name" ng-value="vm.officeService.officeToEdit.name"/>
+            <input class="form-control input-small" type="text" ng-model="vm.officeService.officeToEdit.name" ng-value="vm.officeService.officeToEdit.name"/>
         </div>
         <div>
             <input class="btn btn-default" type="submit" name="submit" value="Save" />
