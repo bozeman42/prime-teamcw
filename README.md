@@ -1,6 +1,6 @@
 # Cushman & Wakefield Marketing Application
 
-An application that displays corporate real estate data to potential clients with a call to action to contact our client.
+An application that graphically displays real estate data through interactive maps and charts.
 
 ## Built With
 
