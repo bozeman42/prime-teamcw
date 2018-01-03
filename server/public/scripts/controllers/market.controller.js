@@ -54,6 +54,12 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
     let year = (new Date()).getFullYear();
     let month = (new Date()).getMonth() + 1;
     let quarter;
+    function calcYear() {
+        if (month === 1) {           
+            year -= 1;
+        }
+    }
+    calcYear();
     function calcQuarter() {
         if (month < 4) {
             quarter = 4
@@ -92,7 +98,7 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
         }
     }
 
-    self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY';
+    self.googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA0orkvDxdwPUQAyigJ_9CAikHv5HhZxHc`;
     NgMap.getMap("map").then(function (map) {
         console.log('Logging map', map);
     })
