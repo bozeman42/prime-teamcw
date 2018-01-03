@@ -16,10 +16,16 @@ myApp.controller('ContactController', function ($location, UserService, DataServ
 
     self.postComment = function(){
         if (!self.contactForm.email || !self.contactForm.first || !self.contactForm.last) {
-            alert('Please complete all required fields')
+            swal("Error!", "Please fill out all required fields", "error");
         } else {
-            DataService.postComment(self.contactForm);
-            self.contactForm = '';
+            DataService.postComment(self.contactForm).then(function(){
+                swal("Success!", "Your message has been sent", "success");
+                self.contactForm = '';
+                $location.path('/home');
+            }).catch(function(){
+                swal("Error!", "There was a problem sending your message. Please try again.", "error");
+            })
+            
         }
     }
 

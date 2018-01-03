@@ -54,6 +54,12 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
     let year = (new Date()).getFullYear();
     let month = (new Date()).getMonth() + 1;
     let quarter;
+    function calcYear() {
+        if (month === 1) {           
+            year -= 1;
+        }
+    }
+    calcYear();
     function calcQuarter() {
         if (month < 4) {
             quarter = 4
@@ -92,9 +98,9 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
         }
     }
 
-    self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY';
-    NgMap.getMap().then(function (map) {
-
+    self.googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA0orkvDxdwPUQAyigJ_9CAikHv5HhZxHc`;
+    NgMap.getMap("map").then(function (map) {
+        console.log('Logging map', map);
     })
 
     self.searchData = function (value) {
@@ -106,6 +112,7 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
 
     self.getMarketData = function (value) {
         DataService.getMarketData(value).then(function () {
+            document.getElementById("inventoryChartContainer").innerHTML = "<canvas id='inventoryChart'></canvas>";
             let ctx = document.getElementById("inventoryChart").getContext("2d");
             let inventoryChart = new Chart(ctx, {
                 type: 'doughnut',
@@ -122,6 +129,7 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
 
     self.getAbsorptionData = function (value) {
         DataService.getAbsorptionData(value).then(function () {
+            document.getElementById("absorptionChartContainer").innerHTML = "<canvas id='absorptionChart'></canvas>";
             let ctx = document.getElementById("absorptionChart").getContext("2d");
             let year = [];
             let className = [];
@@ -189,6 +197,7 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
 
     self.getVacancyData = function (value) {
         DataService.getVacancyData(value).then(function () {
+            document.getElementById("vacancyChartContainer").innerHTML = "<canvas id='vacancyChart'></canvas>";
             let ctx = document.getElementById("vacancyChart").getContext("2d");
             let year = [];
             let className = [];

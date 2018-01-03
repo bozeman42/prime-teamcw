@@ -1,43 +1,40 @@
-let fs = require('fs');
 let pool = require('../modules/pool.js');
 let csv = require('fast-csv');
+let Stream = require('stream');
 
 // process lines of email CSV data to produce generated email addresses. Returns an array of data lines
 let processLine = require('../modules/address.generator');
 
 function processContactCSV(dataInfo) {
   return new Promise((resolve, reject) => {
-    fs.exists(dataInfo.path, function (exists) {
-      if (exists) {
-        let stream = fs.createReadStream(dataInfo.path);
-        csv.fromStream(stream, {
-          headers: true
-          // use the array below instead of 'true' if you wish to 
-          // omit headers from the CSV instead of the headers being
-          // in the first line of the CSV
-          //
-          // [
-          //     'first',
-          //     'last',
-          //     'title',
-          //     'company',
-          //     'domain',
-          //     'building',
-          //     'market',
-          //     'email'
-          // ]
-        })
-          .on("data", function (data) {
-            // generates email addresses from names and company domains and pushes the results to uploadedData
-            processLine(data).forEach((line) => {
-              dataInfo.uploadedData.push(line);
-            });
-          })
-          .on("end", function (data) {
-            resolve(storeEmailCSV(dataInfo));
-          });
-      }
-    });
+    let bufferStream = new Stream.PassThrough();
+    bufferStream.end(dataInfo.data);
+    csv.fromStream(bufferStream, {
+      headers: true
+      // use the array below instead of 'true' if you wish to 
+      // omit headers from the CSV instead of the headers being
+      // in the first line of the CSV
+      //
+      // [
+      //     'first',
+      //     'last',
+      //     'title',
+      //     'company',
+      //     'domain',
+      //     'building',
+      //     'market',
+      //     'email'
+      // ]
+    })
+      .on("data", function (data) {
+        // generates email addresses from names and company domains and pushes the results to uploadedData
+        processLine(data).forEach((line) => {
+          dataInfo.uploadedData.push(line);
+        });
+      })
+      .on("end", function (data) {
+        resolve(storeEmailCSV(dataInfo));
+      });
   });
 }
 

@@ -1,44 +1,36 @@
 let pool = require('./pool.js');
 let csv = require('fast-csv');
-var fs = require('fs');
+let Stream = require('stream');
 
 function processCityCSV(dataInfo) {
   console.log('Processing data csv');
-  console.log('Path',dataInfo.path);
   return new Promise((resolve, reject) => {
     console.log('checking if file exists');
-    fs.exists(dataInfo.path, function (exists) {
-      console.log('in fs.exists');
-      if (exists) {
-        console.log('file exists');
-        var stream = fs.createReadStream(dataInfo.path);
-        csv.fromStream(stream, {
-          quote: '"',
-          headers: true
-        })
-          .on("data", function (data) {
-            for (var prop in data){
-              if (data[prop] === undefined || data[prop] === '') {
-                data[prop] = null;
-              }
-            }
-            dataInfo.uploadedData.push(data);
-          })
-          .on("end", function (data) {
-            storeCityCSV(dataInfo)
-            .then((result)=>{
-              resolve(result);
-            });
+    console.log('file exists');
+    let bufferStream = new Stream.PassThrough();
+    bufferStream.end(dataInfo.data);
+    csv.fromStream(bufferStream, {
+      quote: '"',
+      headers: true
+    })
+      .on("data", function (data) {
+        for (var prop in data) {
+          if (data[prop] === undefined || data[prop] === '') {
+            data[prop] = null;
+          }
+        }
+        dataInfo.uploadedData.push(data);
+      })
+      .on("end", function (data) {
+        storeCityCSV(dataInfo)
+          .then((result) => {
+            resolve(result);
           });
-      } else {
-        console.log('Does not exist');
-        reject('File doesn\'t exist');
-      }
-    });
+      });
   });
 }
 
-function storeCityCSV(dataInfo){
+function storeCityCSV(dataInfo) {
   console.log('attempting to store object');
   return new Promise((resolve, reject) => {
     let data = dataInfo.uploadedData;

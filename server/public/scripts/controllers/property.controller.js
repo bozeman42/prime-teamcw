@@ -1,4 +1,4 @@
-myApp.controller('PropertyController', function (NgMap, DataService, $http) {
+myApp.controller('PropertyController', function ($http, $location, UserService, NgMap, DataService) {
     console.log('PropertyController created');
     var self = this;
     self.data = DataService.data;
@@ -8,21 +8,42 @@ myApp.controller('PropertyController', function (NgMap, DataService, $http) {
         market: decodeURIComponent(location.hash.split('/')[3]),
         year: location.hash.split('/')[4],
         quarter: location.hash.split('/')[5],
-        id: location.hash.split('/')[6]
+        id: location.hash.split('/')[6].split('?')[0]
     }
+
+    self.contactForm = {
+        email: '',
+        first: '',
+        last: '',
+        address: '',
+        size: '',
+        time: '',
+        phone: '',
+        notes: ''
+    };
 
     self.getProperty = function () {
         DataService.getProperty(self.options);
-        console.log(self.options);
-        console.log(self.data);
     }
     self.getProperty();
 
     self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY';
 
-    NgMap.getMap().then(function (map) {
-        console.log(map.getCenter());
-        console.log('markers', map.markers);
-        console.log('shapes', map.shapes);
+    NgMap.getMap("map").then(function (map) {
+        console.log('Logging Map', map);
     })
+
+    self.postComment = function(){
+        if (!self.contactForm.email || !self.contactForm.first || !self.contactForm.last) {
+            swal("Error!", "Please fill out all required fields", "error");
+        } else {
+            DataService.postComment(self.contactForm).then(function(){
+                swal("Success!", "Your message has been sent", "success");
+                self.contactForm = '';
+            }).catch(function(){
+                swal("Error!", "There was a problem sending your message. Please try again.", "error");
+            })
+            
+        }
+    }
 });
