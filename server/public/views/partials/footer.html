@@ -1,27 +1,22 @@
 <div class="container" ng-controller="FooterController as fc">
         <div class="row">
-                <div class="col-md-12">
-                        <div class="col-md-6">
-                                <h3>Contact</h3>
-                                <p>
-                                        <strong>Address: </strong>801 Nicollet Mall # 325, Minneapolis, MN 55402</p>
-                                <p>
-                                        <strong>Email: </strong>
-                                        <a href="mailto:dan.buettner@cushwakenm.com">dan.buettner@cushwakenm.com</a>
-                                </p>
-                                <p>
-                                        <strong>Phone: </strong>
-                                        <a href="tel:6123479305">612-347-9305</a>
-                                </p>
-                                <p>
-                                        <a ng-href="#/contact">Request Property Rates</a>
-                                </p>
-                        </div>
-                        <div class="col-md-6">
-                                <a href="#/login" class="employeeLogin" ng-if="!fc.user.userObject.userName">Employee Login</a>
-                                <a class="employeeLogin" href="#/home" ng-if="fc.user.userObject.userName" ng-click="fc.logout()">Log Out</a>
-                        </div>
+                <div class="col-sm-6 col-xs-12">
+                        <h3>Contact</h3>
+                        <p>
+                                <strong>Address: </strong>801 Nicollet Mall # 325, Minneapolis, MN 55402</p>
+                        <p>
+                                <strong>Email: </strong>
+                                <a href="mailto:dan.buettner@cushwakenm.com">dan.buettner@cushwakenm.com</a>
+                        </p>
+                        <p>
+                                <strong>Phone: </strong>
+                                <a href="tel:6123479305">612-347-9305</a>
+                        </p>
 
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                        <h3>Receive Full Property Info</h3>
+                        <p><a ng-href="#/contact"><strong>Detailed Property Reports</strong></a></p>
                 </div>
         </div>
 </div>
