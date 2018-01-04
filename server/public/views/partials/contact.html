@@ -1,28 +1,20 @@
 <div class="contact-form">
-    <h3>Receive Rate Information</h3>
+    <h3>Receive Market Rate Information</h3>
     <h6>Complete this form to receive property rates and comparables</h6>
     <div class="form-group" required="true">
         <label for="email">Email Address*</label>
-        <input type="text" class="form-control" id="email" ng-model="vm.contactForm.email">
+        <input type="text" class="form-control" id="email" ng-model="vm.contactForm.email" placeholder="ex. abc@123.com">
     </div>
     <div class="form-group">
-        <label for="first">First Name*</label>
-        <input type="text" class="form-control" id="first" ng-model="vm.contactForm.first">
+        <label for="address">What is the address of the property you want to compare?</label>
+        <input type="text" class="form-control" id="address" ng-model="vm.contactForm.address" placeholder="ex. Address, City, State">
     </div>
     <div class="form-group">
-        <label for="last">Last Name*</label>
-        <input type="text" class="form-control" id="last" ng-model="vm.contactForm.last">
+        <label for="size">How many square feet do you want to compare to?</label>
+        <input type="text" class="form-control" id="size" ng-model="vm.contactForm.size" placeholder="ex. 5,000">
     </div>
     <div class="form-group">
-        <label for="address">What is the address of the property you're interested in?</label>
-        <input type="text" class="form-control" id="address" ng-model="vm.contactForm.address">
-    </div>
-    <div class="form-group">
-        <label for="size">How many square feet do you estimate needing?</label>
-        <input type="text" class="form-control" id="size" ng-model="vm.contactForm.size">
-    </div>
-    <div class="form-group">
-            <label for="time">How soon are you looking to move into a property?</label>
+            <label for="time">What is your time horizon?</label>
             <input type="text" class="form-control" id="time" ng-model="vm.contactForm.time">
         </div>
     <div class="form-group">
@@ -30,7 +22,7 @@
         <input type="text" class="form-control" id="phone" ng-model="vm.contactForm.phone">
     </div>
     <div class="form-group">
-            <label for="notes">Additional Notes</label>
+            <label for="notes">Tell us more about what you're looking for...</label>
             <textarea class="form-control" rows=3 cols=50 maxlength=250 id="notes" ng-model="vm.contactForm.notes"></textarea>
         </div>
     <button class="button-cta" ng-click="vm.postComment()">Request More Info</button>

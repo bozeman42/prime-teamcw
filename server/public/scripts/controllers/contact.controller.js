@@ -15,7 +15,7 @@ myApp.controller('ContactController', function ($location, UserService, DataServ
     };
 
     self.postComment = function(){
-        if (!self.contactForm.email || !self.contactForm.first || !self.contactForm.last) {
+        if (!self.contactForm.email) {
             swal("Error!", "Please fill out all required fields", "error");
         } else {
             DataService.postComment(self.contactForm).then(function(){
