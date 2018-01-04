@@ -31,6 +31,10 @@ h1, h2, h3, h4, h5, h6, p {
     margin: 10px 10px 10px 10px;;
 }
 
+.footer-adjustment {
+    min-height: calc(100vh - 285px);
+}
+
 #hero {
     background-image: url('images/heroimage.jpeg');
     background-size: cover;
@@ -396,10 +400,6 @@ button:disabled {
     padding: 10px; 
     width: 400px;
     margin: 20px 0px;
-  }
-
-  .cleanFooter {
-    margin-bottom: 45vh;
   }
 
   .or {

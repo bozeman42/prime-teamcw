@@ -46,7 +46,7 @@ function storeEmailCSV(dataInfo) {
     let data = dataInfo.uploadedData;
     let user = dataInfo.user;
     let batchId = dataInfo.batchId;
-    console.log('attempting to store Email CSV');
+    //Attempt to store email CSV
     data.forEach((contact) => {
       pool.connect(function (errorConnecting, db, done) {
         if (errorConnecting) {

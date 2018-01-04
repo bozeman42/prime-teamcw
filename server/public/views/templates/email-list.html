@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container footer-adjustment">
     <h1 class="lead">Email List</h1>
     <select ng-model="vm.data.viewBatch" ng-change="vm.getBatchEmails(vm.data.viewBatch)" ng-options="batch.batch_id as (batch.file_name + ' ' + batch.date) for batch in vm.data.batches"></select>
     <table class="table-bordered styled-table">

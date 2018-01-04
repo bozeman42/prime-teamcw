@@ -1,5 +1,4 @@
 myApp.service('DataService', function ($http, $location, $q) {
-    console.log('DataService Loaded');
     var self = this;
     self.data = {
         data: '',
@@ -21,19 +20,16 @@ myApp.service('DataService', function ($http, $location, $q) {
         property: {
             url: '/data/csv/property/',
             onSuccess: function(response, status, headers) {
-                console.log('property data uploaded');
             }
         },
         city: {
             url: '/data/csv/city/',
             onSuccess: function(response, status, headers) {
-                console.log('city data uploaded');
             }
         },
         dataset: {
             url: '/data/csv/dataset/',
             onSuccess: function(response, status, headers) {
-                console.log('dataset data uploaded');
             }
         }
     };
@@ -53,7 +49,6 @@ myApp.service('DataService', function ($http, $location, $q) {
     self.getStates = function () {
         return $http.get('/data/states').then(function (response) {
             self.data.states = response.data;
-            console.log('Succesfully retrieved states', self.data.states);
         }).catch(function (err) {
             console.log('Error retrieving all states', err);
         });
@@ -63,7 +58,6 @@ myApp.service('DataService', function ($http, $location, $q) {
     self.getMarkets = function (value) {
         return $http.get(`/data/markets/${value}`).then(function (response) {
             self.data.markets = response.data;
-            console.log('Succesfully retrieved markets', self.data.markets);
         }).catch(function (err) {
             console.log('Error retrieving all markets', err);
         });
@@ -71,11 +65,8 @@ myApp.service('DataService', function ($http, $location, $q) {
 
     //Retrieve data for table and inventory on Market Page
     self.getMarketData = function (value) {
-        console.log('THIS IS THE MARKET DATA VALUE', value);
-        console.log(`Request URL: /data/all?state=${value.state}&year=${value.year}&quarter=${value.quarter}&market=${value.market}`);
         return $http.get(`/data/all?state=${value.state}&year=${value.year}&quarter=${value.quarter}&market=${value.market}`).then(function (response) {
             self.data.data = response.data;
-            console.log('Succesfully retrieved market data', response.data);
         }).catch(function (err) {
             console.log('Error retrieving market data', err);
         });
@@ -85,7 +76,6 @@ myApp.service('DataService', function ($http, $location, $q) {
     self.getAbsorptionData = function (value) {
         return $http.get(`/data/absorption?state=${value.state}&market=${value.market}`).then(function (response) {
             self.data.inventory = response.data;
-            console.log('Succesfully retrieved absorption', self.data.inventory);
         }).catch(function (err) {
             console.log('Error retrieving absorption', err);
         });
@@ -95,7 +85,6 @@ myApp.service('DataService', function ($http, $location, $q) {
     self.getVacancyData = function (value) {
         return $http.get(`/data/vacancy?state=${value.state}&market=${value.market}`).then(function (response) {
             self.data.vacancy = response.data;
-            console.log('Succesfully retrieved vacancy', self.data.vacancy);
         }).catch(function (err) {
             console.log('Error retrieving vacancy', err);
         });
@@ -105,7 +94,6 @@ myApp.service('DataService', function ($http, $location, $q) {
     self.getMarketPropertyData = function (value) {
         return $http.get(`/data/marketproperties?state=${value.state}&year=${value.year}&quarter=${value.quarter}&market=${value.market}`).then(function (response) {
             self.data.properties = response.data;
-            console.log('Success', self.data.properties);
         }).catch(function (err) {
             console.log('Error retrieving property data', err);
         });
@@ -115,7 +103,6 @@ myApp.service('DataService', function ($http, $location, $q) {
     self.getProperty = function (value) {
         return $http.get(`/data/propertydata?state=${value.state}&year=${value.year}&quarter=${value.quarter}&market=${value.market}&propid=${value.id}`).then(function (response) {
             self.data.property = response.data;
-            console.log('Success', self.data.property);
         }).catch(function (err) {
             console.log('Error retrieving property data', err)
         })
@@ -133,7 +120,6 @@ myApp.service('DataService', function ($http, $location, $q) {
     self.getComments = function() {
         $http.get(`/data/contact`).then(function(response){
             self.comments.messages = response.data;
-            console.log('Success', self.comments.messages);
         }).catch(function(err){
             console.log('Error retrieving messages', err)
         })
@@ -142,7 +128,6 @@ myApp.service('DataService', function ($http, $location, $q) {
     //Delete a message from the Administration Messages view
     self.deleteMessage = function (message) {
         return $http.delete('/data/contact/' + message.id).then(function(response){
-            console.log('Office deleted');
         }).catch(function(err){
             console.log('Error deleting message', err)
         })

@@ -299,11 +299,9 @@ router.post('/csv/property/', function (req, res) {
       fileName: req.files.file.name,
       data: req.files.file.data
     };
-    console.log('DATA INFO:', dataInfo);
-      console.log('No error moving file');
+
       processPropertyCSV(dataInfo)
       .then((result) => {
-        console.log('success uploaded CSV!');
         res.sendStatus(200);
       })
       .catch((error) => {
@@ -322,11 +320,9 @@ router.post('/csv/city/', function (req, res) {
       fileName: req.files.file.name,
       data: req.files.file.data
     };
-    console.log('DATA INFO:', dataInfo);
-      console.log('No error moving file');
+
       processCityCSV(dataInfo)
       .then((result) => {
-        console.log('success uploaded CSV!');
         res.sendStatus(200);
       })
       .catch((error) => {
@@ -345,15 +341,13 @@ router.post('/csv/dataset/', function (req, res) {
       fileName: req.files.file.name,
       data: req.files.file.data
     };
-    console.log('DATA INFO:', dataInfo);
-      console.log('No error moving file');
+
       processDatasetCSV(dataInfo)
       .then((result) => {
-        console.log('success uploaded CSV!');
         res.sendStatus(200);
       })
       .catch((error) => {
-        console.log('caught failure somewhere in processDatasetCSV');
+        console.log('Failure in processDatasetCSV');
         res.sendStatus(500);
       });
     // });

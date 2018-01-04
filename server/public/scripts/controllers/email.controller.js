@@ -1,5 +1,4 @@
 myApp.controller('EmailController', function (UserService, $location, UploadService, EmailService) {
-    console.log('EmailController created');
     var self = this;
     self.userService = UserService;
     var es = EmailService;
@@ -12,8 +11,6 @@ myApp.controller('EmailController', function (UserService, $location, UploadServ
 
     // upload CSV of potential client list
     self.emailUpload = function () {
-        console.log('uploader options', self.uploaderOptions);
-        console.log('uploader',self.uploader);
         self.uploader.uploadItem(0);
         $location.path('/email-list');
     };
@@ -50,13 +47,11 @@ myApp.controller('EmailController', function (UserService, $location, UploadServ
     self.getEmailBatches = function() {
         es.getEmailBatches()
         .then(function(batches) {
-            console.log('batches',batches);
         });
     };
 
     // delete email batch and all associated emails
     self.deleteEmailBatch = function(batch) {
-        console.log('Deleting batch',batch);
         self.data.contacts.length = 0;
         es.deleteEmailBatch(batch)
         .then(self.getEmailBatches);

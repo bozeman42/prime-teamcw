@@ -3,10 +3,7 @@ let csv = require('fast-csv');
 let Stream = require('stream');
 
 function processCityCSV(dataInfo) {
-  console.log('Processing data csv');
   return new Promise((resolve, reject) => {
-    console.log('checking if file exists');
-    console.log('file exists');
     let bufferStream = new Stream.PassThrough();
     bufferStream.end(dataInfo.data);
     csv.fromStream(bufferStream, {
@@ -31,7 +28,6 @@ function processCityCSV(dataInfo) {
 }
 
 function storeCityCSV(dataInfo) {
-  console.log('attempting to store object');
   return new Promise((resolve, reject) => {
     let data = dataInfo.uploadedData;
     let user = dataInfo.user;
@@ -55,7 +51,7 @@ function storeCityCSV(dataInfo) {
             done();
             if (errorMakingQuery) {
               console.log('Error making property database entries', errorMakingQuery);
-              console.log('error with this property:', city);
+              console.log('Error with this property:', city);
               reject(errorMakingQuery);
             }
           });

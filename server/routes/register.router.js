@@ -6,7 +6,6 @@ var encryptLib = require('../modules/encryption');
 
 // Handles request for HTML file
 router.get('/', function (req, res, next) {
-    console.log('get /register route');
     res.sendFile(path.resolve(__dirname, '../public/views/templates/register.html'));
 });
 
@@ -28,7 +27,6 @@ router.post('/', function (req, res, next) {
     if(saveUser.role === 'owner') {
         saveUser.superuser = true;
     }
-    console.log('Attempting to save user',saveUser);
     pool.connect(function (err, client, done) {
         if (err) {
             console.log("Error connecting: ", err);

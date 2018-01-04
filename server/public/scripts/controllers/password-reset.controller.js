@@ -9,12 +9,8 @@ myApp.controller('PasswordResetController', function (UserService, $routeParams,
     };
 
     var vm = this;
-    vm.code = $routeParams.code;
-
-    console.log('code', vm.code);
-    
+    vm.code = $routeParams.code;    
     vm.password = '';
-
     vm.resetPassword = resetPassword;
     
 });
