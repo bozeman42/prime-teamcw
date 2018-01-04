@@ -368,8 +368,8 @@ router.post('/contact', function (req, res) {
           console.log('Error connecting', errorConnecting);
           res.sendStatus(500);
       } else {
-          var queryText = 'INSERT INTO "messages" ("email", "first", "last", "address", "size", "time", "phone", "notes") VALUES ($1, $2, $3, $4, $5, $6, $7, $8);';
-          db.query(queryText, [comment.email, comment.first, comment.last, comment.address, comment.size, comment.time, comment.phone, comment.notes], function (errorMakingQuery, result){
+          var queryText = 'INSERT INTO "messages" ("email", "address", "size", "time", "phone", "notes") VALUES ($1, $2, $3, $4, $5, $6);';
+          db.query(queryText, [comment.email, comment.address, comment.size, comment.time, comment.phone, comment.notes], function (errorMakingQuery, result){
               done();
               if (errorMakingQuery) {
                   console.log('errorMakingQuery', errorMakingQuery);

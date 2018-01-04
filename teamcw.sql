@@ -157,8 +157,6 @@ CREATE TABLE "subscribers" (
 CREATE TABLE "messages" (
   "id" SERIAL primary key,
   "email" VARCHAR(80),
-  "first" VARCHAR(80),
-  "last" VARCHAR(80),
   "address" VARCHAR(200),
   "size" VARCHAR(80),
   "time" VARCHAR(80),
