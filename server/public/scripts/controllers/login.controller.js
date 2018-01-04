@@ -34,6 +34,10 @@ myApp.controller('LoginController', function ($http, $location, UserService, Off
         }
     };
 
+    vm.logout = function() {
+        UserService.logout();
+    }
+
     vm.registerUser = function () {
         if (vm.user.username === '' || vm.user.password === '') {
             vm.message = "Choose a username and password!";
