@@ -41,21 +41,18 @@ router.get('/', function (req, res) {
                                             console.log('Error connecting', errorConnectingToDb);
                                             res.sendStatus(500);
                                         } else {
-                                            console.log('email to add: ', mcSubs[k]);
                                             let queryText = 'INSERT INTO subscribers (email_address) VALUES ($1)'
                                             db.query(queryText, [mcSubs[k]], function (err, result) {
                                                 done();
                                                 if (err) {
                                                     res.sendStatus(500);
-                                                } else {
-                                                    console.log(mcSubs[k], 'added');
                                                 }
                                             })
                                         }
                                     });
                                 }
                             }
-                        } console.log('MailChimp subscribers added to database');
+                        }
                     });
             });
             res.sendStatus(200);

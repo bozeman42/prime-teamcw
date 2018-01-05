@@ -1,5 +1,4 @@
 myApp.controller('HomeController', function (NgMap, DataService, EmailService, $location, UserService) {
-    console.log('HomeController created');
     var self = this;
     var es = EmailService;
     self.data = DataService.data;
@@ -57,10 +56,7 @@ myApp.controller('HomeController', function (NgMap, DataService, EmailService, $
         var queries = $location.search();
 
         if (queries.hasOwnProperty('eid')) {
-            console.log('eid', queries.eid);
             es.emailClickthrough(queries.eid);
-        } else {
-            console.log('no eid');
         }
     };
 

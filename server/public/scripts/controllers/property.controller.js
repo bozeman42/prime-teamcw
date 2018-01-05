@@ -1,5 +1,4 @@
 myApp.controller('PropertyController', function ($http, $location, UserService, NgMap, DataService) {
-    console.log('PropertyController created');
     var self = this;
     self.data = DataService.data;
 
@@ -27,10 +26,9 @@ myApp.controller('PropertyController', function ($http, $location, UserService, 
     }
     self.getProperty();
 
-    self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBTMMoMR1gHMeJLiiZCuiH4xyQoNBPvMEY';
+    self.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyA0orkvDxdwPUQAyigJ_9CAikHv5HhZxHc';
 
     NgMap.getMap("map").then(function (map) {
-        console.log('Logging Map', map);
     })
 
     self.postComment = function(){

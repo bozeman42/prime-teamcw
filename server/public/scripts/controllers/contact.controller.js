@@ -1,5 +1,4 @@
 myApp.controller('ContactController', function ($location, UserService, DataService) {
-    console.log('ContactController created');
     var self = this;
     self.userService = UserService;
 

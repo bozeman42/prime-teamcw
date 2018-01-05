@@ -1,5 +1,5 @@
 <div ng-show="lc.userService.userObject.role === 'owner'">
-    <div class="container">
+    <div class="container footer-adjustment">
         <div ng-if="!lc.userService.editingUser">
             <h1 class="lead">Create New User</h1>
             <h2 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
@@ -98,7 +98,7 @@
     </div>
 </div>
 <div ng-if="lc.userService.userObject.role === 'admin'">
-    <div class="container">
+    <div class="container footer-adjustment">
         <div ng-hide="lc.userService.editingUser">
             <h1 class="lead">Create New Intern</h1>
             <h2 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>

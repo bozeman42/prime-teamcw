@@ -56,7 +56,6 @@ router.post('/', function (req, res) {
 router.delete('/:id', function (req, res) {
     if (req.isAuthenticated()) {
         var officeToDelete = req.params.id;
-        console.log('office id = ', officeToDelete);
         pool.connect(function (errorConnecting, db, done) {
             if (errorConnecting) {
                 console.log('Error connecting', errorConnecting);
