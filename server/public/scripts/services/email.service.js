@@ -18,7 +18,6 @@ myApp.service('EmailService', function ($http, UploadService) {
             .then(function(){
                 self.data.viewBatch = response.batchId;
             });
-            console.log('set viewBatch', self.data.viewBatch);
             self.getContacts(response.batchId);
         }
     };
@@ -32,7 +31,6 @@ myApp.service('EmailService', function ($http, UploadService) {
         };
         return $http.get('/email/', config)
             .then(function (response) {
-                console.log('Get email list response:', response.data);
                 self.data.contacts = response.data;
                 return response.data;
             })
@@ -44,7 +42,6 @@ myApp.service('EmailService', function ($http, UploadService) {
     self.getClickthroughs = function() {
         return $http.get('/email/track/')
         .then(function(response){
-            console.log('received clickthrough response:',response.data);
             self.data.clickthroughs = response.data;
             return response;
         });
@@ -59,11 +56,8 @@ myApp.service('EmailService', function ($http, UploadService) {
                 index: index
             }
         };
-        console.log('single record config',config);
         return $http.get('/email/single/', config)
         .then(function(response){
-            console.log('single email refresh',response);
-            
             self.data.contacts[response.data.index] = response.data.contact;
         });
     };
@@ -80,8 +74,6 @@ myApp.service('EmailService', function ($http, UploadService) {
         };
         return $http(config)
         .then(function(response){
-            console.log('click success');
-            console.log('batch',response);
             self.data.contacts[response.data.index] = response.data.contact;
         });
     };
@@ -98,10 +90,8 @@ myApp.service('EmailService', function ($http, UploadService) {
                 index: index
             }
         };
-        console.log('toggleInsertLink config', config);
         return $http(config)
         .then(function(response){
-            console.log('market_link toggle success', response.data);
             self.data.contacts[response.data.index] = response.data.contact;
         })
         .catch(function(error){

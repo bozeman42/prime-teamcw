@@ -301,24 +301,24 @@ textarea {
 }
 
 #emailList tr:nth-child(odd) {
-    background-color: whitesmoke;
+    background-color: #eee;
 }
 
 #emailList tr:nth-child(even) {
-    background-color: rgb(255, 228, 232);
+    background-color: #ddd;
 }
 
 #emailList tr:hover {
-    background-color: lightpink;
+    background-color: white;
 }
 
 #emailList tr.clicked {
-    color: #aaa;
+    color: #ccc;
     background-color: #777;
 }
 
 #emailList tr.clickThrough {
-    background-color: purple;
+    background-color: lightpink;
 }
 
 .button-cta {
