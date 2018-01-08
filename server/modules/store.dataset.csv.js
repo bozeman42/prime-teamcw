@@ -3,7 +3,7 @@ let csv = require('fast-csv');
 let Stream = require('stream');
 
 function processDatasetCSV(dataInfo) {
-  console.log('Processing data csv');
+  //Process data CSV
   return new Promise((resolve, reject) => {
     let bufferStream = new Stream.PassThrough();
     bufferStream.end(dataInfo.data);
@@ -29,7 +29,7 @@ function processDatasetCSV(dataInfo) {
 }
 
 function storeDatasetCSV(dataInfo) {
-  console.log('attempting to store object');
+  //Attempt to store object
   return new Promise((resolve, reject) => {
     let data = dataInfo.uploadedData;
     let user = dataInfo.user;
@@ -60,7 +60,7 @@ function storeDatasetCSV(dataInfo) {
             done();
             if (errorMakingQuery) {
               console.log('Error making dataset database entries', errorMakingQuery);
-              console.log('error with this property:', dataset);
+              console.log('Error with this property:', dataset);
               reject(errorMakingQuery);
             }
           });

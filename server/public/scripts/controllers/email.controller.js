@@ -1,5 +1,4 @@
 myApp.controller('EmailController', function (UserService, $location, UploadService, EmailService) {
-    console.log('EmailController created');
     var self = this;
     self.userService = UserService;
     var es = EmailService;
@@ -12,8 +11,6 @@ myApp.controller('EmailController', function (UserService, $location, UploadServ
 
     // upload CSV of potential client list
     self.emailUpload = function () {
-        console.log('uploader options', self.uploaderOptions);
-        console.log('uploader',self.uploader);
         self.uploader.uploadItem(0);
         $location.path('/email-list');
     };
@@ -29,9 +26,11 @@ myApp.controller('EmailController', function (UserService, $location, UploadServ
     self.emailTemplate = function (contact) {
         var link = '';
         if (contact.market_link) {
-            link = ' Here is a link to the ' + contact.market + ' market. ' + URL +'/#/market/MN/' + encodeURI(encodeURI(contact.market)) + '/2017/3?eid='+ contact.email_id;
+            link = ' Here is a link to the ' + contact.market + ' market: ' + URL +'/#/market/MN/' + encodeURI(encodeURI(contact.market)) + '/2017/3?eid='+ contact.email_id;
+        } else {
+            link = ' Here is a link to our market report website: ' + URL + '/#/home' + '?eid='+ contact.email_id;
         }
-        return 'mailto:' + contact.email + '?subject=Leasing%20Report%20for%20' + contact.company + '&body=Good afternoon '+ contact.first +',%0D%0A I will be delivering our 2017 Leasing Report to corporate office users residing in the Minneapolis area within the next few weeks and am searching for the appropriate person in your office to deliver it to. I have attached a Market Snapshot from our 2017 edition for your review. Here is a link to the '+ contact.market + ' market. ' + link  + ' %0D%0A %0D%0A What is the report: %0D%0A Following recent activity and the latest best practices in corporate real estate management, we have assembled a report that is useful for users looking to evaluate their space needs in the upcoming 12-24 months, in addition to firms that would simply like to stay current with the national and local market. %0D%0A %0D%0A The report cites:%0D%0A   1. Average local asking rents from landlords %0D%0A   2. Average local operating costs and taxes %0D%0A   3. Average local tenant build-out allowances %0D%0A   4. Tailored deal comparables %0D%0A   5. Recent major lease transactions %0D%0A   6. A market analysis for portfolio companies %0D%0A %0D%0AIt would be a big help if you can refer me an appropriate time to deliver the report or the appropriate person I should contact.    ';
+        return 'mailto:' + contact.email + '?subject=Leasing%20Report%20for%20' + contact.company + '&body=Good afternoon '+ contact.first +',%0D%0A %0D%0A I will be delivering our most recent Leasing Report to corporate office users residing in the Minneapolis area within the next few weeks and am searching for the appropriate person in your office to deliver it to. I have attached a Market Snapshot from last year\'s edition for your review.' + link  + ' %0D%0A %0D%0A What is the report: %0D%0A Following recent activity and the latest best practices in corporate real estate management, we have assembled a report that is useful for users looking to evaluate their space needs in the upcoming 12-24 months, in addition to firms that would simply like to stay current with the national and local market. %0D%0A %0D%0A The report cites:%0D%0A   1. Average local asking rents from landlords %0D%0A   2. Average local operating costs and taxes %0D%0A   3. Average local tenant build-out allowances %0D%0A   4. Tailored deal comparables ' + URL + '/#/contact' + '%0D%0A   5. Recent major lease transactions %0D%0A   6. A market analysis for portfolio companies %0D%0A %0D%0AIt would be a big help if you can refer me an appropriate time to deliver the report or the appropriate person I should contact.    ';
     };
 
     // toggles whether market page link should be included in the generated email
@@ -48,13 +47,11 @@ myApp.controller('EmailController', function (UserService, $location, UploadServ
     self.getEmailBatches = function() {
         es.getEmailBatches()
         .then(function(batches) {
-            console.log('batches',batches);
         });
     };
 
     // delete email batch and all associated emails
     self.deleteEmailBatch = function(batch) {
-        console.log('Deleting batch',batch);
         self.data.contacts.length = 0;
         es.deleteEmailBatch(batch)
         .then(self.getEmailBatches);

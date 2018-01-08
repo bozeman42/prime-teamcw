@@ -1,5 +1,4 @@
 myApp.controller('LoginController', function ($http, $location, UserService, OfficeService) {
-    console.log('LoginController created');
     var vm = this;
     vm.userService = UserService;
     vm.user = {
@@ -33,6 +32,10 @@ myApp.controller('LoginController', function ($http, $location, UserService, Off
             });
         }
     };
+
+    vm.logout = function() {
+        UserService.logout();
+    }
 
     vm.registerUser = function () {
         if (vm.user.username === '' || vm.user.password === '') {

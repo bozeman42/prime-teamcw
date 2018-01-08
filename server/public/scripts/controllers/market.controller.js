@@ -1,5 +1,4 @@
 myApp.controller('MarketController', function ($location, $cookies, NgMap, EmailService, DataService, UserService, SubscribeService) {
-    console.log('MarketController created');
     var self = this;
     var es = EmailService;
     self.marketData = DataService.data;
@@ -41,8 +40,6 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
         if (queries.hasOwnProperty('eid')) {
             console.log('eid', queries.eid);
             es.emailClickthrough(queries.eid);
-        } else {
-            console.log('no eid');
         }
     };
 
@@ -78,7 +75,6 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
         item.quarter = location.hash.split('/')[5];
         self.selectedItem = item;
         SubscribeService.selectedItem = item;
-        console.log(SubscribeService.selectedItem);
     };
 
     self.close = function () {
@@ -100,7 +96,6 @@ myApp.controller('MarketController', function ($location, $cookies, NgMap, Email
 
     self.googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA0orkvDxdwPUQAyigJ_9CAikHv5HhZxHc`;
     NgMap.getMap("map").then(function (map) {
-        console.log('Logging map', map);
     })
 
     self.searchData = function (value) {

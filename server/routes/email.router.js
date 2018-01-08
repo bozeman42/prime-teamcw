@@ -8,7 +8,6 @@ var uploadedData = [];
 // retrieves all potential client email records
 router.get('/', function (req, res) {
   if (req.isAuthenticated()) {
-    console.log(req.query);
     batchId = req.query.batchId;
     pool.connect(function (errorConnecting, db, done) {
       if (errorConnecting) {
@@ -19,7 +18,6 @@ router.get('/', function (req, res) {
         db.query(queryText, [
           batchId
         ], function (errorMakingQuery, result) {
-          console.log('used this batchId', batchId);
           done();
           if (errorMakingQuery) {
             console.log('error making query', errorMakingQuery);
@@ -97,14 +95,11 @@ router.post('/csv/', function (req, res) {
       fileName: req.files.file.name,
       data: req.files.file.data
     };
-    console.log('DATA INFO:', dataInfo);
     createBatch(dataInfo)
     .then((batchId) => {
-      console.log('created batch');
       dataInfo.batchId = batchId;
       processContactCSV(dataInfo)
         .then((batch) => {
-          console.log('responding positively!', batch);
           result = {
             batchId: batch
           };
@@ -120,7 +115,6 @@ router.post('/csv/', function (req, res) {
 // marks mailto link as clicked
 router.put('/', function (req, res) {
   if (req.isAuthenticated()) {
-    console.log('request', req.query);
     var emailId = req.query.id;
     var index = req.query.index;
     pool.connect(function (errorConnecting, db, done) {
@@ -181,7 +175,6 @@ router.get('/single/', function (req, res) {
 // sets whether 
 router.put('/insertlink/', function (req, res) {
   if (req.isAuthenticated()) {
-    console.log('market link request', req.query);
     var emailId = req.query.id;
     var marketLink = req.query.market_link;
     var index = req.query.index;
@@ -237,7 +230,6 @@ router.get('/track/', (req, res) => {
 
 router.put('/track/', function (req, res) {
   var eid = req.query.eid;
-  console.log('eid', eid);
   pool.connect(function (errorConnecting, db, done) {
     if (errorConnecting) {
       console.log("error connecting", errorConnecting);
@@ -252,7 +244,6 @@ router.put('/track/', function (req, res) {
           console.log('error making query', errorMakingQuery);
           res.sendStatus(500);
         } else {
-          console.log('clickthrough result', result.rows[0].clickthrough);
           res.sendStatus(201);
         }
       });

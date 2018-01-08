@@ -1,5 +1,4 @@
 myApp.controller('ClickthroughController', function(EmailService){
-    console.log('ClickthroughController created');
     var vm = this;
     var es = EmailService;
     vm.data = es.data;

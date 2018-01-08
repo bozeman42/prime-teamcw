@@ -1,7 +1,6 @@
-<div class="container" ng-if="uc.userObject.role === 'owner'">
+<div class="container footer-adjustment" ng-if="uc.userObject.role === 'owner'">
     <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
     <button class="btn btn-default redBtn" ng-click="uc.newUser()">Create New User</button>
-    <div class="cleanFooter">
         <table class="table-bordered styled-table">
             <thead>
                 <tr>
@@ -30,9 +29,8 @@
                 </tr>
             </tbody>
         </table>
-    </div>
 </div>
-<div class="container" ng-if="uc.userObject.role === 'admin'">
+<div class="container footer-adjustment" ng-if="uc.userObject.role === 'admin'">
     <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
     <button class="btn btn-default" ng-click="uc.newUser()">Create New User</button>
     <div>

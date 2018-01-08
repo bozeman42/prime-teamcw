@@ -7,6 +7,9 @@ var processDatasetCSV = require('../modules/store.dataset.csv.js');
 var processCityCSV = require('../modules/store.city.csv.js');
 var poolModule = require('../modules/pool.js');
 var pool = poolModule;
+var calcReportDate = require('../modules/reportdate.js');
+
+let reportDate = calcReportDate();
 
 //RETRIEVE STATE DROPDOWN INFORMATION ON HOMEPAGE
 router.get('/states', function (req, res) {
@@ -16,9 +19,14 @@ router.get('/states', function (req, res) {
       res.sendStatus(500);
     } else {
       var queryText = `SELECT "dbo_RPRT_Property"."State" 
-      FROM "dbo_RPRT_Property" 
-      GROUP BY "dbo_RPRT_Property"."State";`;
-      db.query(queryText, function (errorMakingQuery, result) {
+      FROM "dbo_RPRT_Property"
+      JOIN "dbo_RPRT_Dataset"
+      ON "dbo_RPRT_Property"."Report_Dataset_ID" = "dbo_RPRT_Dataset"."Report_Dataset_ID"
+      WHERE "dbo_RPRT_Dataset"."Period_Type_ID" = 2
+      AND "dbo_RPRT_Dataset"."Period_Year" = $1
+      AND SUBSTRING("dbo_RPRT_Dataset"."Dataset_Label",1,1) = $2
+      GROUP BY "dbo_RPRT_Property"."State";`
+      db.query(queryText, [reportDate.year, reportDate.quarter], function (errorMakingQuery, result) {
         done();
         if (errorMakingQuery) {
           console.log('errorMakingQuery', errorMakingQuery);
@@ -40,10 +48,14 @@ router.get('/markets/:state', function (req, res) {
       res.sendStatus(500);
     } else {
       var queryText = `SELECT "dbo_RPRT_Property"."Submarket" 
-      FROM "dbo_RPRT_Property" 
+      FROM "dbo_RPRT_Property"
+      JOIN "dbo_RPRT_Dataset"
+      ON "dbo_RPRT_Property"."Report_Dataset_ID" = "dbo_RPRT_Dataset"."Report_Dataset_ID" 
       WHERE "dbo_RPRT_Property"."State" = $1
+      AND "dbo_RPRT_Dataset"."Period_Year" = $2
+      AND SUBSTRING("dbo_RPRT_Dataset"."Dataset_Label",1,1) = $3
       GROUP BY "dbo_RPRT_Property"."Submarket";`;
-      db.query(queryText, [state], function (errorMakingQuery, result) {
+      db.query(queryText, [state, reportDate.year, reportDate.quarter], function (errorMakingQuery, result) {
         done();
         if (errorMakingQuery) {
           console.log('errorMakingQuery', errorMakingQuery);
@@ -287,11 +299,9 @@ router.post('/csv/property/', function (req, res) {
       fileName: req.files.file.name,
       data: req.files.file.data
     };
-    console.log('DATA INFO:', dataInfo);
-      console.log('No error moving file');
+
       processPropertyCSV(dataInfo)
       .then((result) => {
-        console.log('success uploaded CSV!');
         res.sendStatus(200);
       })
       .catch((error) => {
@@ -310,11 +320,9 @@ router.post('/csv/city/', function (req, res) {
       fileName: req.files.file.name,
       data: req.files.file.data
     };
-    console.log('DATA INFO:', dataInfo);
-      console.log('No error moving file');
+
       processCityCSV(dataInfo)
       .then((result) => {
-        console.log('success uploaded CSV!');
         res.sendStatus(200);
       })
       .catch((error) => {
@@ -333,15 +341,13 @@ router.post('/csv/dataset/', function (req, res) {
       fileName: req.files.file.name,
       data: req.files.file.data
     };
-    console.log('DATA INFO:', dataInfo);
-      console.log('No error moving file');
+
       processDatasetCSV(dataInfo)
       .then((result) => {
-        console.log('success uploaded CSV!');
         res.sendStatus(200);
       })
       .catch((error) => {
-        console.log('caught failure somewhere in processDatasetCSV');
+        console.log('Failure in processDatasetCSV');
         res.sendStatus(500);
       });
     // });
@@ -356,8 +362,8 @@ router.post('/contact', function (req, res) {
           console.log('Error connecting', errorConnecting);
           res.sendStatus(500);
       } else {
-          var queryText = 'INSERT INTO "messages" ("email", "first", "last", "address", "size", "time", "phone", "notes") VALUES ($1, $2, $3, $4, $5, $6, $7, $8);';
-          db.query(queryText, [comment.email, comment.first, comment.last, comment.address, comment.size, comment.time, comment.phone, comment.notes], function (errorMakingQuery, result){
+          var queryText = 'INSERT INTO "messages" ("email", "address", "size", "time", "phone", "notes") VALUES ($1, $2, $3, $4, $5, $6);';
+          db.query(queryText, [comment.email, comment.address, comment.size, comment.time, comment.phone, comment.notes], function (errorMakingQuery, result){
               done();
               if (errorMakingQuery) {
                   console.log('errorMakingQuery', errorMakingQuery);

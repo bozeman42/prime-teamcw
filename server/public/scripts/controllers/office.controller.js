@@ -1,5 +1,4 @@
 myApp.controller('OfficeController', function (UserService, OfficeService, $http, $location) {
-    console.log('OfficeController created');
     var self = this;
     self.userService = UserService;
     self.officeService = OfficeService;

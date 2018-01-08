@@ -1,10 +1,11 @@
-myApp.controller('HomeController', function (NgMap, DataService, $location, UserService) {
-    console.log('HomeController created');
+myApp.controller('HomeController', function (NgMap, DataService, EmailService, $location, UserService) {
     var self = this;
+    var es = EmailService;
     self.data = DataService.data;
     self.userService = UserService;
 
     UserService.refreshUsers();
+    UserService.getuser();
 
     self.getStates = function() {
         DataService.getStates();
@@ -49,5 +50,16 @@ myApp.controller('HomeController', function (NgMap, DataService, $location, User
 
         $location.path(`/market/${state}/${encodeURIComponent(submarket)}/${year}/${quarter}`);
     };
+
+    // Tracks email clickthroughs
+    self.emailTrack = function () {
+        var queries = $location.search();
+
+        if (queries.hasOwnProperty('eid')) {
+            es.emailClickthrough(queries.eid);
+        }
+    };
+
+    self.emailTrack();
 
 });

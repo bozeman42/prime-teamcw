@@ -1,5 +1,4 @@
 myApp.controller('FooterController',function(UserService) {
-    console.log('FooterController created');
     var vm = this;
     vm.user = UserService;
 
