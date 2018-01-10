@@ -116,7 +116,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
             controller: 'MessagesController as vm',
             resolve: {
                 getuser: function (UserService) {
-                    return UserService.getuser();
+                    return UserService.getadmin();
                 }
             }
         })

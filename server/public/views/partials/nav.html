@@ -20,7 +20,7 @@
                 <a href="#/email-clickthroughs" ng-if="nc.user.userObject.userName">Email Clickthroughs</a>
             </li>
             <li>
-                <a href="#/messages" ng-if="nc.user.userObject.role === 'owner'">Messages</a>
+                <a href="#/messages" ng-if="nc.user.userObject.role === 'admin'||nc.user.userObject.role === 'owner'">Messages</a>
             </li>
             <li>
                 <a href="" ng-if="nc.user.userObject.userName" ng-click="nc.logout()">Logout</a>
