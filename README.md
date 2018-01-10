@@ -34,10 +34,11 @@ Link to software that is required to install the app (e.g. node).
 ### Installing
 
 Steps to get the development environment running.
-- set up database tables according to teamcw.sql file
-- run `npm install`
-- run `npm start` to start the server
-- navigate to [https://localhost:5000](https://localhost:5000)
+- Set up database tables according to teamcw.sql file
+- Run `npm install`
+- Run `npm start` to start the server
+- Navigate to [https://localhost:5000](https://localhost:5000)
+- If going to production, immediately set the superuser email, log out, and reset the password with the forgot password feature
 
 ## Documentation
 
