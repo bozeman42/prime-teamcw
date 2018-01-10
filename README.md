@@ -18,7 +18,6 @@ An application that graphically displays real estate data through interactive ma
 ## Getting Started
 
 - Download or clone this repository
-- (log in as admin) upload dataset, city, and property data CSVs. Templates can be downloaded from the site.
 - Get a [Mailchimp API key](http://developer.mailchimp.com/documentation/mailchimp/)
 - Get a [Google Maps API key](https://developers.google.com/maps/documentation/javascript/get-api-key)
 - copy the `example.env` file and rename to `.env` add your [Mailchimp API key](http://developer.mailchimp.com/documentation/mailchimp/)
@@ -58,7 +57,8 @@ High level list of items completed.
 
 Features that you would like to add at some point in the future.
 
-- [ ] Feature c
+- [ ] Ability to clear out old property data
+- [ ] Numerous quality of life features
 
 ## Deployment
 
