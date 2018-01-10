@@ -15,8 +15,8 @@
                     <tr ng-repeat="office in vm.offices.offices">
                         <td>{{$index + 1}}</td>
                         <td>{{office.office}}</td>
-                        <td><button ng-click="vm.editOffice(office)">Edit</button></td>
-                        <td><button ng-click="vm.deleteOffice(office)">Delete</button></td>
+                        <td><button class="btn btn-default" ng-click="vm.editOffice(office)">Edit</button></td>
+                        <td><button class="btn btn-danger" ng-click="vm.deleteOffice(office)">Delete</button></td>
                     </tr>
                 </tbody>
             </table>
