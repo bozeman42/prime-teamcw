@@ -38,6 +38,7 @@ Steps to get the development environment running.
 - Run `npm install`
 - Run `npm start` to start the server
 - Navigate to [https://localhost:5000](https://localhost:5000)
+- Default login is `superadmin` with password `teamcwadmin`
 - If going to production, immediately set the superuser email, log out, and reset the password with the forgot password feature
 - Log in with the superuser or admin account and navigate to the 'Upload Market Data' page and upload the property, dataset, and city csv files using your data or use the csv files in the test-data directory of this repository
 
