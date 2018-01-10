@@ -1,0 +1,54 @@
+Report_Dataset_ID,Dataset_ID,Dataset_Label,Dataset_Desc,Period_Type_ID,Period_Type_Interval_ID,Period_Year,Created_User,Created_Date,Modified_User,Modified_Date
+1,312,1st Half 2002,1st Half 2002,3,17,2002,-1,27-Apr-04,-1,27-Apr-04
+2,225,2nd Half 2002,2nd Half 2002,3,18,2002,-1,27-Apr-04,-1,27-Apr-04
+3,315,1st Half 2003,First Half 2003 initiation 5/19/03,3,17,2003,-1,27-Apr-04,-1,27-Apr-04
+4,345,2nd Half 2003,2nd Half 2003 for broker validation,3,18,2003,-1,27-Apr-04,-1,27-Apr-04
+5,395,1st Half 2004,1st Half 2004 Outlook Dataset,3,17,2004,151,14-Jul-04,151,14-Jul-04
+6,405,2nd Half 2004,FINAL 2nd Half 2004 initiation for Outlook,3,18,2004,1041,03-Jan-05,1041,03-Jan-05
+7,416,1st Half 2005,1st Half 2005,3,17,2005,151,28-Jul-05,151,28-Jul-05
+8,424,2nd Half 2005,2nd Half 2005 Outlook ,3,18,2005,5445,07-Dec-05,5445,07-Dec-05
+9,441,1st Half 2006,1st Half 2006,3,17,2006,151,10-Jul-06,151,10-Jul-06
+10,448,2nd Half 2006,2nd Half 2006,3,18,2006,5445,05-Dec-06,5445,05-Dec-06
+11,488,1st Half 2007,1st Half 2007,3,17,2007,5445,09-Jul-07,5445,09-Jul-07
+12,497,2nd Half 2007,2nd Half 2007,3,18,2007,5445,18-Dec-07,5445,18-Dec-07
+13,505,1st Half 2008,1st Half 2008,3,17,2008,5445,10-Jul-08,5445,10-Jul-08
+14,512,2nd Half 2008,2nd Half 2008,3,18,2008,5445,26-Dec-08,5445,26-Dec-08
+15,519,1st Half 2009,1st Half 2009,3,17,2009,5445,01-Jul-09,5445,01-Jul-09
+16,527,2nd Half 2009,2nd Half 2009,3,18,2009,5445,16-Dec-09,5445,16-Dec-09
+17,536,1st Half 2010,1st Half 2010,3,17,2010,5445,24-Jun-10,5445,24-Jun-10
+19,543,2nd Half 2010,2nd Half 2010,3,18,2010,5445,15-Dec-10,5445,15-Dec-10
+21,554,1st Half 2011,1st Half 2011,3,17,2011,5445,24-Jun-11,5445,24-Jun-11
+22,566,2nd Half 2011,2nd Half 2011,3,18,2011,5445,13-Dec-11,5445,13-Dec-11
+23,577,1st Half 2012,1st Half 2012,3,17,2012,5445,21-Jun-12,5445,21-Jun-12
+24,583,3rd Quarter 2012,3rd Quarter 2012,2,15,2012,28209,21-Sep-12,28209,21-Sep-12
+25,584,4th Quarter 2012,"4th Quarter 2012, Office & Industrial",2,16,2012,28209,14-Dec-12,28209,14-Dec-12
+26,586,2nd Half 2012,2nd Half 2012 Retail & Medical,3,18,2012,28209,09-Jan-13,28209,09-Jan-13
+27,587,1st Quarter 2013,1st Quarter 2013 Office and Industrial ,2,13,2013,28209,29-Mar-13,28209,29-Mar-13
+28,589,2nd Quarter 2013,Office and Industrial,2,14,2013,28209,20-Jun-13,28209,20-Jun-13
+29,588,1st Half 2013,"1st Half 2013 Retail, Medical",3,17,2013,28209,02-Jul-13,28209,02-Jul-13
+30,590,3rd Quarter 2013,Office & Industrial,2,15,2013,28209,14-Oct-13,28209,14-Oct-13
+31,592,4th Quarter 2013,"Office, Industrial",2,16,2013,28209,13-Jan-14,28209,13-Jan-14
+32,591,2nd Half 2013,"Retail, Medical",3,18,2013,28209,13-Jan-14,28209,13-Jan-14
+33,593,1st Quarter 2014,"Office, Industrial",2,13,2014,33304,15-Apr-14,33304,15-Apr-14
+34,595,2nd Quarter 2014,"Office, Industrial",2,14,2014,28209,25-Jun-14,28209,25-Jun-14
+35,594,1st Half 2014,"Retail, Medical",3,17,2014,28209,25-Jun-14,28209,25-Jun-14
+36,596,3rd Quarter 2014,"Office, Industrial",2,15,2014,28209,20-Nov-14,28209,20-Nov-14
+37,597,4th Quarter 2014,Office and Industrial,2,16,2014,28209,16-Jan-15,28209,16-Jan-15
+38,598,2nd Half 2014,Retail and Medical Office,3,18,2014,28209,16-Jan-15,28209,16-Jan-15
+39,599,1st Quarter 2015,"Office, Industrial",2,13,2015,28209,21-Apr-15,28209,21-Apr-15
+40,600,2nd Quarter 2015,"Office, Industrial",2,14,2015,28209,01-Jul-15,28209,01-Jul-15
+41,601,1st Half 2015,"Retail, Medical",3,17,2015,28209,01-Jul-15,28209,01-Jul-15
+42,602,3rd Quarter 2015,"Office, Industrial",2,15,2015,28209,26-Oct-15,28209,26-Oct-15
+43,605,4th Quarter 2015,"Office, Industrial",2,16,2015,28209,04-Jan-16,28209,04-Jan-16
+44,606,2nd Half 2015,"Retail, Medical",3,18,2015,28209,06-Jan-16,28209,06-Jan-16
+45,608,1st Quarter 2016,"Office, Industrial",2,13,2016,28209,12-Apr-16,28209,12-Apr-16
+46,610,2nd Quarter 2016,"Office, Industrial",2,14,2016,28209,30-Jun-16,28209,30-Jun-16
+47,611,1st Half 2016,"Retail, Medical",3,17,2016,28209,08-Jul-16,28209,08-Jul-16
+48,612,3rd Quarter 2016,"Office, Industrial",2,15,2016,28209,30-Sep-16,28209,30-Sep-16
+49,613,4th Quarter 2016,"Office, Industrial",2,16,2016,28209,10-Jan-17,28209,10-Jan-17
+50,614,2nd Half 2016,"Retail, Medical",3,18,2016,28209,10-Jan-17,28209,10-Jan-17
+51,615,1st Quarter 2017,"Office, Industrial",2,13,2017,28209,11-Apr-17,28209,11-Apr-17
+52,616,2nd Quarter 2017,"Office, Industrial",2,14,2017,28209,13-Jul-17,28209,13-Jul-17
+53,618,1st Half 2017,"Retail, Medical (New)",3,17,2017,28209,13-Jul-17,28209,13-Jul-17
+54,619,3rd Quarter 2017,"Office, Industrial",2,15,2017,28209,13-Oct-17,28209,13-Oct-17
+55,613,4th Quarter 2017,"Office, Industrial",2,16,2017,28209,10-Jan-17,28209,10-Jan-17

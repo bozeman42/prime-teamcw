@@ -166,4 +166,4 @@ CREATE TABLE "messages" (
 
 INSERT INTO "users" (
 "e_id", "username", "password", "email", "firstname", "lastname", "o_id", "role", "superuser")
-VALUES (1, 'dan', '$2a$10$ZS.EZFu1INnPpFH9IwlBJ.76pEkyk/uJ2Q5sKdZy49kMyAmKBl3Lu', 'Danny.buettnersalido@gmail.com','Dan','Buettner',1,'owner',true);
+VALUES (1, 'superadmin', '$2a$10$ZS.EZFu1INnPpFH9IwlBJ.76pEkyk/uJ2Q5sKdZy49kMyAmKBl3Lu', 'CHANGETHISEMAIL','admin','admin',1,'owner',true);
