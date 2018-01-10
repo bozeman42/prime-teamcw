@@ -31,6 +31,8 @@ app.use(express.static('./server/public'));
 // Passport Session Configuration
 app.use(sessionConfig);
 
+
+
 // Start up passport sessions
 app.use(passport.initialize());
 app.use(passport.session());
