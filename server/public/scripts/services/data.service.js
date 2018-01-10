@@ -15,22 +15,27 @@ myApp.service('DataService', function ($http, $location, $q) {
         messages: ''
     }
     
+    function uploadSuccess() {
+        swal (
+            'Success',
+            'Data has been uploaded',
+            'success'
+        );
+    }
+
     self.userObject = {};
     self.uploaderOptions = {
         property: {
             url: '/data/csv/property/',
-            onSuccess: function(response, status, headers) {
-            }
+            onSuccess: uploadSuccess
         },
         city: {
             url: '/data/csv/city/',
-            onSuccess: function(response, status, headers) {
-            }
+            onSuccess: uploadSuccess
         },
         dataset: {
             url: '/data/csv/dataset/',
-            onSuccess: function(response, status, headers) {
-            }
+            onSuccess: uploadSuccess
         }
     };
 
