@@ -72,7 +72,7 @@ Features that you would like to add at some point in the future.
 
 > Note: Run the following commands from within your project folder.
 
-1. In  terminal or command promot, navigate to your project folder and type `heroku create`
+1. In  terminal or command prompt, navigate to your project folder and type `heroku create`
 2. Login in if prompted
 3. Type `git remote -v` to ensure it added successfully
 4. Type `git push heroku master`
