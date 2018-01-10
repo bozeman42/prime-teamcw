@@ -34,6 +34,7 @@ Link to software that is required to install the app (e.g. node).
 ### Installing
 
 Steps to get the development environment running.
+- Create a postgreSQL database with the name `teamcw`
 - Set up database tables according to teamcw.sql file
 - Run `npm install`
 - Run `npm start` to start the server
