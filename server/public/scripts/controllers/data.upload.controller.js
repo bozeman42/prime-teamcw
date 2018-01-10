@@ -6,10 +6,5 @@ myApp.controller('DataUploadController', function ($location, DataService, UserS
 
     vm.dataUpload = function (options) {
         vm.uploader.uploadAll();
-        swal (
-            'Success',
-            'Data has been uploaded',
-            'success'
-        );
     };
 });

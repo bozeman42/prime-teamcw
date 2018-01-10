@@ -14,7 +14,7 @@
                         <td>{{batch.date}}</td>
                         <td>{{batch.office}}</td>
                         <td><a ng-click="vm.getBatchEmails(batch.batch_id)" href="/#/email-list">View Email List</a></td>
-                        <td><button ng-click="vm.deleteEmailBatch(batch)">Delete</button></td>
+                        <td><button class="btn btn-danger" ng-click="vm.deleteEmailBatch(batch)">Delete</button></td>
                     </tr>
                 </tbody>
             </table>       
