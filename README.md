@@ -62,7 +62,28 @@ Features that you would like to add at some point in the future.
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+#### Heroku Prerequisite
+
+1. Sign up for an account on [Heroku.com](https://www.heroku.com/)
+2. Install Heroku CLI with these instructions [here](https://devcenter.heroku.com/articles/heroku-cli).
+3. Authenticate by typing `heroku login` in Terminal or Command Prompt
+
+#### Heroku Setup
+
+> Note: Run the following commands from within your project folder.
+
+1. In  terminal or command prompt, navigate to your project folder and type `heroku create`
+2. Login in if prompted
+3. Type `git remote -v` to ensure it added successfully
+4. Type `git push heroku master`
+5. Your website is now live! View it by running `heroku open`
+
+#### Postgresql on Heroku
+
+> Note: Make sure to have database set up with all tables locally first.
+
+1. In terminal, type `heroku addons:create heroku-postgresql:hobby-dev` to set up Postgresql on your Heroku project
+2. Next, type `heroku pg:push teamcw DATABASE_URL` to copy your teamcw database contents up to Heroku. 
 
 ## Authors
 
@@ -70,8 +91,3 @@ Add additional notes about how to deploy this on a live system
 * David Beaudway
 * Elvis Hang
 * Xong Xiong
-
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
