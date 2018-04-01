@@ -8,10 +8,10 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-           user: 'teamcw2017@gmail.com',
-           pass: '12345678!'
-       }
-   });
+        user: 'teamcw2017@gmail.com',
+        pass: '12345678!'
+    }
+});
 
 // Handles Ajax request for user information if user is authenticated
 router.get('/', function (req, res) {
@@ -198,9 +198,9 @@ router.post('/password-reset', function (req, res) {
                         to: employee.email, // list of receivers
                         subject: 'Request password change', // Subject line
                         html: '<a href="' + emailConfirmLink + '">' + emailConfirmLink + '</a>'// plain text body
-                      };
+                    };
 
-                      transporter.sendMail(mailOptions, function (err, info) {
+                    transporter.sendMail(mailOptions, function (err, info) {
                         if (err) {
                             console.log(err);
                             res.sendStatus(500);
@@ -209,7 +209,7 @@ router.post('/password-reset', function (req, res) {
                             console.log(emailConfirmLink);
                             res.sendStatus(200);
                         }
-                     });
+                    });
                 }
             }); // END QUERY
         }
