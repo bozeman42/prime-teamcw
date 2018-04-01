@@ -1,6 +1,6 @@
 # Cushman & Wakefield Marketing Application
 
-An application that graphically displays real estate data through interactive maps and charts.
+An application that graphically displays real estate data through interactive maps and charts. The primary thing I would change for this application right now would be to re-work how the report date is selected. It currently gets the current date and tries to pull the report from the previous quarter. I would change it so that it gets the most recent data and bases the report on that so that the application will still work even if it is not fed new data.
 
 ## Built With
 
@@ -54,6 +54,7 @@ Steps to get the development environment running.
 
 ### Next Steps
 
+- [ ] Remove time sensitivity of the application by getting most recent available report data instead of using the current date
 - [ ] Ability to clear out old property data
 - [ ] Add a time stamp to click-through tracking and the ability to delete click-through data
 - [ ] Numerous other quality of life features
