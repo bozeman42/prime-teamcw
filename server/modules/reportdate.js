@@ -1,10 +1,17 @@
 //Global time variables
 
 function calcReportDate() {
+
+    // This is a hacky fix for this not working when you don't have current
+    // data. How I would fix this if I were to continue work on this project
+    // is to find the most current reports and default to that, rather than
+    // depending on data arriving in time for the application not to break.
+    const hackyDateFix = new Date('December 10, 2017');
+
     let reportDate = {
-        year: (new Date()).getFullYear(),
-        month: (new Date()).getMonth() + 1,
-        quarter: ''
+        year: hackyDateFix.getFullYear(),
+        month: hackyDateFix.getMonth() + 1,
+        quarter: null
     }
 
     if (reportDate.month === 1 || reportDate.month === 2 || reportDate.month === 3) {
@@ -20,6 +27,7 @@ function calcReportDate() {
     } else if (reportDate.month > 9) {
         reportDate.quarter = 3
     }
+
 
     return reportDate;
 }

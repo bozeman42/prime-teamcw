@@ -26,8 +26,13 @@ myApp.controller('HomeController', function (NgMap, DataService, EmailService, $
     }
 
     self.click = function (state, submarket) {
-        let year = (new Date()).getFullYear();
-        let month = (new Date()).getMonth() + 1;
+        // This is a hacky fix for this not working when you don't have current
+        // data. How I would fix this if I were to continue work on this project
+        // is to find the most current reports and default to that, rather than
+        // depending on data arriving in time for the application not to break.
+        const hackyDateFix = new Date('December 10, 2017');
+        let year = hackyDateFix.getFullYear();
+        let month = hackyDateFix.getMonth() + 1;
         let quarter;
         function calcYear() {
             if (month === 1) {           
